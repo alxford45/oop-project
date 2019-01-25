@@ -6,7 +6,7 @@
 
 ## CMD QUICK COMMANDS:
 
-- "<code|subl|atom> ." : "opens vscode in cuurent directory"
+- "code|subl|atom ." : "opens vscode in cuurent directory"
 - "cd <directory-name>" : "change directory"
 - "cd ./path/to/directory" : "navigate to specific directory"
 - "cd ../" : "move up one level. chain repeated for x levels ../../../ etc."
@@ -57,6 +57,7 @@
    - using scoop: scoop install git
    - using chocolatey: choco install git.install
 5. ### CREATE WORKSPACE
+
    1. launch cmd and navigate to perfered directory
    2. create new directory named "oop-project" and cd into it
       - "md oop-project && cd oop-project"
