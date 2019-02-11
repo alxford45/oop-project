@@ -3,16 +3,16 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: {
-    main: "./client/src/main.tsx"
+    main: "./src/Main.tsx"
   },
 
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
-    publicPath: "./client/src/"
+    publicPath: "./src/"
   },
   devServer: {
-    contentBase: "./client/dist",
+    contentBase: "./dist",
     inline: true,
     port: 8080,
     historyApiFallback: true
@@ -23,7 +23,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         resolve: {
-          extensions: [".js", ".jsx"]
+          extensions: [".ts", ".tsx"]
         },
         use: ["babel-loader"]
       },
