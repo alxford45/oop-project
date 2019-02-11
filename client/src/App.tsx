@@ -1,8 +1,15 @@
 import React, { Component } from "react";
+import NavBar from "./components/NavBar";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class App extends Component {
   render() {
-    return <div>Hello World!</div>;
+    return (
+      <Router>
+        <NavBar />
+      </Router>
+    )
   }
 }
 
