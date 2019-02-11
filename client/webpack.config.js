@@ -9,7 +9,10 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].bundle.js",
-    publicPath: "./src/"
+    publicPath: "/"
+  },
+  resolve: {
+    extensions: [" ", ".js", ".ts", ".tsx"]
   },
   devServer: {
     contentBase: "./dist",
@@ -20,27 +23,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        resolve: {
-          extensions: [".ts", ".tsx"]
-        },
-        use: ["babel-loader"]
-      },
-      {
-        test: /\.(jpg|png|gif|svg|pdf|ico)$/,
         use: {
-          loader: "file-loader",
-          options: {
-            name: "[path][name]-[hash:8].[ext]"
-          }
+          loader: "babel-loader"
         }
-      },
-      {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-        exclude: /node_modules/,
-        include: /dist/
       }
     ]
   },
