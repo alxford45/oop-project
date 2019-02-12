@@ -7,24 +7,26 @@ import MenuIcon from "@material-ui/icons/Menu";
 import React, { Component } from "react";
 import { Drawer } from "@material-ui/core";
 
-export interface State {
-  isOpen: boolean;
-}
-
-class NavBar extends Component<State> {
+class NavBar extends Component {
+  state = {
+    isOpen: false
+  };
   toggleDrawer = () => {
     this.toggleDrawer.bind(this);
-    this.state.isOpen = !this.state.isOpen;
-  };
-  state: State = {
-    isOpen: false
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
   };
   render() {
     return (
       <div className="AppBar">
         <AppBar position="static">
           <Toolbar>
-            <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer}>
+            <IconButton
+              color="inherit"
+              aria-label="Menu"
+              onClick={this.toggleDrawer}
+            >
               <MenuIcon />
             </IconButton>
             <Drawer open={this.state.isOpen} />
@@ -35,7 +37,7 @@ class NavBar extends Component<State> {
           </Toolbar>
         </AppBar>
       </div>
-    )
+    );
   }
 }
 
