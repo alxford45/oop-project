@@ -7,14 +7,33 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import View from "./pages/View";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+  Link
+} from "react-router-dom";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <NavBar />
-        <Router>
+      <Router>
+        <div>
+          <NavBar>
+            <List>
+              {["Home", "Dashboard", "View", "SignUp", "Edit", "Login "].map(
+                value => (
+                  <ListItem button key={value}>
+                    <NavLink to={value}>
+                      <ListItemText primary={value} />
+                    </NavLink>
+                  </ListItem>
+                )
+              )}
+            </List>
+          </NavBar>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/Dashboard" component={Dashboard} />
@@ -23,9 +42,9 @@ class App extends Component {
             <Route path="/Edit" component={Edit} />
             <Route path="/Login" component={Login} />
           </Switch>
-        </Router>
-      </div>
-    )
+        </div>
+      </Router>
+    );
   }
 }
 

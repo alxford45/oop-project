@@ -29,7 +29,9 @@ class NavBar extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Drawer open={this.state.isOpen} />
+            <Drawer open={this.state.isOpen} onClose={this.toggleDrawer}>
+              {this.props.children}
+            </Drawer>
             <Typography variant="h6" color="inherit">
               Home
             </Typography>
