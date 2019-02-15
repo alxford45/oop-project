@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import Card from "../components/Card";
+import MediaCard from "../components/MediaCard";
 
 class Home extends Component {
-    render() {
-        return (
-          <Card />
-        )
-    }
+  render() {
+    return (
+      <div>
+        <MediaCard />
+      </div>
+    );
+  }
 }
 export default Home;
