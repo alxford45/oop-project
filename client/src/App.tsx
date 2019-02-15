@@ -12,7 +12,8 @@ import {
   Switch,
   Route,
   NavLink,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 
@@ -36,6 +37,9 @@ class App extends Component {
           </NavBar>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/Home">
+              <Redirect to="/" />
+            </Route>
             <Route path="/Dashboard" component={Dashboard} />
             <Route path="/View" component={View} />
             <Route path="/SignUp" component={SignUp} />
