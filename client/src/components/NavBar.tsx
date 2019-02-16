@@ -33,9 +33,8 @@ class NavBar extends Component {
               {this.props.children}
             </Drawer>
             <Typography variant="h6" color="inherit">
-              Home
+              Music Map
             </Typography>
-            <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </div>

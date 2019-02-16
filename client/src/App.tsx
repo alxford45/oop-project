@@ -4,7 +4,6 @@ import Dashboard from "./pages/Dashboard";
 import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
 import View from "./pages/View";
 
 import {
@@ -24,15 +23,13 @@ class App extends Component {
         <div>
           <NavBar>
             <List>
-              {["Home", "Dashboard", "View", "SignUp", "Edit", "Login "].map(
-                value => (
-                  <ListItem button key={value}>
-                    <NavLink to={value}>
-                      <ListItemText primary={value} />
-                    </NavLink>
-                  </ListItem>
-                )
-              )}
+              {["Home", "Login"].map(value => (
+                <ListItem button key={value}>
+                  <NavLink to={value}>
+                    <ListItemText primary={value} />
+                  </NavLink>
+                </ListItem>
+              ))}
             </List>
           </NavBar>
           <Switch>
@@ -40,10 +37,6 @@ class App extends Component {
             <Route path="/Home">
               <Redirect to="/" />
             </Route>
-            <Route path="/Dashboard" component={Dashboard} />
-            <Route path="/View" component={View} />
-            <Route path="/SignUp" component={SignUp} />
-            <Route path="/Edit" component={Edit} />
             <Route path="/Login" component={Login} />
           </Switch>
         </div>
