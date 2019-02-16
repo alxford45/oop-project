@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -12,43 +12,51 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Dashboard from "./Dashboard";
+import { Route } from "react-router-dom";
 
-function Login() {
-  return (
-    <main>
-      <CssBaseline />
-      <Paper>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              name="password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-          </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button type="submit" fullWidth variant="contained" color="primary">
+class Login extends Component {
+  handleSubmit = (event: { preventDefault: () => void }) => {
+    this.handleSubmit.bind(this);
+    event.preventDefault();
+  };
+  render() {
+    return (
+      <main>
+        <CssBaseline />
+        <Paper>
+          <Avatar>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             Sign in
-          </Button>
-        </form>
-      </Paper>
-    </main>
-  );
+          </Typography>
+          <form onSubmit={this.handleSubmit}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <Input id="email" name="email" autoComplete="email" autoFocus />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                name="password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+            </FormControl>
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button type="submit" fullWidth variant="contained" color="primary">
+              Sign in
+            </Button>
+          </form>
+        </Paper>
+      </main>
+    );
+  }
 }
 
 export default Login;
