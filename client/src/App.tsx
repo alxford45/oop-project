@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "./components/NavBar";
 import Dashboard from "./pages/Dashboard";
 import Edit from "./pages/Edit";
 import Home from "./pages/Home";
@@ -14,35 +13,13 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import { List, ListItem, ListItemText } from "@material-ui/core";
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <style type="text/css">
-            .hidden {display: none; }
-          </style>
-          <NavBar>
-            <List>
-              {["Home", "Login", "Dashboard"].map(value => (
-                <ListItem button key={value}>
-                  <NavLink to={value}>
-                    <ListItemText primary={value} />
-                  </NavLink>
-                </ListItem>
-              ))}
-            </List>
-          </NavBar>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/Home">
-              <Redirect to="/" />
-            </Route>
-            <Route path="/Login" component={Login} />
-            <Route path="/Dashboard" component={Dashboard} />
-          </Switch>
+          <Dashboard />
         </div>
       </Router>
     );
