@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +13,15 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from "@material-ui/core/Button";
+import Edit from "./Edit";
+import Router from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -95,6 +103,63 @@ const styles = (theme: Theme) => ({
     },
 });
 
+function MediaCard() {
+    return (
+        <Card >
+            <CardActionArea>
+                <CardMedia
+                    image="/static/images/cards/contemplative-reptile.jpg"
+                    title="Contemplative Reptile"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        List Title
+                    </Typography>
+                    <Typography gutterBottom variant="h6" component="h2">
+                        2/16/19
+                    </Typography>
+                    <Typography component="p">
+                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
+                        across all continents except Antarctica
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary" >
+                    Edit
+                </Button>
+                <Button size="small" color="primary" >
+                    Delete
+                </Button>
+            </CardActions>
+        </Card>
+    );
+}
+
+function Grids() {
+    return (
+        <Grid container spacing={40}>
+            <Grid item sm={6} md={4} lg={4}>
+                <Card >
+                    {MediaCard()}
+                </Card>
+            </Grid>
+            <Grid item sm={6} md={4} lg={4}>
+                <Card >
+                    {MediaCard()}
+                </Card>
+            </Grid>
+            <Grid item sm={6} md={4} lg={4}>
+                <Card >
+                    {MediaCard()}
+                </Card>
+            </Grid>
+        </Grid>
+    );
+}
+
+
+
 class Dashboard extends React.Component {
     state = {
         open: true,
@@ -107,6 +172,8 @@ class Dashboard extends React.Component {
     handleDrawerClose = () => {
         this.setState({ open: false });
     };
+
+
 
     render() {
         const { classes } = this.props;
@@ -166,8 +233,9 @@ class Dashboard extends React.Component {
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Typography variant="h4" gutterBottom component="h2">
-                        Orders
+                        Lists
                     </Typography>
+                    {Grids()}
                 </main>
             </div>
         );
