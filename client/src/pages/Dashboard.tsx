@@ -24,9 +24,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from "@material-ui/core/Button";
 import ImageIcon from '@material-ui/icons/Image';
 
-
 const drawerWidth = 240;
-
 
 const styles = (theme: Theme) => ({
     root: {
@@ -260,23 +258,50 @@ class Dashboard extends React.Component {
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
-                    <Divider />
-                    <List></List>
-                    <Divider />
+                    <List>
+                        <Divider />
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ImageIcon />
+                            </ListItemIcon>
+                            <ListItemText inset primary="User" />
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ImageIcon />
+                            </ListItemIcon>
+                            <ListItemText inset primary="Lists" />
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ImageIcon />
+                            </ListItemIcon>
+                            <ListItemText inset primary="Create" />
+                        </ListItem>
+                        <Divider />
+                        <ListItem button>
+                            <ListItemIcon>
+                                <ImageIcon />
+                            </ListItemIcon>
+                            <ListItemText inset primary="Edit" />
+                        </ListItem>
+                        <Divider />
+                    </List>
                     <List></List>
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
-                    <Typography variant="h4" gutterBottom component="h2">
-                        Lists
+                    <Typography variant="h4" gutterBottom component="h2" align="center">
+                        Music Map
                     </Typography>
+                    <Divider />
                     {Grids()}
                 </main>
             </div>
         );
     }
 }
-
-
 
 export default withStyles(styles)(Dashboard);
