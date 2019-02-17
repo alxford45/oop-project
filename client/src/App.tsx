@@ -21,9 +21,12 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <style type="text/css">
+            .hidden {display: none; }
+          </style>
           <NavBar>
             <List>
-              {["Home", "Login"].map(value => (
+              {["Home", "Login", "Dashboard"].map(value => (
                 <ListItem button key={value}>
                   <NavLink to={value}>
                     <ListItemText primary={value} />
@@ -38,6 +41,7 @@ class App extends Component {
               <Redirect to="/" />
             </Route>
             <Route path="/Login" component={Login} />
+            <Route path="/Dashboard" component={Dashboard} />
           </Switch>
         </div>
       </Router>
