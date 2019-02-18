@@ -23,10 +23,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from "@material-ui/core/Button";
 import ImageIcon from '@material-ui/icons/Image';
 import Icon from '@material-ui/core/Icon';
-import DashCard from './DashCard';
-import AddIcon from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
-
 
 function ArtistList() {
     return (
@@ -53,32 +49,35 @@ function ArtistList() {
     );
 }
 
-function MediaCard() {
-    return (
-        <Card >
-            <CardMedia
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="Contemplative Reptile"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    List Title
+class MediaCard extends React.Component {
+    render() {
+        return (
+            <Card >
+                <CardMedia
+                    image="/static/images/cards/contemplative-reptile.jpg"
+                    title="Contemplative Reptile"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        List Title
                     </Typography>
-                <Typography gutterBottom variant="h6" component="h2">
-                    2/16/19
+                    <Typography gutterBottom variant="h6" component="h2">
+                        2/16/19
                     </Typography>
-                {ArtistList()}
-            </CardContent>
-            <CardActions>
-                <Button size="small" color="primary" >
-                    Edit
+                    {ArtistList()}
+                </CardContent>
+                <CardActions>
+                    <Button size="small" color="primary" >
+                        Edit
                 </Button>
-                <Button size="small" color="primary" >
-                    Delete
+                    <Button size="small" color="primary" >
+                        Delete
                 </Button>
-            </CardActions>
-        </Card>
-    );
+                </CardActions>
+            </Card>
+        );
+    }
+
 }
 
 class CreateGrid extends React.Component {
@@ -89,6 +88,11 @@ class CreateGrid extends React.Component {
 
     handleClick = () => {
         this.setState({ value: this.state.value + 1 });
+        return (
+            <Card>
+                {MediaCard()}
+            </Card>
+        );
     };
 
 
@@ -96,21 +100,18 @@ class CreateGrid extends React.Component {
         return (
             <Grid container spacing={40} >
                 <Grid item sm={6} md={4} lg={4}>
-                    <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
-                        <AddIcon />
-                    </Fab>
+                    <Button onClick={this.handleClick}>
+                    </Button>
                     {this.state.value > 0 ? <Card>{MediaCard()}</Card> : <Card></Card>}
                 </Grid>
                 <Grid item sm={6} md={4} lg={4}>
-                    <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
-                        <AddIcon />
-                    </Fab>
+                    <Button onClick={this.handleClick}>
+                    </Button>
                     {this.state.value > 1 ? <Card>{MediaCard()}</Card> : <Card></Card>}
                 </Grid>
                 <Grid item sm={6} md={4} lg={4}>
-                    <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
-                        <AddIcon />
-                    </Fab>
+                    <Button onClick={this.handleClick}>
+                    </Button>
                     {this.state.value > 2 ? <Card>{MediaCard()}</Card> : <Card></Card>}
                 </Grid>
             </Grid>

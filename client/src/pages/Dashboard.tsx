@@ -25,6 +25,11 @@ import Button from "@material-ui/core/Button";
 import ImageIcon from '@material-ui/icons/Image';
 import Icon from '@material-ui/core/Icon';
 import CreateGrid from '../components/CreateGrid';
+import {
+    BrowserRouter as Router,
+    NavLink,
+} from "react-router-dom";
+import Edit from "../pages/Edit";
 
 const drawerWidth = 240;
 
@@ -105,88 +110,10 @@ const styles = (theme: Theme) => ({
     },
 });
 
-
-
-function ArtistList() {
-    return (
-        <List>
-            <ListItem button>
-                <ListItemIcon>
-                    <ImageIcon />
-                </ListItemIcon>
-                <ListItemText inset primary="Artist #1" />
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <ImageIcon />
-                </ListItemIcon>
-                <ListItemText inset primary="Artist #2" />
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <ImageIcon />
-                </ListItemIcon>
-                <ListItemText inset primary="Artist #3" />
-            </ListItem>
-        </List>
-    );
-}
-
-function MediaCard() {
-    return (
-        <Card >
-            <CardMedia
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="Contemplative Reptile"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    List Title
-                    </Typography>
-                <Typography gutterBottom variant="h6" component="h2">
-                    2/16/19
-                    </Typography>
-                {ArtistList()}
-            </CardContent>
-            <CardActions>
-                <Button size="small" color="primary" >
-                    Edit
-                </Button>
-                <Button size="small" color="primary" >
-                    Delete
-                </Button>
-            </CardActions>
-        </Card>
-    );
-}
-
-function Grids() {
-    return (
-        <Grid container spacing={40} >
-            <Grid item sm={6} md={4} lg={4}>
-                <Button onClick={MediaCard} >
-                    <Card >
-
-                    </Card>
-                </Button>
-            </Grid>
-            <Grid item sm={6} md={4} lg={4}>
-                <Card >
-                    {MediaCard()}
-                </Card>
-            </Grid>
-            <Grid item sm={6} md={4} lg={4}>
-                <Card >
-                    {MediaCard()}
-                </Card>
-            </Grid>
-        </Grid>
-    );
-}
-
 class Dashboard extends React.Component {
     state = {
         open: true,
+        value: 0,
     };
 
     handleDrawerOpen = () => {
@@ -197,8 +124,9 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
-
-
+    handleClick = () => {
+        this.setState({ value: this.state.value + 1 });
+    };
 
     render() {
         const { classes } = this.props;
@@ -274,6 +202,8 @@ class Dashboard extends React.Component {
                         </ListItem>
                         <Divider />
                         <ListItem button>
+                            <NavLink to={'./Edit'}>
+                            </NavLink>
                             <ListItemIcon>
                                 <ImageIcon />
                             </ListItemIcon>
@@ -290,6 +220,7 @@ class Dashboard extends React.Component {
                     </Typography>
                     <Divider />
                     <CreateGrid />
+                    {this.state.value == 1 ? <CreateGrid /> : <Card></Card>}
                 </main>
             </div>
         );
