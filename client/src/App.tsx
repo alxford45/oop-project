@@ -15,13 +15,33 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import { ListItemText, List, ListItem } from "@material-ui/core";
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div>
-          <Dashboard />
+          <NavBar>
+            <List>
+              {["Home", "Login", "Dashboard"].map(value => (
+                <ListItem button key={value}>
+                  <NavLink to={value}>
+                    <ListItemText primary={value} />
+                  </NavLink>
+                </ListItem>
+              ))}
+            </List>
+          </NavBar>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/Home">
+              <Redirect to="/" />
+            </Route>
+            <Route path="/Login" component={Login} />
+            <Route path="/Dashboard" component={Dashboard} />
+          </Switch>
         </div>
       </Router>
     );
