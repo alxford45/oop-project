@@ -23,6 +23,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from "@material-ui/core/Button";
 import ImageIcon from '@material-ui/icons/Image';
+import Icon from '@material-ui/core/Icon';
+import CreateGrid from '../components/CreateGrid';
 
 const drawerWidth = 240;
 
@@ -103,6 +105,8 @@ const styles = (theme: Theme) => ({
     },
 });
 
+
+
 function ArtistList() {
     return (
         <List>
@@ -160,24 +164,11 @@ function Grids() {
     return (
         <Grid container spacing={40} >
             <Grid item sm={6} md={4} lg={4}>
-                <Card >
-                    {MediaCard()}
-                </Card>
-            </Grid>
-            <Grid item sm={6} md={4} lg={4}>
-                <Card >
-                    {MediaCard()}
-                </Card>
-            </Grid>
-            <Grid item sm={6} md={4} lg={4}>
-                <Card >
-                    {MediaCard()}
-                </Card>
-            </Grid>
-            <Grid item sm={6} md={4} lg={4}>
-                <Card >
-                    {MediaCard()}
-                </Card>
+                <Button onClick={MediaCard} >
+                    <Card >
+
+                    </Card>
+                </Button>
             </Grid>
             <Grid item sm={6} md={4} lg={4}>
                 <Card >
@@ -205,6 +196,7 @@ class Dashboard extends React.Component {
     handleDrawerClose = () => {
         this.setState({ open: false });
     };
+
 
 
 
@@ -297,7 +289,7 @@ class Dashboard extends React.Component {
                         Music Map
                     </Typography>
                     <Divider />
-                    {Grids()}
+                    <CreateGrid />
                 </main>
             </div>
         );
