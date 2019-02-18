@@ -96,21 +96,27 @@ class CreateGrid extends React.Component {
         return (
             <Grid container spacing={40} >
                 <Grid item sm={6} md={4} lg={4}>
-                    <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
-                        <AddIcon />
-                    </Fab>
+                    {this.state.value > 0 ? null :
+                        <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
+                            <AddIcon />
+                        </Fab>
+                    }
                     {this.state.value > 0 ? <Card>{MediaCard()}</Card> : <Card></Card>}
                 </Grid>
                 <Grid item sm={6} md={4} lg={4}>
-                    <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
-                        <AddIcon />
-                    </Fab>
+                    {this.state.value > 1 ? null :
+                        <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
+                            <AddIcon />
+                        </Fab>
+                    }
                     {this.state.value > 1 ? <Card>{MediaCard()}</Card> : <Card></Card>}
                 </Grid>
                 <Grid item sm={6} md={4} lg={4}>
-                    <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
-                        <AddIcon />
-                    </Fab>
+                    {this.state.value > 2 ? null :
+                        <Fab color="primary" aria-label="Add" onClick={this.handleClick}>
+                            <AddIcon />
+                        </Fab>
+                    }
                     {this.state.value > 2 ? <Card>{MediaCard()}</Card> : <Card></Card>}
                 </Grid>
             </Grid>
