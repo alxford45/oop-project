@@ -22,7 +22,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from "@material-ui/core/Button";
 import ImageIcon from '@material-ui/icons/Image';
-import Icon from '@material-ui/core/Icon';
 
 function ArtistList() {
     return (
@@ -49,7 +48,17 @@ function ArtistList() {
     );
 }
 
-class MediaCard extends React.Component {
+class DashCard extends React.Component {
+
+    state = {
+        open: true,
+        value: 0,
+    };
+
+    handleClick = () => {
+        this.setState({ open: !this.state.open });
+    };
+
     render() {
         return (
             <Card >
@@ -57,66 +66,30 @@ class MediaCard extends React.Component {
                     image="/static/images/cards/contemplative-reptile.jpg"
                     title="Contemplative Reptile"
                 />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        List Title
+                {this.state.open ?
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            List Title
                     </Typography>
-                    <Typography gutterBottom variant="h6" component="h2">
-                        2/16/19
+                        <Typography gutterBottom variant="h6" component="h2">
+                            2/16/19
                     </Typography>
-                    {ArtistList()}
-                </CardContent>
+                        {ArtistList()}
+                    </CardContent>
+                    : null}
+                {this.state.open ?
                 <CardActions>
                     <Button size="small" color="primary" >
                         Edit
-                </Button>
-                    <Button size="small" color="primary" >
+                    </Button>
+                    <Button onClick={this.handleClick} size="small" color="primary" >
                         Delete
-                </Button>
+                    </Button>
                 </CardActions>
+                : null}
             </Card>
-        );
-    }
-
-}
-
-class CreateGrid extends React.Component {
-    state = {
-        open: true,
-        value: 0,
-    };
-
-    handleClick = () => {
-        this.setState({ value: this.state.value + 1 });
-        return (
-            <Card>
-                {MediaCard()}
-            </Card>
-        );
-    };
-
-
-    render() {
-        return (
-            <Grid container spacing={40} >
-                <Grid item sm={6} md={4} lg={4}>
-                    <Button onClick={this.handleClick}>
-                    </Button>
-                    {this.state.value > 0 ? <Card>{MediaCard()}</Card> : <Card></Card>}
-                </Grid>
-                <Grid item sm={6} md={4} lg={4}>
-                    <Button onClick={this.handleClick}>
-                    </Button>
-                    {this.state.value > 1 ? <Card>{MediaCard()}</Card> : <Card></Card>}
-                </Grid>
-                <Grid item sm={6} md={4} lg={4}>
-                    <Button onClick={this.handleClick}>
-                    </Button>
-                    {this.state.value > 2 ? <Card>{MediaCard()}</Card> : <Card></Card>}
-                </Grid>
-            </Grid>
         );
     }
 }
 
-export default CreateGrid;
+export default DashCard;

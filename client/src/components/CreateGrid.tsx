@@ -27,60 +27,6 @@ import DashCard from './DashCard';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 
-
-function ArtistList() {
-    return (
-        <List>
-            <ListItem button>
-                <ListItemIcon>
-                    <ImageIcon />
-                </ListItemIcon>
-                <ListItemText inset primary="Artist #1" />
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <ImageIcon />
-                </ListItemIcon>
-                <ListItemText inset primary="Artist #2" />
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <ImageIcon />
-                </ListItemIcon>
-                <ListItemText inset primary="Artist #3" />
-            </ListItem>
-        </List>
-    );
-}
-
-function MediaCard() {
-    return (
-        <Card >
-            <CardMedia
-                image="/static/images/cards/contemplative-reptile.jpg"
-                title="Contemplative Reptile"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    List Title
-                    </Typography>
-                <Typography gutterBottom variant="h6" component="h2">
-                    2/16/19
-                    </Typography>
-                {ArtistList()}
-            </CardContent>
-            <CardActions>
-                <Button size="small" color="primary" >
-                    Edit
-                </Button>
-                <Button size="small" color="primary" >
-                    Delete
-                </Button>
-            </CardActions>
-        </Card>
-    );
-}
-
 class CreateGrid extends React.Component {
     state = {
         open: true,
@@ -101,7 +47,7 @@ class CreateGrid extends React.Component {
                             <AddIcon />
                         </Fab>
                     }
-                    {this.state.value > 0 ? <Card>{MediaCard()}</Card> : <Card></Card>}
+                    {this.state.value > 0 ? <DashCard /> : null}
                 </Grid>
                 <Grid item sm={6} md={4} lg={4}>
                     {this.state.value > 1 ? null :
@@ -109,7 +55,7 @@ class CreateGrid extends React.Component {
                             <AddIcon />
                         </Fab>
                     }
-                    {this.state.value > 1 ? <Card>{MediaCard()}</Card> : <Card></Card>}
+                    {this.state.value > 1 ? <DashCard /> : null}
                 </Grid>
                 <Grid item sm={6} md={4} lg={4}>
                     {this.state.value > 2 ? null :
@@ -117,7 +63,7 @@ class CreateGrid extends React.Component {
                             <AddIcon />
                         </Fab>
                     }
-                    {this.state.value > 2 ? <Card>{MediaCard()}</Card> : <Card></Card>}
+                    {this.state.value > 2 ? <DashCard /> : null}
                 </Grid>
             </Grid>
         );
