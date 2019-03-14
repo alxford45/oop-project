@@ -4,8 +4,8 @@
   "description": "",
   "main": "client/src/App.tsx",
   "scripts": {
-    "dev": "cd client && webpack-dev-server --mode=development --open",
-    "server": "nodemon server/server.js"
+    "client": "cd client && webpack-dev-server --mode=development --open",
+    "server": "nodemon server/server.ts"
   },
   "repository": {
     "type": "git",
