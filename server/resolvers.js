@@ -1,6 +1,7 @@
 const resolvers = {
   Query: {
-    hello: () => "world"
+    artist: (_source, { id }, { dataSources }) =>
+      dataSources.artistAPI.getArtistById({ id: String })
   }
 };
 module.exports = resolvers;
