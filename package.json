@@ -5,7 +5,8 @@
   "main": "client/src/App.tsx",
   "scripts": {
     "client": "cd client && webpack-dev-server --mode=development --open",
-    "server": "nodemon server/server.js"
+    "server": "nodemon server/server.js",
+    "test": "nodemon --exec babel-node --ignore='/node_modules/' -- server/server.js"
   },
   "repository": {
     "type": "git",
@@ -37,8 +38,11 @@
     "typescript": "^3.2.4"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.1.0",
     "@types/classnames": "^2.2.7",
