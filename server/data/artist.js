@@ -9,7 +9,7 @@ class ArtistAPI extends RESTDataSource {
     //MUST INCLUDE: "Bearer" before token.
     //EXAMPLE: this.token = "Bearer BASD4Dkdkk7545dsfSDf778..."
     this.token =
-      "Bearer BQCNKOLRvCIXXu9VqG7LU8vXzpmqzVwI4I74fUGoY9sXQvXC8ctZeHFgkBe8RvCxE91luTeU_FzrMqPa6AuE7KzKGO5Gl4IDUov1ODdIYIhhuvuEmH-oiX5uxC-NY82rmxZv8H0WJOs";
+      "Bearer BQCF825eGI2T9fE4x5aOOsVloHigH8SmpBFhITlV0vlDcbvvLCslCwKYm9lHaCwEVFVOzFtMwQ0mPpbEusZS_owIsQfJ3F0-oJko5LIJZAnDsLufWUDuModJ-x7CwZqSCm7GO5fKHbM";
   }
   willSendRequest(request) {
     request.headers.set("Authorization", this.token);
