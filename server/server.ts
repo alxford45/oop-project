@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server-express";
 import * as express from "express";
-import { typeDefs } from "./schema";
+import { typeDefs } from "./typeDefs";
 import { resolvers } from "./resolvers";
 import ArtistAPI from "./data/ArtistAPI";
 
