@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 export const typeDefs = gql`
   type Query {
     artist(id: String!): Artist
+    relatedArtists(id: String!): RelatedArtists
   }
   type Artist {
     genres: [String!]
@@ -11,5 +12,8 @@ export const typeDefs = gql`
     popularity: Int!
     type: String!
     uri: String!
+  }
+  type RelatedArtists {
+    artists: [Artist!]
   }
 `;
