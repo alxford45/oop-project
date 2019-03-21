@@ -1,24 +1,28 @@
-// Typescript configuration file copied from tsconfig.json example in zeit/next-plugins repo
+// Typescript configuration file adapted from tsconfig.json example in zeit/next-plugins repo
 //
 // Source: https://github.com/zeit/next-plugins/tree/master/packages/next-typescript
 // Version: commit 8d58b41 on Dec 15, 2018
 // Accessed: January 2019
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
+    "noImplicitAny": false,
+    "outDir": "server/dist",
     "preserveConstEnums": true,
     "removeComments": false,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "sourceMap": true,
     "strict": true,
-    "target": "esnext"
-  }
+    "target": "es2016"
+  },
+  "include": ["./server/src/**/*", "server/resolvers.ts"],
+  "exclude": ["./server/dist/**/*", "./server/src/auth/**/*"]
 }
