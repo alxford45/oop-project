@@ -7,5 +7,5 @@
  */
 
 {
-  "presets": []
+  "presets": ["@babel/env"]
 }
