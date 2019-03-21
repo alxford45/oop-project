@@ -1,6 +1,6 @@
-import { gql } from "apollo-server";
+import { gql } from "apollo-server-express";
 
-export default gql`
+export const typeDefs = gql`
   type Query {
     artist(id: String): Artist
   }

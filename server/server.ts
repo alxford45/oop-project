@@ -1,7 +1,7 @@
 import { ApolloServer } from "apollo-server-express";
-import express from "express";
-import typeDefs from "./schema";
-import resolvers from "./resolvers";
+import * as express from "express";
+import { typeDefs } from "./schema";
+import { resolvers } from "./resolvers";
 import ArtistAPI from "./data/ArtistAPI";
 
 const PORT = 8000;
