@@ -2,7 +2,7 @@ import { IResolvers } from "graphql-tools";
 
 export const resolvers: IResolvers = {
   Query: {
-    artist: (_source, { id }, { dataSources }) =>
-      dataSources.artistAPI.getArtistById({ id })
+    artist: async (_source, { id }, { dataSources }) =>
+      await dataSources.artistAPI.getArtistById(id)
   }
 };
