@@ -2,7 +2,6 @@
 /node_modules
 
 #project build
-/.next
 
 #npm package tracking
 package-lock.json
