@@ -2,11 +2,10 @@
   "name": "oop-project",
   "version": "1.0.0",
   "description": "",
-  "main": "client/src/App.tsx",
   "scripts": {
     "client": "cd client && webpack-dev-server --mode=development --open",
-    "server": "nodemon server/server.js",
-    "test": "nodemon --exec babel-node --ignore='/node_modules/' -- server/server.js"
+    "build": "tsc -p .",
+    "server": "nodemon server/dist/server.js"
   },
   "repository": {
     "type": "git",
