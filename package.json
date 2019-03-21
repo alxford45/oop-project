@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "tsc -p .",
-    "server": "nodemon server/dist/server.js"
+    "start": "nodemon --exec ts-node server/server.ts"
   },
   "repository": {
     "type": "git",
