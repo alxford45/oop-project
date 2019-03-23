@@ -11,5 +11,6 @@ export const server = new ApolloServer({
     return {
       artistAPI: new ArtistAPI()
     };
-  }
+  },
+  context: ({ req, res }: any) => ({ req, res })
 });
