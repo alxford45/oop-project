@@ -7,7 +7,4 @@ export class User extends BaseEntity {
 
   @Column("text")
   email: string;
-
-  @Column("text", { nullable: true })
-  stripeId: string | null;
 }
