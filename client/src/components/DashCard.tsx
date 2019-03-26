@@ -67,10 +67,10 @@ class DashCard extends React.Component {
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="h2">
                                 List Title
-                    </Typography>
+                            </Typography>
                             <Typography gutterBottom variant="h6" component="h2">
                                 2/16/19
-                    </Typography>
+                            </Typography>
                             {ArtistList()}
                         </CardContent>
                         : null}
