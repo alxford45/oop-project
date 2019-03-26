@@ -25,7 +25,7 @@ class App extends Component {
         <div>
           <NavBar>
             <List>
-              {["Home", "Login", "Dashboard"].map(value => (
+              {["Home", "Login", "Dashboard", "Edit"].map(value => (
                 <ListItem button key={value}>
                   <NavLink to={value}>
                     <ListItemText primary={value} />
@@ -41,6 +41,7 @@ class App extends Component {
             </Route>
             <Route path="/Login" component={Login} />
             <Route path="/Dashboard" component={Dashboard} />
+            <Route path="/Edit" component={Edit} />
           </Switch>
         </div>
       </Router>

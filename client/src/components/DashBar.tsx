@@ -15,6 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -171,11 +172,6 @@ class Dashboard extends React.Component {
                                 input: classes.inputInput
                             }}
                         />
-                        <IconButton color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -189,9 +185,16 @@ class Dashboard extends React.Component {
                     open={this.state.open}
                 >
                     <div className={classes.toolbarIcon}>
-                        <IconButton onClick={this.handleDrawerClose}>
-                            <ChevronLeftIcon />
-                        </IconButton>
+                        {this.state.open ?
+                            <IconButton onClick={this.handleDrawerClose}>
+                                <ChevronLeftIcon />
+                            </IconButton>
+                            : null}
+                        {this.state.open ? null :
+                            <IconButton onClick={this.handleDrawerOpen}>
+                                <ChevronRightIcon />
+                            </IconButton>
+                        }
                     </div>
                     <List>
                         <Divider />
