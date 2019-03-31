@@ -1,19 +1,6 @@
-import { gql } from "apollo-server-express";
+import { typeDef as query } from "./typeDefs/query";
+import { typeDef as artist } from "./typeDefs/artist";
+import { typeDef as user } from "./typeDefs/user";
+import { typeDef as mutation } from "./typeDefs/mutation";
 
-export const typeDefs = gql`
-  type Query {
-    artist(id: String!): Artist
-    relatedArtists(id: String!): RelatedArtists
-  }
-  type Artist {
-    genres: [String!]
-    id: String!
-    name: String!
-    popularity: Int!
-    type: String!
-    uri: String!
-  }
-  type RelatedArtists {
-    artists: [Artist!]
-  }
-`;
+export const typeDefs = [query, mutation, artist, user];
