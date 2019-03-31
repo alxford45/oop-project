@@ -1,11 +1,11 @@
-import { createConnection } from "typeorm";
-import * as session from "express-session";
 import { server } from "./server";
-import { app } from "./app";
+import { createConnection } from "typeorm";
+import * as express from "express";
+import * as session from "express-session";
 
 const main = async () => {
   const PORT = 8000;
-
+  const app = express();
   await createConnection();
 
   app.use(
