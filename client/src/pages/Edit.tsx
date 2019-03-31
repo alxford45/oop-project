@@ -1,18 +1,14 @@
 import React from 'react';
 import DashBar from '../components/DashBar'
-import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { withStyles, Theme } from "@material-ui/core/styles";
-import { InputBase, WithStyles, createStyles } from "@material-ui/core";
+import { WithStyles, createStyles, Divider, Grid, InputBase, List, } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Card from '@material-ui/core/Card';
-import ImageIcon from "@material-ui/icons/Image";
-import Divider from "@material-ui/core/Divider";
-import { addTypenameToDocument } from 'apollo-utilities';
 import Avatar from '@material-ui/core/Avatar';
-
+import { Link } from 'react-router-dom';
 
 
 const styles = (theme: Theme) => createStyles({
@@ -26,19 +22,26 @@ const styles = (theme: Theme) => createStyles({
         height: "100vh",
         overflow: "auto"
     },
+    inputRoot: {
+        color: 'inherit',
+        width: '100%',
+    },
+    inputInput: {
+        paddingTop: theme.spacing.unit,
+        paddingRight: theme.spacing.unit,
+        paddingBottom: theme.spacing.unit,
+
+    },
 });
 
 
 class NestedList extends React.Component<WithStyles<typeof styles>> {
+
     state = {
         value: "",
         id: 0,
-        search: [
-
-        ],
-        list: [
-
-        ]
+        search: [],
+        list: []
     };
 
     handleChange = (evt) => {
@@ -66,9 +69,17 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
         const Artist = {
             label: SearchArtist.name,
             id: this.state.id,
-            icon: < Avatar />,
-            remove: <Button size="small" onClick={() => this.deleteFromList(tempId)}>Delete</Button>,
-            view: <Button size="small" >View</Button>
+            icon: <Avatar />,
+            remove: <Button onClick={() => this.deleteFromList(tempId)}>Delete</Button>,
+            view: <Link to={{
+                pathname: "./View",
+                data: SearchArtist.name
+            }}
+                style={{ textDecoration: 'none' }}>
+                <Button >
+                    view
+                </Button >
+            </Link>
         }
         const newList = this.state.list;
         newList.push(Artist)
@@ -90,58 +101,78 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
         console.log(key)
     };
 
+
     render() {
-
         const { classes } = this.props;
-
         return (
             <div className={classes.root}>
                 <DashBar />
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
-                    <form onSubmit={(evt) => this.handleSubmit(evt)}>
-                        <input
-                            onChange={(evt) => this.handleChange(evt)}
-                            value={this.state.value}
-                            placeholder="Search for for your music destination…"
-                        />
+                    <Grid container spacing={40}>
+                        <Grid>
 
-                    </form>
-                    {this.state.search.map((todo, index) =>
-                        <Card key={index}>
-                            <ListItem >
-                                <ListItemIcon>
-                                    {todo.icon}
-                                </ListItemIcon>
-                                <ListItemText inset primary={todo.name} />
-                                {<Button onClick={this.addToList}>
-                                    add
-                                </Button >}
-                                <Button >
-                                    view
-                                </Button >
-                            </ListItem>
-                        </Card>
-                    )}
-                    {this.state.list.map((todo, index) =>
-                        <Card key={index}>
-                            <ListItem >
-                                <ListItemIcon>
-                                    {todo.icon}
-                                </ListItemIcon>
-                                <ListItemText inset primary={todo.label} />
-                                <Card>{todo.remove}</Card>
-                                <Card>{todo.view}</Card>
-                            </ListItem>
-                        </Card>
-
-                    )}
+                        </Grid>
+                        <Grid>
+                            <form onSubmit={(evt) => this.handleSubmit(evt)}>
+                                <InputBase
+                                    classes={{
+                                        root: classes.inputRoot,
+                                        input: classes.inputInput,
+                                    }}
+                                    onChange={(evt) => this.handleChange(evt)}
+                                    value={this.state.value}
+                                    placeholder="Search for for your music destination…"
+                                />
+                            </form>
+                            <Card>
+                                {this.state.search.map((todo, index) =>
+                                    <List key={index}>
+                                        <ListItem >
+                                            <ListItemIcon>
+                                                {todo.icon}
+                                            </ListItemIcon>
+                                            <ListItemText inset primary={todo.name} />
+                                            <Card>
+                                                <Button onClick={this.addToList}>
+                                                    add
+                                        </Button >
+                                            </Card>
+                                            <Card>
+                                                <Link to={"./View"} style={{ textDecoration: 'none' }}>
+                                                    <Button >
+                                                        view
+                                        </Button >
+                                                </Link>
+                                            </Card>
+                                        </ListItem>
+                                    </List>
+                                )}
+                            </Card>
+                            <Divider />
+                            <Card>
+                                {this.state.list.map((todo, index) =>
+                                    <List
+                                        key={index}
+                                    >
+                                        <ListItem >
+                                            <ListItemIcon>
+                                                {todo.icon}
+                                            </ListItemIcon>
+                                            <ListItemText inset primary={todo.label} />
+                                            <Card>{todo.remove}</Card>
+                                            <Card>{todo.view}</Card>
+                                        </ListItem>
+                                    </List>
+                                )}
+                            </Card>
+                        </Grid>
+                    </Grid>
                 </main>
             </div >
         );
     }
 }
-
 
 
 export default withStyles(styles)(NestedList);

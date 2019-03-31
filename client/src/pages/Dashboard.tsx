@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import CreateGrid from "../components/CreateGrid";
 import DashBar from "../components/DashBar";
-import Button from "@material-ui/core/Button";
+
 
 const styles = (theme: Theme) => createStyles({
   root: {
@@ -20,13 +20,9 @@ const styles = (theme: Theme) => createStyles({
 });
 
 
-
 class Dashboard extends React.Component<WithStyles<typeof styles>> {
-
   render() {
-
     const { classes } = this.props;
-
     return (
       <div className={this.props.classes.root}>
         <DashBar />
@@ -42,7 +38,6 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
     );
   }
 }
-
 
 
 export default withStyles(styles)(Dashboard);

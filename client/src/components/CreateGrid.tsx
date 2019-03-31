@@ -1,12 +1,9 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import DashCard from './DashCard';
-import AddIcon from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
 import GridButton from './GridButton';
 
-class CreateGrid extends React.Component {
 
+class CreateGrid extends React.Component {
     render() {
         return (
             <Grid container spacing={40} >
@@ -23,5 +20,6 @@ class CreateGrid extends React.Component {
         );
     }
 }
+
 
 export default CreateGrid;

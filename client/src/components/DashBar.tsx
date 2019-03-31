@@ -12,27 +12,16 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import ImageIcon from "@material-ui/icons/Image";
-import Icon from "@material-ui/core/Icon";
-import CreateGrid from "../components/CreateGrid";
-import { BrowserRouter as Router, NavLink } from "react-router-dom";
-import Edit from "../pages/Edit";
-import { InputBase, createStyles, WithStyles } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import GridButton from '../components/GridButton';
+import { BrowserRouter as Router, NavLink, Link } from "react-router-dom";
+import { createStyles, WithStyles } from "@material-ui/core";
+
 
 const drawerWidth = 240;
+
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -111,11 +100,11 @@ const styles = (theme: Theme) => createStyles({
     }
 });
 
+
 class Dashboard extends React.Component<WithStyles<typeof styles>> {
     state = {
         open: true,
     };
-
     handleDrawerOpen = () => {
         this.setState({ open: true });
     };
@@ -123,11 +112,8 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
     handleDrawerClose = () => {
         this.setState({ open: false });
     };
-
-
     render() {
         const { classes } = this.props;
-
         return (
             <div className={classes.root}>
                 <CssBaseline />
@@ -187,34 +173,32 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                     </div>
                     <List>
                         <Divider />
-                        <ListItem button>
-                            <ListItemIcon>
-                                <ImageIcon />
-                            </ListItemIcon>
-                            <ListItemText inset primary="User" />
-                        </ListItem>
+                        <Link to={"./DashBoard"} style={{ textDecoration: 'none' }}>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <ImageIcon />
+                                </ListItemIcon>
+                                <ListItemText inset primary="DashBoard" />
+                            </ListItem>
+                        </Link>
                         <Divider />
-                        <ListItem button>
-                            <ListItemIcon>
-                                <ImageIcon />
-                            </ListItemIcon>
-                            <ListItemText inset primary="Lists" />
-                        </ListItem>
+                        <Link to={"./Edit"} style={{ textDecoration: 'none' }}>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <ImageIcon />
+                                </ListItemIcon>
+                                <ListItemText inset primary="Edit" />
+                            </ListItem>
+                        </Link>
                         <Divider />
-                        <ListItem button>
-                            <ListItemIcon>
-                                <ImageIcon />
-                            </ListItemIcon>
-                            <ListItemText inset primary="Create" />
-                        </ListItem>
-                        <Divider />
-                        <ListItem button>
-                            <NavLink to={"./Edit"} />
-                            <ListItemIcon>
-                                <ImageIcon />
-                            </ListItemIcon>
-                            <ListItemText inset primary="Edit" />
-                        </ListItem>
+                        <Link to={"./View"} style={{ textDecoration: 'none' }}>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <ImageIcon />
+                                </ListItemIcon>
+                                <ListItemText inset primary="View" />
+                            </ListItem>
+                        </Link>
                         <Divider />
                     </List>
                     <List />
@@ -223,5 +207,6 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
         );
     }
 }
+
 
 export default withStyles(styles)(Dashboard);
