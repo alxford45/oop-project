@@ -6,11 +6,11 @@ class ArtistAPI extends SpotifyAPI {
     super();
   }
   willSendRequest(request: RequestOptions) {
-    super.willSendRequest(request);
+    return super.willSendRequest(request);
   }
 
-  async getArtistById(id: string) {
-    return await this.get(`artists/${id}`);
+  getArtistById(id: string) {
+    return this.get(`artists/${id}`);
   }
   async getRelatedArtistsById(id: String) {
     return await this.get(`artists/${id}/related-artists`);
