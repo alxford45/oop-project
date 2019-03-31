@@ -1,11 +1,12 @@
 import React from "react";
-import { withStyles, Theme } from "@material-ui/core/styles";
+import { withStyles, Theme, createStyles, WithStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import CreateGrid from "../components/CreateGrid";
-import DashBar from '../components/DashBar';
+import DashBar from "../components/DashBar";
+import Button from "@material-ui/core/Button";
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
   root: {
     display: "flex"
   },
@@ -18,14 +19,16 @@ const styles = (theme: Theme) => ({
   },
 });
 
-class Dashboard extends React.Component {
+
+
+class Dashboard extends React.Component<WithStyles<typeof styles>> {
 
   render() {
 
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
+      <div className={this.props.classes.root}>
         <DashBar />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />

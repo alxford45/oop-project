@@ -1,20 +1,21 @@
 import React from 'react';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
 import DashBar from '../components/DashBar'
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 import { withStyles, Theme } from "@material-ui/core/styles";
+import { InputBase, WithStyles, createStyles } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Card from '@material-ui/core/Card';
+import ImageIcon from "@material-ui/icons/Image";
+import Divider from "@material-ui/core/Divider";
+import { addTypenameToDocument } from 'apollo-utilities';
+import Avatar from '@material-ui/core/Avatar';
 
-const styles = (theme: Theme) => ({
+
+
+const styles = (theme: Theme) => createStyles({
     root: {
         display: "flex"
     },
@@ -27,13 +28,66 @@ const styles = (theme: Theme) => ({
     },
 });
 
-class NestedList extends React.Component {
+
+class NestedList extends React.Component<WithStyles<typeof styles>> {
     state = {
-        open: true,
+        value: "",
+        id: 0,
+        search: [
+
+        ],
+        list: [
+
+        ]
     };
 
-    handleClick = () => {
-        this.setState(({ open: !this.state.open }));
+    handleChange = (evt) => {
+        this.setState(({ value: evt.target.value }));
+    };
+
+    handleSubmit = (evt) => {
+        evt.preventDefault();
+        const Artist = {
+            name: this.state.value,
+            icon: <Avatar />
+        };
+        const newSearch = this.state.search;
+        newSearch.pop();
+        newSearch.push(Artist)
+        this.setState({ search: newSearch, value: "" });
+        console.log(this.state.search);
+    };
+
+    addToList = () => {
+        this.setState({ id: this.state.id + 1 });
+        const newSearch = this.state.search;
+        const SearchArtist = newSearch.pop();
+        const tempId = this.state.id;
+        const Artist = {
+            label: SearchArtist.name,
+            id: this.state.id,
+            icon: < Avatar />,
+            remove: <Button size="small" onClick={() => this.deleteFromList(tempId)}>Delete</Button>,
+            view: <Button size="small" >View</Button>
+        }
+        const newList = this.state.list;
+        newList.push(Artist)
+        this.setState({ list: newList });
+        console.log(Artist.id);
+    };
+
+    deleteFromList = (key) => {
+        const newList = this.state.list;
+        newList.splice(key, 1);
+        this.setState({ list: newList });
+        this.state.list.map((todo, index) =>
+            todo.id = index,
+        );
+        this.state.list.map((todo, index) =>
+            todo.remove = <Button size="small" onClick={() => this.deleteFromList(index)}>Delete</Button>
+        );
+        this.setState({ id: this.state.id - 1 });
+        console.log(key)
     };
 
     render() {
@@ -45,40 +99,43 @@ class NestedList extends React.Component {
                 <DashBar />
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
-                    <List
-                        component="nav"
-                        subheader={<ListSubheader component="div">Favorite Artists</ListSubheader>}
-                    >
-                        <ListItem button >
-                            <ListItemIcon>
-                                <SendIcon />
-                            </ListItemIcon>
-                            <ListItemText inset primary="Artist #1" />
-                        </ListItem>
-                        <ListItem button>
-                            <ListItemIcon>
-                                <DraftsIcon />
-                            </ListItemIcon>
-                            <ListItemText inset primary="Artist #2" />
-                        </ListItem>
-                        <ListItem button onClick={this.handleClick}>
-                            <ListItemIcon>
-                                <InboxIcon />
-                            </ListItemIcon>
-                            <ListItemText inset primary="Artist #3" />
-                            {this.state.open ? <ExpandLess /> : <ExpandMore />}
-                        </ListItem>
-                        <Collapse in={this.state.open} timeout="auto" unmountOnExit>
-                            <List >
-                                <ListItem button >
-                                    <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon>
-                                    <ListItemText inset primary="Album #1" />
-                                </ListItem>
-                            </List>
-                        </Collapse>
-                    </List>
+                    <form onSubmit={(evt) => this.handleSubmit(evt)}>
+                        <input
+                            onChange={(evt) => this.handleChange(evt)}
+                            value={this.state.value}
+                            placeholder="Search for for your music destination…"
+                        />
+
+                    </form>
+                    {this.state.search.map((todo, index) =>
+                        <Card key={index}>
+                            <ListItem >
+                                <ListItemIcon>
+                                    {todo.icon}
+                                </ListItemIcon>
+                                <ListItemText inset primary={todo.name} />
+                                {<Button onClick={this.addToList}>
+                                    add
+                                </Button >}
+                                <Button >
+                                    view
+                                </Button >
+                            </ListItem>
+                        </Card>
+                    )}
+                    {this.state.list.map((todo, index) =>
+                        <Card key={index}>
+                            <ListItem >
+                                <ListItemIcon>
+                                    {todo.icon}
+                                </ListItemIcon>
+                                <ListItemText inset primary={todo.label} />
+                                <Card>{todo.remove}</Card>
+                                <Card>{todo.view}</Card>
+                            </ListItem>
+                        </Card>
+
+                    )}
                 </main>
             </div >
         );

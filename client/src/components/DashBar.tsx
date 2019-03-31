@@ -28,13 +28,13 @@ import Icon from "@material-ui/core/Icon";
 import CreateGrid from "../components/CreateGrid";
 import { BrowserRouter as Router, NavLink } from "react-router-dom";
 import Edit from "../pages/Edit";
-import { InputBase } from "@material-ui/core";
+import { InputBase, createStyles, WithStyles } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import GridButton from '../components/GridButton';
 
 const drawerWidth = 240;
 
-const styles = (theme: Theme) => ({
+const styles = (theme: Theme) => createStyles({
     root: {
         display: "flex"
     },
@@ -111,7 +111,7 @@ const styles = (theme: Theme) => ({
     }
 });
 
-class Dashboard extends React.Component {
+class Dashboard extends React.Component<WithStyles<typeof styles>> {
     state = {
         open: true,
     };
@@ -160,18 +160,7 @@ class Dashboard extends React.Component {
                             noWrap
                             className={classes.title}
                         >
-                            Dashboard
                         </Typography>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput
-                            }}
-                        />
                     </Toolbar>
                 </AppBar>
                 <Drawer
