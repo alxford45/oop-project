@@ -3,6 +3,8 @@ import { User } from "../entity/User";
 
 export const resolvers: IResolvers = {
   Query: {
+    search: async (_, { name }, { dataSources }) =>
+      await dataSources.searchAPI.getArtistsByName(name),
     artist: async (_, { id }, { dataSources }) =>
       await dataSources.artistAPI.getArtistById(id),
     relatedArtists: async (_, { id }, { dataSources }) =>

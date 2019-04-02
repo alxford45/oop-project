@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "tsc -p .",
-    "start": "nodemon --exec ts-node server/index.ts"
+    "start": "nodemon --exec ts-node src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -26,9 +26,6 @@
     "express-session": "^1.15.6",
     "graphql": "^14.1.1",
     "pg": "^7.9.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
-    "react-router-dom": "^4.3.1",
     "reflect-metadata": "^0.1.13",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
@@ -42,9 +39,6 @@
     "@types/express-session": "^1.15.12",
     "@types/graphql": "^14.0.7",
     "@types/node": "^11.11.4",
-    "@types/react": "^16.7.20",
-    "@types/react-dom": "^16.0.11",
-    "@types/react-router-dom": "^4.3.1",
     "@types/request": "^2.48.1",
     "@types/request-promise": "^4.1.42",
     "graphql-tag": "^2.10.1",

@@ -1,10 +1,12 @@
 import { ApolloServer } from "apollo-server-express";
-import ArtistAPI from "./api/ArtistAPI";
-import { typeDefs } from "./schema/typeDefs";
-import { resolvers } from "./schema/resolvers";
 
 import * as _ from "./env";
 import * as rp from "request-promise";
+
+import ArtistAPI from "./api/ArtistAPI";
+import SearchAPI from "./api/SearchAPI";
+import { typeDefs } from "./schema/typeDefs";
+import { resolvers } from "./schema/resolvers";
 
 export const server = new ApolloServer({
   typeDefs,
@@ -44,6 +46,7 @@ export const server = new ApolloServer({
 
   dataSources: () => {
     return {
+      searchAPI: new SearchAPI(),
       artistAPI: new ArtistAPI()
     };
   }
