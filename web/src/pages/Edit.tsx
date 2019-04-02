@@ -50,7 +50,7 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
     value: "" as String,
     id: 0 as number,
     search: [] as Artist[],
-    list: [] as String[]
+    list: [] as Artist[]
   };
 
   handleChange = evt => {

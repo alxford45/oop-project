@@ -1,10 +1,10 @@
 #project dependencies
-server/node_modules
+node_modules
 
 #project build
 
 #npm package tracking
-server/package-lock.json
+package-lock.json
 
 #environment variables
-server/.env
+.env
