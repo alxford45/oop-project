@@ -71,7 +71,7 @@ const styles = (theme: Theme) => createStyles({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen
         }),
-        background: ''
+        background: 'linear-gradient(45deg, #78909c 70%, #b0bec5 90%)'
     },
     drawerPaperClose: {
         overflowX: "hidden",

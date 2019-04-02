@@ -14,6 +14,10 @@ const styles = (theme: Theme) => createStyles({
   root: {
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
   },
+  text: {
+    variant: "h1",
+    component: "h1"
+  }
 
 });
 
@@ -21,27 +25,12 @@ class MediaCard extends React.Component<WithStyles<typeof styles>> {
   render() {
     const { classes } = this.props;
     return (
-      <Card className={classes.root}>
-        <CardActionArea >
-          <CardMedia />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Expand your taste in music!
+      <div className={classes.root}>
+        <Typography className={classes.text}>
+          MusicMap
           </Typography>
-            <Typography variant="h1" component="h1">
-              MusicMap
-          </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-        </Button>
-          <Button size="small" color="primary">
-            Learn More
-        </Button>
-        </CardActions>
-      </Card>
+      </div>
+
     );
   }
 }

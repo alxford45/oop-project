@@ -19,7 +19,7 @@ import View from "./pages/View";
 class App extends Component {
   render() {
     return (
-      <ListData>
+
       <Router>
         <div>
 
@@ -35,7 +35,6 @@ class App extends Component {
           </Switch>
         </div>
       </Router>
-        </ListData>
     );
   }
 }
