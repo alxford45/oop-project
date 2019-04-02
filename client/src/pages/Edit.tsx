@@ -1,5 +1,6 @@
 import React from 'react';
 import DashBar from '../components/DashBar'
+import ListData from '../components/ListData'
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -13,7 +14,8 @@ import { Link } from 'react-router-dom';
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        display: "flex"
+        display: "flex",
+        background: 'linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)'
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -25,6 +27,8 @@ const styles = (theme: Theme) => createStyles({
     inputRoot: {
         color: 'inherit',
         width: '100%',
+        background: 'white',
+        marginBottom: 20
     },
     inputInput: {
         paddingTop: theme.spacing.unit,
@@ -32,16 +36,33 @@ const styles = (theme: Theme) => createStyles({
         paddingBottom: theme.spacing.unit,
 
     },
+    searchCardRoot: {
+        background: 'linear-gradient(45deg, #78909c 30%, #b0bec5 90%)',
+    },
+
+
+    listCardRoot: {
+        background: 'linear-gradient(45deg, #78909c 30%, #b0bec5 90%)',
+    },
+
+    ButtonRoot: {
+        background: 'linear-gradient(45deg, #00e676 30%, #b9f6ca 90%)',
+    },
+
+
 });
 
 
-class NestedList extends React.Component<WithStyles<typeof styles>> {
+class Edit extends React.Component<WithStyles<typeof styles>> {
+
+
 
     state = {
         value: "",
         id: 0,
         search: [],
-        list: []
+        list: [],
+        data: 0
     };
 
     handleChange = (evt) => {
@@ -62,6 +83,7 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
     };
 
     addToList = () => {
+        const { classes } = this.props;
         this.setState({ id: this.state.id + 1 });
         const newSearch = this.state.search;
         const SearchArtist = newSearch.pop();
@@ -70,13 +92,24 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
             label: SearchArtist.name,
             id: this.state.id,
             icon: <Avatar />,
-            remove: <Button onClick={() => this.deleteFromList(tempId)}>Delete</Button>,
+            remove: <Button
+                classes={{
+                    root: classes.ButtonRoot,
+                }}
+                onClick={() => this.deleteFromList(tempId)}
+            >
+                Delete
+            </Button>,
             view: <Link to={{
                 pathname: "./View",
-                data: SearchArtist.name
+                data: this.state.data
             }}
                 style={{ textDecoration: 'none' }}>
-                <Button >
+                <Button
+                    classes={{
+                        root: classes.ButtonRoot,
+                    }}
+                >
                     view
                 </Button >
             </Link>
@@ -88,6 +121,7 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
     };
 
     deleteFromList = (key) => {
+        const { classes } = this.props;
         const newList = this.state.list;
         newList.splice(key, 1);
         this.setState({ list: newList });
@@ -95,12 +129,22 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
             todo.id = index,
         );
         this.state.list.map((todo, index) =>
-            todo.remove = <Button size="small" onClick={() => this.deleteFromList(index)}>Delete</Button>
+            todo.remove = <Button
+                classes={{
+                    root: classes.ButtonRoot,
+                }}
+                size="small"
+                onClick={() => this.deleteFromList(index)}>
+                Delete
+            </Button>
         );
         this.setState({ id: this.state.id - 1 });
         console.log(key)
     };
 
+    handleSave = () => {
+
+    };
 
     render() {
         const { classes } = this.props;
@@ -110,10 +154,10 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Grid container spacing={40}>
-                        <Grid>
-
-                        </Grid>
-                        <Grid>
+                        <Grid
+                            justify="center"
+                            item sm={6} md={4} lg={4}
+                        >
                             <form onSubmit={(evt) => this.handleSubmit(evt)}>
                                 <InputBase
                                     classes={{
@@ -125,7 +169,11 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
                                     placeholder="Search for for your music destination…"
                                 />
                             </form>
-                            <Card>
+                            <Card
+                                classes={{
+                                    root: classes.searchCardRoot,
+                                }}
+                            >
                                 {this.state.search.map((todo, index) =>
                                     <List key={index}>
                                         <ListItem >
@@ -134,37 +182,56 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
                                             </ListItemIcon>
                                             <ListItemText inset primary={todo.name} />
                                             <Card>
-                                                <Button onClick={this.addToList}>
+                                                <Button
+                                                    classes={{
+                                                        root: classes.ButtonRoot,
+                                                    }}
+                                                    onClick={this.addToList}
+                                                >
                                                     add
-                                        </Button >
+                                                </Button >
                                             </Card>
                                             <Card>
                                                 <Link to={"./View"} style={{ textDecoration: 'none' }}>
-                                                    <Button >
+                                                    <Button
+                                                        classes={{
+                                                            root: classes.ButtonRoot,
+                                                        }}
+                                                    >
                                                         view
-                                        </Button >
+                                                    </Button >
                                                 </Link>
                                             </Card>
                                         </ListItem>
                                     </List>
                                 )}
                             </Card>
-                            <Divider />
+                        </Grid>
+                        <Divider />
+                        <Grid item sm={6} md={4} lg={3}></Grid>
+                        <Grid item sm={6} md={4} lg={4}>
                             <Card>
-                                {this.state.list.map((todo, index) =>
-                                    <List
-                                        key={index}
-                                    >
-                                        <ListItem >
-                                            <ListItemIcon>
-                                                {todo.icon}
-                                            </ListItemIcon>
-                                            <ListItemText inset primary={todo.label} />
-                                            <Card>{todo.remove}</Card>
-                                            <Card>{todo.view}</Card>
-                                        </ListItem>
-                                    </List>
-                                )}
+
+                                <Card
+                                    classes={{
+                                        root: classes.listCardRoot,
+                                    }}
+                                >
+                                    {this.state.list.map((todo, index) =>
+                                        <List
+                                            key={index}
+                                        >
+                                            <ListItem >
+                                                <ListItemIcon>
+                                                    {todo.icon}
+                                                </ListItemIcon>
+                                                <ListItemText inset primary={todo.label} />
+                                                <Card>{todo.remove}</Card>
+                                                <Card>{todo.view}</Card>
+                                            </ListItem>
+                                        </List>
+                                    )}
+                                </Card>
                             </Card>
                         </Grid>
                     </Grid>
@@ -175,4 +242,4 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
 }
 
 
-export default withStyles(styles)(NestedList);
+export default withStyles(styles)(Edit);

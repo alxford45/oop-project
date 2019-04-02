@@ -7,13 +7,13 @@ class CreateGrid extends React.Component {
     render() {
         return (
             <Grid container spacing={40} >
-                <Grid item sm={6} md={4} lg={4}>
+                <Grid item sm={4} md={4} lg={3}>
                     <GridButton />
                 </Grid>
-                <Grid item sm={6} md={4} lg={4}>
+                <Grid item sm={6} md={4} lg={3}>
                     <GridButton />
                 </Grid>
-                <Grid item sm={6} md={4} lg={4}>
+                <Grid item sm={6} md={4} lg={3}>
                     <GridButton />
                 </Grid>
             </Grid>

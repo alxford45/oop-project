@@ -4,11 +4,14 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import CreateGrid from "../components/CreateGrid";
 import DashBar from "../components/DashBar";
+import NavBar from "../components/NavBar";
+import SimpleAppBar from "../components/SimpleAppBar";
 
 
 const styles = (theme: Theme) => createStyles({
   root: {
-    display: "flex"
+    display: "flex",
+    background: 'linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)'
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
@@ -25,6 +28,7 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
     const { classes } = this.props;
     return (
       <div className={this.props.classes.root}>
+        <SimpleAppBar />
         <DashBar />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -35,6 +39,7 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
           <CreateGrid />
         </main>
       </div>
+
     );
   }
 }

@@ -7,31 +7,43 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { red } from "@material-ui/core/colors";
+import { Theme, createStyles, WithStyles, withStyles } from "@material-ui/core/styles";
 
-function MediaCard() {
-  return (
-    <Card>
-      <CardActionArea>
-        <CardMedia />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Expand your taste in music!
+const styles = (theme: Theme) => createStyles({
+  root: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  },
+
+});
+
+class MediaCard extends React.Component<WithStyles<typeof styles>> {
+  render() {
+    const { classes } = this.props;
+    return (
+      <Card className={classes.root}>
+        <CardActionArea >
+          <CardMedia />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              Expand your taste in music!
           </Typography>
-          <Typography variant="h1" component="h1">
-            MusicMap
+            <Typography variant="h1" component="h1">
+              MusicMap
           </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Button size="small" color="primary">
+            Share
         </Button>
-        <Button size="small" color="primary">
-          Learn More
+          <Button size="small" color="primary">
+            Learn More
         </Button>
-      </CardActions>
-    </Card>
-  );
+        </CardActions>
+      </Card>
+    );
+  }
 }
 
-export default MediaCard;
+export default withStyles(styles)(MediaCard);

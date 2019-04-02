@@ -25,7 +25,7 @@ const drawerWidth = 240;
 
 const styles = (theme: Theme) => createStyles({
     root: {
-        display: "flex"
+        display: "flex",
     },
     toolbar: {
         paddingRight: 24 // keep right padding when drawer closed
@@ -35,14 +35,15 @@ const styles = (theme: Theme) => createStyles({
         alignItems: "center",
         justifyContent: "flex-end",
         padding: "0 8px",
-        ...theme.mixins.toolbar
+        ...theme.mixins.toolbar,
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(["width", "margin"], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen
-        })
+        }),
+        background: 'linear-gradient(45deg, #212121 30%, #424242 90%)'
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -69,7 +70,8 @@ const styles = (theme: Theme) => createStyles({
         transition: theme.transitions.create("width", {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen
-        })
+        }),
+        background: ''
     },
     drawerPaperClose: {
         overflowX: "hidden",
@@ -97,6 +99,9 @@ const styles = (theme: Theme) => createStyles({
     },
     h5: {
         marginBottom: theme.spacing.unit * 2
+    },
+    listTextRoot: {
+        colorTextPrimary: 'white'
     }
 });
 
@@ -174,11 +179,14 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                     <List>
                         <Divider />
                         <Link to={"./DashBoard"} style={{ textDecoration: 'none' }}>
-                            <ListItem button>
+                            <ListItem
+                                className={classes.listTextRoot}
+                                button
+                            >
                                 <ListItemIcon>
                                     <ImageIcon />
                                 </ListItemIcon>
-                                <ListItemText inset primary="DashBoard" />
+                                <ListItemText inset primary="DashBoard" color="white" />
                             </ListItem>
                         </Link>
                         <Divider />
