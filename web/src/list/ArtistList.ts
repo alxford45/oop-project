@@ -1,19 +1,10 @@
-export type Artist = {
-  name: String;
-  id: String;
-  icon: JSX.Element;
-};
-export interface List {
+import { ListInterface } from "./ListInterface";
+import { Artist } from "./Artist";
+export class ArtistList implements ListInterface {
   state: {
     size: number;
     data: Artist[];
   };
-  add(artist: Artist): void;
-  remove(index: number): void;
-  cancel(): void;
-  save(): void;
-}
-export class List implements List {
   constructor() {
     this.state = {
       size: 0,
@@ -27,6 +18,9 @@ export class List implements List {
   remove(index) {
     this.state.size--;
     this.state.data.splice(index);
+  }
+  get(index) {
+    return this.state.data[index];
   }
   cancel() {
     this.state.size = 0;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Props } from "react";
 import DashBar from "../components/DashBar";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -17,10 +17,7 @@ import Card from "@material-ui/core/Card";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 
-type Artist = {
-  name: String;
-  icon: JSX.Element;
-};
+import { ArtistList } from "../list/ArtistList";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -44,37 +41,27 @@ const styles = (theme: Theme) =>
       paddingBottom: theme.spacing.unit
     }
   });
+  let list = new ArtistList();
 
 class NestedList extends React.Component<WithStyles<typeof styles>> {
   state = {
-    value: "" as String,
-    id: 0 as number,
-    search: [] as Artist[],
-    list: [] as Artist[]
+    list: list,
+    request: null,
+    response: null
   };
-
-  handleChange = evt => {
-    this.setState({ value: evt.target.value });
-  };
-
-  handleSubmit = evt => {
+  handleRequest = evt => {
     evt.preventDefault();
-    const artist: Artist = {
-      name: this.state.value,
-      icon: <Avatar />
-    };
-    const newSearch = this.state.search;
-    newSearch.pop();
-    newSearch.push(artist);
-    this.setState({ search: newSearch, value: "" });
-    console.log(this.state.search);
+
+    this.setState({ request: evt.target.request });
+  };
+
+  handleResponse = () => {
+    this.setState({ response: this.state.request });
   };
 
   addToList = () => {
-    this.setState({ id: this.state.id + 1 });
-    const newSearch = this.state.search;
-    const searchArtist = newSearch.pop();
-    const tempId = this.state.id;
+    this.state.list.add(this.)
+
     const Artist = {
       label: searchArtist.name,
       id: this.state.id,
