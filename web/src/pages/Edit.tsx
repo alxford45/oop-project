@@ -16,7 +16,6 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
-
 import { ArtistList } from "../list/ArtistList";
 
 const styles = (theme: Theme) =>
@@ -41,67 +40,51 @@ const styles = (theme: Theme) =>
       paddingBottom: theme.spacing.unit
     }
   });
-  let list = new ArtistList();
+
+let list = new ArtistList();
+let searchList = new ArtistList();
 
 class NestedList extends React.Component<WithStyles<typeof styles>> {
   state = {
     list: list,
-    request: null,
-    response: null
+    searchList: searchList,
+    request: "",
+    response: null,
+    key: 0
   };
-  handleRequest = evt => {
+
+  handleChange = (evt) => {
+    this.setState({ request: evt.target.value });
+  };
+
+  handleRequest = (evt) => {
     evt.preventDefault();
+    searchList.remove(0);
+    const objArray = [
+      { key: this.state.key, name: this.state.request, id: this.state.response, icon: <Avatar /> },
 
-    this.setState({ request: evt.target.request });
+    ]
+    objArray.map((todo) => (
+      searchList.add(todo)
+    ));
+    this.setState({ searchList: searchList.get(), request: "" });
+    console.log(searchList);
   };
 
-  handleResponse = () => {
-    this.setState({ response: this.state.request });
+  addToList = (item) => {
+    const searchItem = searchList.view(0);
+    list.add(searchItem);
+    this.setState({ list: list });
+    this.setState({ key: this.state.key + 1 });
+    console.log(item.key);
   };
 
-  addToList = () => {
-    this.state.list.add(this.)
-
-    const Artist = {
-      label: searchArtist.name,
-      id: this.state.id,
-      icon: <Avatar />,
-      remove: (
-        <Button onClick={() => this.deleteFromList(tempId)}>Delete</Button>
-      ),
-      view: (
-        <Link
-          to={{
-            pathname: "./View",
-            data: searchArtist.name
-          }}
-          style={{ textDecoration: "none" }}
-        >
-          <Button>view</Button>
-        </Link>
-      )
-    };
-    const newList = this.state.list;
-    newList.push(Artist);
-    this.setState({ list: newList });
-    console.log(Artist.id);
-  };
-
-  deleteFromList = key => {
-    const newList = this.state.list;
-    newList.splice(key, 1);
-    this.setState({ list: newList });
-    this.state.list.map((todo, index) => (todo.id = index));
-    this.state.list.map(
-      (todo, index) =>
-        (todo.remove = (
-          <Button size="small" onClick={() => this.deleteFromList(index)}>
-            Delete
-          </Button>
-        ))
+  deleteFromList = (item) => {
+    list.remove(item.key);
+    list.get().map((todo, index) =>
+      todo.key = index,
     );
-    this.setState({ id: this.state.id - 1 });
-    console.log(key);
+    this.setState({ list: list });
   };
 
   render() {
@@ -114,25 +97,27 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
           <Grid container spacing={40}>
             <Grid />
             <Grid>
-              <form onSubmit={evt => this.handleSubmit(evt)}>
+              <form onSubmit={evt => this.handleRequest(evt)}>
                 <InputBase
                   classes={{
                     root: classes.inputRoot,
                     input: classes.inputInput
                   }}
                   onChange={evt => this.handleChange(evt)}
-                  value={this.state.value}
+                  value={this.state.request}
                   placeholder="Search for for your music destination…"
                 />
               </form>
               <Card>
-                {this.state.search.map((todo, index) => (
-                  <List key={index}>
+                {searchList.get().map((todo) => (
+                  <List key={todo.key}>
                     <ListItem>
                       <ListItemIcon>{todo.icon}</ListItemIcon>
                       <ListItemText inset primary={todo.name} />
                       <Card>
-                        <Button onClick={this.addToList}>add</Button>
+                        <Button onClick={() => this.addToList(todo)}>
+                          add
+                        </Button>
                       </Card>
                       <Card>
                         <Link to={"./View"} style={{ textDecoration: "none" }}>
@@ -145,13 +130,21 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
               </Card>
               <Divider />
               <Card>
-                {this.state.list.map((todo, index) => (
+                {list.get().map((todo, index) => (
                   <List key={index}>
                     <ListItem>
                       <ListItemIcon>{todo.icon}</ListItemIcon>
-                      <ListItemText inset primary={todo.label} />
-                      <Card>{todo.remove}</Card>
-                      <Card>{todo.view}</Card>
+                      <ListItemText inset primary={todo.name} />
+                      <Card>
+                        <Button onClick={() => this.deleteFromList(todo)}>
+                          Delete
+                        </Button>
+                      </Card>
+                      <Card>
+                        <Link to={"./View"} style={{ textDecoration: "none" }}>
+                          <Button>view</Button>
+                        </Link>
+                      </Card>
                     </ListItem>
                   </List>
                 ))}

@@ -1,6 +1,7 @@
 import { ListInterface } from "./ListInterface";
 import { Artist } from "./Artist";
 export class ArtistList implements ListInterface {
+
   state: {
     size: number;
     data: Artist[];
@@ -17,9 +18,12 @@ export class ArtistList implements ListInterface {
   }
   remove(index) {
     this.state.size--;
-    this.state.data.splice(index);
+    this.state.data.splice(index, 1);
   }
-  get(index) {
+  get() {
+    return this.state.data;
+  }
+  view(index) {
     return this.state.data[index];
   }
   cancel() {
