@@ -7,30 +7,37 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { ListContext } from "./ListProvider";
 
 function MediaCard() {
   return (
-    <Card>
-      <CardActionArea>
-        <CardMedia />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Expand your taste in music!
+    <ListContext.Consumer >
+      {(context) => (
+
+        <Card>
+
+          <CardActionArea>
+            <CardMedia />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                Expand your taste in music!
           </Typography>
-          <Typography variant="h1" component="h1">
-            MusicMap
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
+              <Typography variant="h1" component="h1">
+                {context}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary">
+              Share
         </Button>
-        <Button size="small" color="primary">
-          Learn More
+            <Button size="small" color="primary">
+              Learn More
         </Button>
-      </CardActions>
-    </Card>
+          </CardActions>
+        </Card>
+      )}
+    </ListContext.Consumer>
   );
 }
 

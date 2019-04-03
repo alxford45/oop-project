@@ -14,35 +14,38 @@ import {
 import NavBar from "./components/NavBar";
 import { ListItemText, List, ListItem } from "@material-ui/core";
 import View from "./pages/View";
+import ListProvider from "./components/ListProvider";
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div>
-          <NavBar>
-            <List>
-              {["Home", "Login", "Dashboard",].map(value => (
-                <ListItem button key={value}>
-                  <NavLink to={value}>
-                    <ListItemText primary={value} />
-                  </NavLink>
-                </ListItem>
-              ))}
-            </List>
-          </NavBar>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/Home">
-              <Redirect to="/" />
-            </Route>
-            <Route path="/Login" component={Login} />
-            <Route path="/Dashboard" component={Dashboard} />
-            <Route path="/Edit" component={Edit} />
-            <Route path="/View" component={View} />
-          </Switch>
-        </div>
-      </Router>
+      <ListProvider >
+        <Router>
+          <div>
+            <NavBar>
+              <List>
+                {["Home", "Login", "Dashboard",].map(value => (
+                  <ListItem button key={value}>
+                    <NavLink to={value}>
+                      <ListItemText primary={value} />
+                    </NavLink>
+                  </ListItem>
+                ))}
+              </List>
+            </NavBar>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/Home">
+                <Redirect to="/" />
+              </Route>
+              <Route path="/Login" component={Login} />
+              <Route path="/Dashboard" component={Dashboard} />
+              <Route path="/Edit" component={Edit} />
+              <Route path="/View" component={View} />
+            </Switch>
+          </div>
+        </Router>
+      </ListProvider>
     );
   }
 }

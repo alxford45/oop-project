@@ -1,4 +1,4 @@
-import React, { Props } from "react";
+import React, { Props, Component } from "react";
 import DashBar from "../components/DashBar";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -17,6 +17,8 @@ import Card from "@material-ui/core/Card";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { ArtistList } from "../list/ArtistList";
+import ListProvider from "../components/ListProvider";
+//const ListProvider = require('../components/ListProvider');
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -62,7 +64,6 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
     searchList.remove(0);
     const objArray = [
       { key: this.state.key, name: this.state.request, id: this.state.response, icon: <Avatar /> },
-
     ]
     objArray.map((todo) => (
       searchList.add(todo)
@@ -87,10 +88,12 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
     this.setState({ list: list });
   };
 
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
+        <ListProvider list="edit is passing data" />
         <DashBar />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
