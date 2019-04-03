@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { ArtistList } from "../list/ArtistList";
+import { Button } from "@material-ui/core";
 
 const defaultValue = new ArtistList();
-
+let newList = new ArtistList();
 export const ListContext = React.createContext("");
 
 class ListProvider extends Component<any, any> {
@@ -14,18 +15,26 @@ class ListProvider extends Component<any, any> {
         super(props);
         this.state = {
             list: this.props.list,
-            name: "state is working"
         };
     }
 
+    handleSave = () => {
+
+        newList = this.state.list;
+        console.log(newList);
+    }
+
+
+
     render() {
-        console.log(this.state.list);
+        console.log(newList);
 
         return (
-            <ListContext.Provider value={this.state.list}>
-                {this.props.children}
-            </ListContext.Provider>
 
+            <div>
+
+
+            </div>
         );
     }
 }

@@ -12,12 +12,26 @@ import {
   Redirect
 } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import { ListItemText, List, ListItem } from "@material-ui/core";
+import { ListItemText, List, ListItem, Button } from "@material-ui/core";
 import View from "./pages/View";
 import ListProvider from "./components/ListProvider";
+import { listenerCount } from "cluster";
+import { ArtistList } from "./list/ArtistList";
+
+const list = new ArtistList();
 
 class App extends Component {
+  state = {
+    list: list,
+    name: "MAYBE"
+  }
+
+  myCallback = (dataFromChild) => {
+    this.setState({ list: dataFromChild })
+  }
+
   render() {
+    console.log(this.state.list)
     return (
       <Router>
         <div>
@@ -27,8 +41,8 @@ class App extends Component {
               <Redirect to="/" />
             </Route>
             <Route path="/Login" component={Login} />
-            <Route path="/Dashboard" component={Dashboard} />
-            <Route path="/Edit" component={Edit} />
+            <Route path="/Dashboard" render={(props) => <Dashboard {...props} list={this.state.list} />} />
+            <Route path="/Edit" render={(props) => <Edit {...props} callbackFromParent={this.myCallback} />} />
             <Route path="/View" component={View} />
           </Switch>
         </div>

@@ -47,18 +47,25 @@ const styles = (theme: Theme) =>
 let list = new ArtistList();
 let searchList = new ArtistList();
 
-class NestedList extends React.Component<WithStyles<typeof styles>> {
-  state = {
-    list: list,
-    searchList: searchList,
-    request: "",
-    response: null,
-    key: 0
-  };
+class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      list: list,
+      searchList: searchList,
+      request: "",
+      response: null,
+      key: 0,
+      name: this.props.data
+    };
+  }
+
 
   handleChange = (evt) => {
     this.setState({ request: evt.target.value });
   };
+
+
 
   handleRequest = (evt) => {
     evt.preventDefault();
@@ -70,8 +77,14 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
       searchList.add(todo)
     ));
     this.setState({ searchList: searchList.get(), request: "" });
+    this.handleQuery(searchList.view(0).name);
     console.log(searchList);
   };
+
+  handleQuery = (id) => {
+
+  };
+
 
   addToList = (item) => {
     const searchItem = searchList.view(0);
@@ -89,19 +102,25 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
     this.setState({ list: list });
   };
 
+  handleSave = () => {
+    this.props.callbackFromParent(list);
+
+  }
 
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <ListProvider list="edit is passing data" />
+
         <DashBar />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Grid container spacing={40}>
-            <Grid />
-            <Grid>
-              <form onSubmit={evt => this.handleRequest(evt)}>
+            <Grid
+              justify="center"
+              item sm={6} md={4} lg={4}
+            >
+              <form className={classes.formRoot} onSubmit={evt => this.handleRequest(evt)}>
                 <InputBase
                   classes={{
                     root: classes.inputRoot,
@@ -109,7 +128,7 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
                   }}
                   onChange={evt => this.handleChange(evt)}
                   value={this.state.request}
-                  placeholder="Search for for your music destination…"
+                  placeholder={"Search for for your music destination…"}
                 />
               </form>
               <Card>
@@ -132,7 +151,15 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
                   </List>
                 ))}
               </Card>
-              <Divider />
+            </Grid>
+            <Divider />
+            <Grid item sm={6} md={4} lg={3}></Grid>
+            <Grid item sm={6} md={4} lg={4}>
+              <Card>
+                <Button onClick={this.handleSave}>
+                  Save
+                </Button>
+              </Card>
               <Card>
                 {list.get().map((todo, index) => (
                   <List key={index}>
@@ -156,7 +183,7 @@ class NestedList extends React.Component<WithStyles<typeof styles>> {
             </Grid>
           </Grid>
         </main>
-      </div>
+      </div >
     );
   }
 }
