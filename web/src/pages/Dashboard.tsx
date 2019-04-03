@@ -37,29 +37,28 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
     console.log(context);
   };
 
-  myCallback = (dataFromChild) => {
-    console.log(dataFromChild);
-  };
 
   render() {
     const { classes } = this.props;
     return (
-      //<ListContext.Consumer >
-      //{(context) => (
-      // <React.Fragment>
+      <ListContext.Consumer >
+      {(context) => (
+        
+      <React.Fragment>
       <div className={this.props.classes.root}>
-        <ListProvider callbackFromParent={this.myCallback} />
         <DashBar />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
+
           <Typography variant="h4" gutterBottom component="h2" align="center">
+          {context}
           </Typography>
           <Divider />
         </main>
       </div>
-      //</React.Fragment>
-      //)}
-      //</ListContext.Consumer>
+      </React.Fragment>
+      )}
+      </ListContext.Consumer>
     );
   }
 }
