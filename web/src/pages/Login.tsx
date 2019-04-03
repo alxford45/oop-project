@@ -16,6 +16,16 @@ import Dashboard from "./Dashboard";
 import { Route, Link, NavLink } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { List, ListItem, ListItemText } from "@material-ui/core";
+import { gql } from "apollo-boost";
+
+const loginMutation = gql`
+  mutation LoginMutation($email: String!) {
+    login(email: $email) {
+      id
+      email
+    }
+  }
+`;
 
 class Login extends Component {
   handleSubmit = (event: { preventDefault: () => void }) => {
@@ -27,7 +37,7 @@ class Login extends Component {
       <main>
         <NavBar>
           <List>
-            {["Home", "Login",].map(value => (
+            {["Home", "Login"].map(value => (
               <ListItem button key={value}>
                 <NavLink to={value}>
                   <ListItemText primary={value} />
@@ -62,10 +72,15 @@ class Login extends Component {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Link to={"./Dashboard"} style={{ textDecoration: 'none' }}>
-              <Button type="submit" fullWidth variant="contained" color="primary">
+            <Link to={"./Dashboard"} style={{ textDecoration: "none" }}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
                 Sign in
-            </Button>
+              </Button>
             </Link>
           </form>
         </Paper>
