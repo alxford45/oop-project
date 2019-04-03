@@ -103,7 +103,7 @@ const styles = (theme: Theme) => createStyles({
 
 class Dashboard extends React.Component<WithStyles<typeof styles>> {
     state = {
-        open: true,
+        open: false,
     };
     handleDrawerOpen = () => {
         this.setState({ open: true });
