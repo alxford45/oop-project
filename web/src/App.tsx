@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Dashboard from "./pages/Dashboard";
-import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import {
@@ -14,6 +13,7 @@ import {
 import NavBar from "./components/NavBar";
 import { ListItemText, List, ListItem } from "@material-ui/core";
 import View from "./pages/View";
+import { Register } from "./pages/Register";
 
 class App extends Component {
   render() {
@@ -22,7 +22,7 @@ class App extends Component {
         <div>
           <NavBar>
             <List>
-              {["Home", "Login", "Dashboard",].map(value => (
+              {["Home", "Login", "Dashboard"].map(value => (
                 <ListItem button key={value}>
                   <NavLink to={value}>
                     <ListItemText primary={value} />
@@ -37,9 +37,16 @@ class App extends Component {
               <Redirect to="/" />
             </Route>
             <Route path="/Login" component={Login} />
-            <Route path="/Dashboard" component={Dashboard} />
-            <Route path="/Edit" component={Edit} />
-            <Route path="/View" component={View} />
+            <Route
+              path="/"
+              render={() => (
+                <div>
+                  <Route path="/Dashboard" component={Dashboard} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/View" component={View} />
+                </div>
+              )}
+            />
           </Switch>
         </div>
       </Router>
