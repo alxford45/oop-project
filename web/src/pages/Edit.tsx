@@ -23,7 +23,8 @@ import ListProvider from "../components/ListProvider";
 const styles = (theme: Theme) =>
   createStyles({
     root: {
-      display: "flex"
+      display: "flex",
+      background: 'linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)'
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {

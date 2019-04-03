@@ -13,7 +13,9 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Dashboard from "./Dashboard";
-import { Route } from "react-router-dom";
+import { Route, Link, NavLink } from "react-router-dom";
+import NavBar from "../components/NavBar";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 
 class Login extends Component {
   handleSubmit = (event: { preventDefault: () => void }) => {
@@ -23,6 +25,17 @@ class Login extends Component {
   render() {
     return (
       <main>
+        <NavBar>
+          <List>
+            {["Home", "Login",].map(value => (
+              <ListItem button key={value}>
+                <NavLink to={value}>
+                  <ListItemText primary={value} />
+                </NavLink>
+              </ListItem>
+            ))}
+          </List>
+        </NavBar>
         <CssBaseline />
         <Paper>
           <Avatar>
@@ -49,9 +62,11 @@ class Login extends Component {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button type="submit" fullWidth variant="contained" color="primary">
-              Sign in
+            <Link to={"./Dashboard"} style={{ textDecoration: 'none' }}>
+              <Button type="submit" fullWidth variant="contained" color="primary">
+                Sign in
             </Button>
+            </Link>
           </form>
         </Paper>
       </main>
