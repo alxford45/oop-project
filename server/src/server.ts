@@ -14,6 +14,7 @@ export const server = new ApolloServer({
   context: ({ req, res }: any) => {
     const client_id = process.env.CLIENT_ID;
     const client_secret = process.env.CLIENT_SECRET;
+    const songkick_key = process.env.SONGKICK_KEY;
 
     const authOptions = {
       method: "POST",
@@ -41,7 +42,7 @@ export const server = new ApolloServer({
         });
     };
     const token = getToken();
-    return { req, res, token };
+    return { req, res, token, songkick_key };
   },
 
   dataSources: () => {
