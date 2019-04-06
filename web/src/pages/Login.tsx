@@ -27,6 +27,7 @@ class Login extends React.PureComponent<RouteComponentProps<{}>> {
       <Mutation<LoginMutation, LoginMutationVariables>
         update={(cache, { data }) => {
           if (!data || !data.login) {
+            console.log("error! null data");
             return;
           }
 

@@ -47,24 +47,21 @@ class LoginForm extends Component<Props, State> {
           <form>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
               <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
+                id="email"
+                name="email"
+                autoComplete="email"
                 onChange={this.handleChange}
+                autoFocus
               />
             </FormControl>
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               color="primary"

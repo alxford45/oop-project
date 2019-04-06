@@ -14,6 +14,7 @@ import NavBar from "./components/NavBar";
 import { ListItemText, List, ListItem } from "@material-ui/core";
 import View from "./pages/View";
 import { Register } from "./pages/Register";
+import Test from "./pages/Test";
 
 class App extends Component {
   render() {
@@ -44,6 +45,7 @@ class App extends Component {
                   <Route path="/Dashboard" component={Dashboard} />
                   <Route path="/register" component={Register} />
                   <Route path="/View" component={View} />
+                  <Route path="/Test" component={Test} />
                 </div>
               )}
             />
