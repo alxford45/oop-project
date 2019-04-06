@@ -15,7 +15,6 @@ class Test extends Component {
       <Query query={searchQuery} variables={{ name }}>
         {({ loading, error, data }) => {
           if (loading) return <div>loading</div>;
-          console.log(data.search.artists.items);
           return (
             <ul>
               {data.search.artists.items.map(({ name, id }, index) => {

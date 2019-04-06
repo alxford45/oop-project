@@ -17,6 +17,7 @@ import View from "./pages/View";
 import ListProvider from "./components/ListProvider";
 import { listenerCount } from "cluster";
 import { ArtistList } from "./list/ArtistList";
+import Test from "./pages/Test";
 
 const list = new ArtistList();
 
@@ -44,6 +45,7 @@ class App extends Component {
             <Route path="/Dashboard" render={(props) => <Dashboard {...props} list={this.state.list} />} />
             <Route path="/Edit" render={(props) => <Edit {...props} callbackFromParent={this.myCallback} />} />
             <Route path="/View" component={View} />
+            <Route path="/Test" component={Test} />
           </Switch>
         </div>
       </Router>
