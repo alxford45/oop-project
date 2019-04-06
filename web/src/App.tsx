@@ -20,15 +20,22 @@ import { ArtistList } from "./list/ArtistList";
 import Test from "./pages/Test";
 
 const list = new ArtistList();
+const SearchList = new ArtistList();
 
 class App extends Component {
   state = {
     list: list,
+    searchList: SearchList,
     name: "MAYBE"
   }
 
   myCallback = (dataFromChild) => {
     this.setState({ list: dataFromChild })
+
+  }
+
+  myOtherCallback = (data) => {
+    this.setState({ searchList: data });
   }
 
   render() {
@@ -42,10 +49,10 @@ class App extends Component {
               <Redirect to="/" />
             </Route>
             <Route path="/Login" component={Login} />
-            <Route path="/Dashboard" render={(props) => <Dashboard {...props} list={this.state.list} />} />
-            <Route path="/Edit" render={(props) => <Edit {...props} callbackFromParent={this.myCallback} />} />
+            <Route path="/Dashboard" render={(props) => <Dashboard {...props} list={this.state.searchList} />} />
+            <Route path="/Edit" render={(props) => <Edit {...props} callback={this.myOtherCallback} />} />
             <Route path="/View" component={View} />
-            <Route path="/Test" component={Test} />
+            <Route path="/Test" render={(props) => <Test {...props} callback={this.myOtherCallback} />} />
           </Switch>
         </div>
       </Router>

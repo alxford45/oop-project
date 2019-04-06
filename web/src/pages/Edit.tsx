@@ -1,4 +1,6 @@
 import React, { Props, Component } from "react";
+import { Query } from "react-apollo";
+import { searchQuery } from "../graphql/searchQuery";
 import DashBar from "../components/DashBar";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -18,6 +20,7 @@ import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { ArtistList } from "../list/ArtistList";
 import ListProvider from "../components/ListProvider";
+import Test from "./Test";
 //const ListProvider = require('../components/ListProvider');
 
 const styles = (theme: Theme) =>
@@ -51,47 +54,72 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
     super(props);
     this.state = {
-      list: list,
-      searchList: searchList,
-      request: "",
-      response: null,
-      key: 0,
-      name: this.props.data
+      search: "",
+      name: "pitbull",
+      list: list
     };
   }
 
 
-  handleChange = (evt) => {
-    this.setState({ request: evt.target.value });
+  handleChange = (e) => {
+    console.log("changing");
+    this.setState({ search: e.target.value });
   };
 
 
-
-  handleRequest = (evt) => {
-    evt.preventDefault();
-    searchList.remove(0);
-    const objArray = [
-      { key: this.state.key, name: this.state.request, id: this.state.response, icon: <Avatar /> },
-    ]
-    objArray.map((todo) => (
-      searchList.add(todo)
-    ));
-    this.setState({ searchList: searchList.get(), request: "" });
-    this.handleQuery(searchList.view(0).name);
-    console.log(searchList);
+  handleRequest = (e) => {
+    e.preventDefault();
+    console.log("submitted");
+    this.setState({ name: this.state.search });
   };
 
-  handleQuery = (id) => {
-
+  get = ({ name }) => {
+    return (
+      <Query query={searchQuery} variables={{ name }}>
+        {({ loading, error, data }) => {
+          if (loading) return <div>loading</div>;
+          console.log(data.search.artists.items);
+          return (
+            <Card>
+              {data.search.artists.items.map(({ name, id }, index) => {
+                return (
+                  <List key={index}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <Avatar />
+                      </ListItemIcon>
+                      <ListItemText inset primary={name} />
+                      <Card>
+                        <Button onClick={() => this.addToList(name, id)}>
+                          add
+                        </Button>
+                      </Card>
+                      <Card>
+                        <Link to={"./View"} style={{ textDecoration: "none" }}>
+                          <Button>view</Button>
+                        </Link>
+                      </Card>
+                    </ListItem>
+                  </List>
+                );
+              })}
+            </Card>
+          );
+        }}
+      </Query>
+    );
   };
 
-
-  addToList = (item) => {
-    const searchItem = searchList.view(0);
-    list.add(searchItem);
+  addToList = (name, id) => {
+    const Artist = {
+      key: 0,
+      name: name,
+      id: id,
+      icon: < Avatar />
+    }
+    list.add(Artist);
     this.setState({ list: list });
-    this.setState({ key: this.state.key + 1 });
-    console.log(item.key);
+    console.log("adding to list")
   };
 
   deleteFromList = (item) => {
@@ -103,57 +131,31 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
   };
 
   handleSave = () => {
-    this.props.callbackFromParent(list);
-
+    this.props.callback(list);
   }
 
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-
         <DashBar />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Grid container spacing={40}>
-            <Grid
-              justify="center"
-              item sm={6} md={4} lg={4}
-            >
-              <form className={classes.formRoot} onSubmit={evt => this.handleRequest(evt)}>
+            <Grid item sm={6} md={4} lg={4}>
+              <form onSubmit={evt => this.handleRequest(evt)}>
                 <InputBase
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput
-                  }}
                   onChange={evt => this.handleChange(evt)}
                   value={this.state.request}
                   placeholder={"Search for for your music destination…"}
                 />
               </form>
-              <Card>
-                {searchList.get().map((todo) => (
-                  <List key={todo.key}>
-                    <ListItem>
-                      <ListItemIcon>{todo.icon}</ListItemIcon>
-                      <ListItemText inset primary={todo.name} />
-                      <Card>
-                        <Button onClick={() => this.addToList(todo)}>
-                          add
-                        </Button>
-                      </Card>
-                      <Card>
-                        <Link to={"./View"} style={{ textDecoration: "none" }}>
-                          <Button>view</Button>
-                        </Link>
-                      </Card>
-                    </ListItem>
-                  </List>
-                ))}
-              </Card>
+              <div>{this.get({ name: this.state.name })}</div>
             </Grid>
             <Divider />
-            <Grid item sm={6} md={4} lg={3}></Grid>
+            <Grid item sm={6} md={4} lg={3}>
+
+            </Grid>
             <Grid item sm={6} md={4} lg={4}>
               <Card>
                 <Button onClick={this.handleSave}>
