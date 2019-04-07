@@ -7,7 +7,7 @@
   "database": "musicmap",
   "synchronize": true,
   "logging": false,
-  "entities": ["entity/**/*.ts"],
+  "entities": ["src/entity/**/*.ts"],
   "cli": {
     "entitiesDir": "./entity"
   }

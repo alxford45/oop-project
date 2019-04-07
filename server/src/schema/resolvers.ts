@@ -5,6 +5,10 @@ export const resolvers: IResolvers = {
   Query: {
     search: async (_, { name }, { dataSources }) =>
       await dataSources.searchAPI.getArtistsByName(name),
+    artistSearch: async (_, { name }, { dataSources }) =>
+      await dataSources.songkickSearchAPI.getArtistByName(name),
+    eventSearch: async (_, { id }, { dataSources }) =>
+      await dataSources.songkickSearchAPI.getEventsByArtistId(id),
     artist: async (_, { id }, { dataSources }) =>
       await dataSources.artistAPI.getArtistById(id),
     relatedArtists: async (_, { id }, { dataSources }) =>
