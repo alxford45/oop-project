@@ -18,28 +18,30 @@ import ListProvider from "./components/ListProvider";
 import { listenerCount } from "cluster";
 import { ArtistList } from "./list/ArtistList";
 import Test from "./pages/Test";
+import { BigList } from "./list/BigList";
 
 const list = new ArtistList();
-const SearchList = new ArtistList();
+const bigList = new BigList();
 
 class App extends Component {
   state = {
+    bigList: bigList,
     list: list,
-    searchList: SearchList,
-    name: "MAYBE"
+    name: "MAYBE",
   }
 
-  myCallback = (dataFromChild) => {
-    this.setState({ list: dataFromChild })
-
-  }
 
   myOtherCallback = (data) => {
-    this.setState({ searchList: data });
+    this.setState({ list: data })
+    this.addToBigList();
+  }
+
+  addToBigList = () => {
+    console.log(bigList);
+    bigList.add(this.state.list);
   }
 
   render() {
-    console.log(this.state.list)
     return (
       <Router>
         <div>
@@ -49,7 +51,7 @@ class App extends Component {
               <Redirect to="/" />
             </Route>
             <Route path="/Login" component={Login} />
-            <Route path="/Dashboard" render={(props) => <Dashboard {...props} list={this.state.searchList} />} />
+            <Route path="/Dashboard" render={(props) => <Dashboard {...props} bigList={bigList} />} />
             <Route path="/Edit" render={(props) => <Edit {...props} callback={this.myOtherCallback} />} />
             <Route path="/View" component={View} />
             <Route path="/Test" render={(props) => <Test {...props} callback={this.myOtherCallback} />} />

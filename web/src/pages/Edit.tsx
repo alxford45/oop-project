@@ -1,3 +1,4 @@
+
 import React, { Props, Component } from "react";
 import { Query } from "react-apollo";
 import { searchQuery } from "../graphql/searchQuery";
@@ -55,7 +56,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     super(props);
     this.state = {
       search: "",
-      name: "pitbull",
+      name: "",
       list: list
     };
   }

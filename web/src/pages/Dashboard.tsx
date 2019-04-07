@@ -27,30 +27,38 @@ const styles = (theme: Theme) =>
     }
   });
 
-let bigList = new ArtistList();
 
 class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
 
   constructor(props: any) {
     super(props);
     this.state = {
-      list: this.props.list,
+      bigList: this.props.bigList,
     };
   }
 
-  loadDash = () => {
-    bigList.add(this.state.list);
-    console.log(this.state.list);
-
+  printList = (item) => {
+    return (
+      <Card>
+        {item.get().map((artist, index) => {
+          return (
+            <List key={index}>
+              <ListItem>
+                <ListItemIcon>{artist.icon}</ListItemIcon>
+                <ListItemText inset primary={artist.name} />
+              </ListItem>
+            </List>
+          );
+        })}
+      </Card>
+    );
   };
 
 
   render() {
-    console.log(this.state.list);
     const { classes } = this.props;
     return (
       <div className={this.props.classes.root}>
-        {this.loadDash}
         <DashBar />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -61,16 +69,10 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
           </Typography>
           <Divider />
           <Card>
-            {this.state.list.get().map((todo, index) => (
-
-              <List key={index}>
-                <ListItem>
-                  <ListItemIcon>{todo.icon}</ListItemIcon>
-                  <ListItemText inset primary={todo.name} />
-                </ListItem>
-              </List>
-
-
+            {this.state.bigList.get().map((item, index) => (
+              <div key={index}>
+                {this.printList(item)}
+              </div>
             ))}
           </Card>
         </main>
