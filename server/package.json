@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "tsc -p .",
-    "start": "fuser -k 8000/tcp && nodemon --exec ts-node src/index.ts --delay 1500ms"
+    "start": "nodemon --exec ts-node src/index.ts --delay 1500ms"
   },
   "repository": {
     "type": "git",
