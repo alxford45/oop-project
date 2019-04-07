@@ -11,6 +11,7 @@ import DashBar from "../components/DashBar";
 import ListProvider, { ListContext } from "../components/ListProvider";
 import { ArtistList } from "../list/ArtistList";
 import { Card, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { BigList } from "../list/BigList";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -27,6 +28,7 @@ const styles = (theme: Theme) =>
     }
   });
 
+const dashList = new BigList();
 
 class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
 

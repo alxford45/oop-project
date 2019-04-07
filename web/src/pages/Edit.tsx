@@ -75,39 +75,41 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
   };
 
   get = ({ name }) => {
+
     return (
-      <Query query={searchQuery} variables={{ name }}>
-        {({ loading, error, data }) => {
-          if (loading) return <div>loading</div>;
-          console.log(data.search.artists.items);
-          return (
-            <Card>
-              {data.search.artists.items.map(({ name, id }, index) => {
-                return (
-                  <List key={index}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <Avatar />
-                      </ListItemIcon>
-                      <ListItemText inset primary={name} />
-                      <Card>
-                        <Button onClick={() => this.addToList(name, id)}>
-                          add
+      this.state.name == "" ? null :
+        <Query query={searchQuery} variables={{ name }}>
+          {({ loading, error, data }) => {
+            if (loading) return <div>loading</div>;
+            console.log(data.search.artists.items);
+            return (
+              <Card>
+                {data.search.artists.items.map(({ name, id }, index) => {
+                  return (
+                    <List key={index}>
+                      <ListItem>
+                        <ListItemIcon>
+                          <Avatar />
+                        </ListItemIcon>
+                        <ListItemText inset primary={name} />
+                        <Card>
+                          <Button onClick={() => this.addToList(name, id)}>
+                            add
                         </Button>
-                      </Card>
-                      <Card>
-                        <Link to={"./View"} style={{ textDecoration: "none" }}>
-                          <Button>view</Button>
-                        </Link>
-                      </Card>
-                    </ListItem>
-                  </List>
-                );
-              })}
-            </Card>
-          );
-        }}
-      </Query>
+                        </Card>
+                        <Card>
+                          <Link to={"./View"} style={{ textDecoration: "none" }}>
+                            <Button>view</Button>
+                          </Link>
+                        </Card>
+                      </ListItem>
+                    </List>
+                  );
+                })}
+              </Card>
+            );
+          }}
+        </Query>
     );
   };
 
