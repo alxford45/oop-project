@@ -200,6 +200,15 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                             </ListItem>
                         </Link>
                         <Divider />
+                        <Link to={"./Test"} style={{ textDecoration: 'none' }}>
+                            <ListItem button>
+                                <ListItemIcon>
+                                    <ImageIcon />
+                                </ListItemIcon>
+                                <ListItemText inset primary="Test" />
+                            </ListItem>
+                        </Link>
+                        <Divider />
                     </List>
                     <List />
                 </Drawer>

@@ -47,7 +47,6 @@ const styles = (theme: Theme) => createStyles({
       marginLeft: 'auto',
       marginRight: 'auto',
     },
-    background: 'linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)'
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
