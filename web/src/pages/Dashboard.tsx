@@ -10,8 +10,9 @@ import Divider from "@material-ui/core/Divider";
 import DashBar from "../components/DashBar";
 import ListProvider, { ListContext } from "../components/ListProvider";
 import { ArtistList } from "../list/ArtistList";
-import { Card, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab } from "@material-ui/core";
 import { BigList } from "../list/BigList";
+import { Link } from "react-router-dom";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -39,21 +40,8 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
     };
   }
 
-  printList = (item) => {
-    return (
-      <Card>
-        {item.get().map((artist, index) => {
-          return (
-            <List key={index}>
-              <ListItem>
-                <ListItemIcon>{artist.icon}</ListItemIcon>
-                <ListItemText inset primary={artist.name} />
-              </ListItem>
-            </List>
-          );
-        })}
-      </Card>
-    );
+  createList = () => {
+
   };
 
 
@@ -64,19 +52,37 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
         <DashBar />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
-
-
           <Typography variant="h4" gutterBottom component="h2" align="center">
             Your Personal Music Maps
           </Typography>
           <Divider />
-          <Card>
+          <Grid container spacing={40} >
             {this.state.bigList.get().map((item, index) => (
-              <div key={index}>
-                {this.printList(item)}
-              </div>
+              <Grid key={index} item sm={6} md={4} lg={4}>
+                {this.props.title}
+                <Card>
+                  {item.getTitle()}
+                  {item.get().map((artist, index) => {
+                    return (
+                      <List key={index} >
+                        <ListItem>
+                          <ListItemIcon>{artist.icon}</ListItemIcon>
+                          <ListItemText inset primary={artist.name} />
+                        </ListItem>
+                      </List>
+                    );
+                  })}
+                </Card>
+              </Grid>
             ))}
-          </Card>
+            <Grid item sm={6} md={4} lg={4}>
+              <Link to={"./Edit"} style={{ textDecoration: "none" }}>
+                <Fab >
+                  NEW
+              </Fab>
+              </Link>
+            </Grid>
+          </Grid>
         </main>
       </div>
     );
