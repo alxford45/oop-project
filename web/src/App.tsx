@@ -27,19 +27,12 @@ class App extends Component {
   state = {
     bigList: bigList,
     list: list,
-    name: "MAYBE",
-  }
+    name: "MAYBE"
+  };
 
-
-  myOtherCallback = (data) => {
-    this.setState({ list: data })
-    this.addToBigList();
-  }
-
-  addToBigList = () => {
-    console.log(bigList);
-    bigList.add(this.state.list);
-  }
+  myOtherCallback = data => {
+    bigList.add(data);
+  };
 
   render() {
     return (
@@ -51,10 +44,23 @@ class App extends Component {
               <Redirect to="/" />
             </Route>
             <Route path="/Login" component={Login} />
-            <Route path="/Dashboard" render={(props) => <Dashboard {...props} bigList={bigList} />} />
-            <Route path="/Edit" render={(props) => <Edit {...props} callback={this.myOtherCallback} />} />
+            <Route
+              path="/Dashboard"
+              render={props => <Dashboard {...props} bigList={bigList} />}
+            />
+            <Route
+              path="/Edit"
+              render={props => (
+                <Edit {...props} callback={this.myOtherCallback} />
+              )}
+            />
             <Route path="/View" component={View} />
-            <Route path="/Test" render={(props) => <Test {...props} callback={this.myOtherCallback} />} />
+            <Route
+              path="/Test"
+              render={props => (
+                <Test {...props} callback={this.myOtherCallback} />
+              )}
+            />
           </Switch>
         </div>
       </Router>

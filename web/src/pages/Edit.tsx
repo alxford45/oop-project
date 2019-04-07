@@ -1,4 +1,3 @@
-
 import React, { Props, Component } from "react";
 import { Query } from "react-apollo";
 import { searchQuery } from "../graphql/searchQuery";
@@ -28,7 +27,8 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      background: 'linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)'
+      background:
+        "linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)"
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -61,55 +61,51 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     };
   }
 
-
-  handleChange = (e) => {
+  handleChange = e => {
     console.log("changing");
     this.setState({ search: e.target.value });
   };
 
-
-  handleRequest = (e) => {
+  handleRequest = e => {
     e.preventDefault();
     console.log("submitted");
     this.setState({ name: this.state.search });
   };
 
   get = ({ name }) => {
-
-    return (
-      this.state.name == "" ? null :
-        <Query query={searchQuery} variables={{ name }}>
-          {({ loading, error, data }) => {
-            if (loading) return <div>loading</div>;
-            console.log(data.search.artists.items);
-            return (
-              <Card>
-                {data.search.artists.items.map(({ name, id }, index) => {
-                  return (
-                    <List key={index}>
-                      <ListItem>
-                        <ListItemIcon>
-                          <Avatar />
-                        </ListItemIcon>
-                        <ListItemText inset primary={name} />
-                        <Card>
-                          <Button onClick={() => this.addToList(name, id)}>
-                            add
+    return this.state.name == "" ? null : (
+      <Query query={searchQuery} variables={{ name }}>
+        {({ loading, error, data }) => {
+          if (loading) return <div>loading</div>;
+          console.log(data.search.artists.items);
+          return (
+            <Card>
+              {data.search.artists.items.map(({ name, id }, index) => {
+                return (
+                  <List key={index}>
+                    <ListItem>
+                      <ListItemIcon>
+                        <Avatar />
+                      </ListItemIcon>
+                      <ListItemText inset primary={name} />
+                      <Card>
+                        <Button onClick={() => this.addToList(name, id)}>
+                          add
                         </Button>
-                        </Card>
-                        <Card>
-                          <Link to={"./View"} style={{ textDecoration: "none" }}>
-                            <Button>view</Button>
-                          </Link>
-                        </Card>
-                      </ListItem>
-                    </List>
-                  );
-                })}
-              </Card>
-            );
-          }}
-        </Query>
+                      </Card>
+                      <Card>
+                        <Link to={"./View"} style={{ textDecoration: "none" }}>
+                          <Button>view</Button>
+                        </Link>
+                      </Card>
+                    </ListItem>
+                  </List>
+                );
+              })}
+            </Card>
+          );
+        }}
+      </Query>
     );
   };
 
@@ -118,24 +114,28 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       key: 0,
       name: name,
       id: id,
-      icon: < Avatar />
-    }
+      icon: <Avatar />
+    };
     list.add(Artist);
     this.setState({ list: list });
-    console.log("adding to list")
+    console.log("adding to list");
   };
 
-  deleteFromList = (item) => {
+  deleteFromList = item => {
     list.remove(item.key);
-    list.get().map((todo, index) =>
-      todo.key = index,
-    );
+    list.get().map((todo, index) => (todo.key = index));
     this.setState({ list: list });
   };
 
   handleSave = () => {
+    if (list.state.size == 0) {
+      return alert("You must add an Artist first!");
+    }
+    console.log("added artist");
     this.props.callback(list);
-  }
+    list = new ArtistList();
+    this.setState({ list: list });
+  };
 
   render() {
     const { classes } = this.props;
@@ -156,14 +156,10 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
               <div>{this.get({ name: this.state.name })}</div>
             </Grid>
             <Divider />
-            <Grid item sm={6} md={4} lg={3}>
-
-            </Grid>
+            <Grid item sm={6} md={4} lg={3} />
             <Grid item sm={6} md={4} lg={4}>
               <Card>
-                <Button onClick={this.handleSave}>
-                  Save
-                </Button>
+                <Button onClick={this.handleSave}>Save</Button>
               </Card>
               <Card>
                 {list.get().map((todo, index) => (
@@ -188,7 +184,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
             </Grid>
           </Grid>
         </main>
-      </div >
+      </div>
     );
   }
 }
