@@ -1,98 +1,74 @@
-import { gql } from "apollo-boost";
 import React, { Component } from "react";
+import { eventQuery } from "../graphql/eventQuery";
 import { Query } from "react-apollo";
-import { searchQuery } from "../graphql/searchQuery";
-import DashBar from "../components/DashBar";
-import { InputBase, List, ListItem, ListItemIcon, ListItemText, Card, Button, Avatar, } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { ArtistList } from "../list/ArtistList";
 
-const list = new ArtistList();
-
-class Test extends Component<any, any>{
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      search: "",
-      name: "pitbull",
-    };
-  }
-
-  handleChange = (e) => {
-    console.log("changing");
-    this.setState({ search: e.target.value });
-  };
-
-  handleRequest = (e) => {
-    e.preventDefault();
-    console.log("submitted");
-    this.setState({ name: this.state.search });
-  };
-
-  addToList = (name, id) => {
-    const Artist = {
-      key: 0,
-      name: name,
-      id: id,
-      icon: < Avatar />
-    }
-    list.add(Artist);
-    console.log("adding to list")
-  };
-
-  get = ({ name }) => {
-
+export class Test extends Component {
+  state = {};
+  get = id => {
     return (
-      <Query query={searchQuery} variables={{ name }}>
+      <Query query={eventQuery} variables={{ id }}>
         {({ loading, error, data }) => {
           if (loading) return <div>loading</div>;
-          console.log(data.search.artists.items);
+          console.log(data);
           return (
-            <Card>
-              {data.search.artists.items.map(({ name, id }, index) => {
-                return (
-                  <List key={index}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <Avatar />
-                      </ListItemIcon>
-                      <ListItemText inset primary={name} />
-                      <Card>
-                        <Button onClick={() => this.addToList(name, id)}>
-                          add
-                        </Button>
-                      </Card>
-                      <Card>
-                        <Link to={"./View"} style={{ textDecoration: "none" }}>
-                          <Button>view</Button>
-                        </Link>
-                      </Card>
-                    </ListItem>
-                  </List>
-                );
-              })}
-            </Card>
+            <ul>
+              {data.eventSearch.resultsPage.results.event.map(
+                (
+                  {
+                    id,
+                    displayName,
+                    uri,
+                    location,
+                    type,
+                    venue,
+                    start,
+                    performance
+                  },
+                  index
+                ) => {
+                  return (
+                    <li key={index}>
+                      <div>
+                        <strong>name</strong>: {displayName}
+                        <br />
+                        <strong>id</strong>: {id}
+                        <br />
+                        <strong>uri</strong>: {uri}
+                        <br />
+                        <strong>location</strong>: {location.city}
+                        <br />
+                        <strong>type</strong>: {type}
+                        <br />
+                        <strong>venue</strong>: {venue.displayName}
+                        <br />
+                        <strong>start</strong>: {start.date}
+                        <br />
+                        <strong>performers</strong>:
+                        <ul style={{ listStyle: "none", position: "sticky" }}>
+                          {performance.map((e, index) => {
+                            return (
+                              <li key={index} style={{ float: "left" }}>
+                                {e.artist.displayName}
+                                <span style={{ marginRight: "20px" }} />
+                              </li>
+                            );
+                          })}
+                        </ul>
+                        <br />
+                        <br />
+                      </div>
+                    </li>
+                  );
+                }
+              )}
+            </ul>
           );
         }}
       </Query>
     );
   };
   render() {
-    return (
-
-      <div>
-        <DashBar />
-        <form onSubmit={evt => this.handleRequest(evt)}>
-          <InputBase
-            onChange={evt => this.handleChange(evt)}
-            value={this.state.request}
-            placeholder={"Search for for your music destination…"}
-          />
-        </form>
-        <button>Search</button>
-        <div>{this.get({ name: this.state.name })}</div>
-      </div>
-    );
+    return <div>{this.get(660883)}</div>;
   }
 }
 export default Test;

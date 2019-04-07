@@ -55,12 +55,7 @@ class App extends Component {
               )}
             />
             <Route path="/View" component={View} />
-            <Route
-              path="/Test"
-              render={props => (
-                <Test {...props} callback={this.myOtherCallback} />
-              )}
-            />
+            <Route path="/Test" component={Test} />
           </Switch>
         </div>
       </Router>
