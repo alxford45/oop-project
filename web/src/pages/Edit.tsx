@@ -12,7 +12,13 @@ import {
   Divider,
   Grid,
   InputBase,
-  List
+  List,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  TextField,
+  DialogActions,
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -49,7 +55,7 @@ const styles = (theme: Theme) =>
   });
 
 let list = new ArtistList();
-let searchList = new ArtistList();
+let title = "";
 
 class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
@@ -57,13 +63,19 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     this.state = {
       search: "",
       name: "",
-      list: list
+      list: list,
+      open: true,
+      title: "",
     };
   }
 
   handleChange = e => {
     console.log("changing");
     this.setState({ search: e.target.value });
+  };
+
+  handleTitleChange = e => {
+    this.setState({ title: e.target.value });
   };
 
   handleRequest = e => {
@@ -127,11 +139,22 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     this.setState({ list: list });
   };
 
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+
+
   handleSave = () => {
     if (list.state.size == 0) {
       return alert("You must add an Artist first!");
     }
     console.log("added artist");
+    list.setTitle(this.state.title);
     this.props.callback(list);
     list = new ArtistList();
     this.setState({ list: list });
@@ -142,6 +165,30 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     return (
       <div className={classes.root}>
         <DashBar />
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
+          <DialogContent>
+            <form >
+              <InputBase
+                autoFocus
+                margin="dense"
+                id="name"
+                fullWidth
+                onChange={evt => this.handleTitleChange(evt)}
+                value={this.state.title}
+              />
+            </form>
+          </DialogContent>
+          <DialogActions >
+            <Button onClick={this.handleClose} color="primary">
+              Create List
+            </Button>
+          </DialogActions>
+        </Dialog>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Grid container spacing={40}>
@@ -159,7 +206,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
             <Grid item sm={6} md={4} lg={3} />
             <Grid item sm={6} md={4} lg={4}>
               <Card>
-                <Button onClick={this.handleSave}>Save</Button>
+                <Button onClick={this.handleSave}>Save {this.state.title}</Button>
               </Card>
               <Card>
                 {list.get().map((todo, index) => (

@@ -5,11 +5,13 @@ export class ArtistList implements ListInterface {
   state: {
     size: number;
     data: Artist[];
+    title: string;
   };
   constructor() {
     this.state = {
       size: 0,
-      data: []
+      data: [],
+      title: "",
     };
   }
   add(artist) {
@@ -22,6 +24,12 @@ export class ArtistList implements ListInterface {
   }
   get() {
     return this.state.data;
+  }
+  setTitle(name) {
+    this.state.title = name;
+  }
+  getTitle() {
+    return this.state.title;
   }
   view(index) {
     return this.state.data[index];
