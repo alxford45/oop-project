@@ -109,7 +109,11 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
 
                       <ListItemText inset primary={name} />
                       <Card>
-                        <Button onClick={() => this.addToList(name, id)}>
+                        <Button
+                          onClick={() =>
+                            this.addToList(name, id, images[0].url)
+                          }
+                        >
                           add
                         </Button>
                       </Card>
@@ -129,12 +133,12 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     );
   };
 
-  addToList = (name, id) => {
+  addToList = (name, id, icon) => {
     const Artist = {
       key: 0,
       name: name,
       id: id,
-      icon: <Avatar />
+      icon: <Avatar src={icon} />
     };
     list.add(Artist);
     this.setState({ list: list });
@@ -170,7 +174,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       <div className={classes.root}>
         <DashBar />
         <Dialog
-          open={!this.state.open} //{this.state.open}
+          open={this.state.open} //{this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
