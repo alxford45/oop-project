@@ -11,5 +11,6 @@ export const typeDef = gql`
   type Item {
     id: ID!
     name: String!
+    images: [Image!]
   }
 `;

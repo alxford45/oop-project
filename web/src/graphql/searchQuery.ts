@@ -13,6 +13,14 @@ export const searchQuery = gql`
     items {
       id
       name
+      ...ImagesFragment
+    }
+  }
+  fragment ImagesFragment on Item {
+    images {
+      height
+      width
+      url
     }
   }
 `;
