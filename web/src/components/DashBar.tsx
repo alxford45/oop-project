@@ -28,7 +28,8 @@ const styles = (theme: Theme) => createStyles({
         display: "flex"
     },
     toolbar: {
-        paddingRight: 24 // keep right padding when drawer closed
+        paddingRight: 24, // keep right padding when drawer closed
+        background: "linear-gradient(45deg, #0d47a1 30%, #1e88e5 70%, #42a5f5 90%)"
     },
     toolbarIcon: {
         display: "flex",
@@ -139,14 +140,9 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            className={classes.title}
-                        >
-                        </Typography>
+                        <Typography variant="h6" color="inherit">
+                            Music Map
+            </Typography>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -212,6 +208,7 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                     </List>
                     <List />
                 </Drawer>
+
             </div>
         );
     }

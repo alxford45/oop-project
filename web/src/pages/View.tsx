@@ -6,7 +6,10 @@ import {
   withStyles,
   Grid,
   Avatar,
-  Typography
+  Typography,
+  Tabs,
+  Tab,
+  Card
 } from "@material-ui/core";
 import DashBar from "../components/DashBar";
 import Calendar from "../components/Calendar";
@@ -42,13 +45,15 @@ const styles = (theme: Theme) =>
     }
   });
 
+
 let event = new EventList();
 
 class View extends Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
     super(props);
     this.state = {
-      list: this.props.list
+      list: this.props.list,
+      value: 0,
     };
   }
 
@@ -108,20 +113,23 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
         <main className={classes.content}>
           {this.get(660883)}
           <div className={classes.appBarSpacer} />
+          {this.state.value === 0}
+          {this.state.value === 1}
           <Grid container spacing={40}>
             <Grid item sm={6} md={4} lg={4} >
-
-              <Typography  className={classes.text}>
-                {this.state.list.get().map((item) => (
-                  <div className={classes.bigAvatar}>
-                    <Avatar className={classes.bigAvatar} src={item.icon} />
-                    {item.name}
+              {this.state.list.get().map((item) => (
+                <div>
+                  <div>
+                    <Typography className={classes.text} component="h5" variant="h5">
+                      {item.name}
+                    </Typography>
                   </div>
-                ))}
-              </Typography>
+                  <Avatar className={classes.bigAvatar} src={item.icon} />
+                </div>
+              ))}
             </Grid  >
             <Grid item sm={12} md={8} lg={8}>
-              <Calendar event={event} />
+              <Calendar event={event} list={this.state.list} />
             </Grid>
           </Grid>
         </main>
