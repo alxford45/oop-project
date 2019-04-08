@@ -3,6 +3,7 @@ import dateFns from "date-fns";
 import { createStyles, Theme, withStyles, Button, DialogTitle, Dialog, MenuItem, Menu, DialogContent, DialogActions } from "@material-ui/core";
 import "./Calendar.css";
 import { EventList } from "../list/EventList";
+import { Link } from "react-router-dom";
 
 let event = new EventList();
 
@@ -151,12 +152,12 @@ class Calendar extends React.Component<any, any>{
                 days.push(
                     <div
                         className={`col cell`}
-                        onClick={() => this.onDateClick(splitDate[2])}
+
                         key={cloneDay.toString()}
                     >
                         <span className="number">
                             {this.state.event.get().map((item, index) => (
-                                item.day == splitDate[2] && item.months == splitDate[1] ? <Button >{item.name}</Button> : null
+                                item.day == splitDate[2] && item.months == splitDate[1] ? <Button onClick={() => this.onDateClick(splitDate[2], item)}>{item.name}</Button> : null
                             ))}
                             {formattedDate}
                         </span>
@@ -175,12 +176,12 @@ class Calendar extends React.Component<any, any>{
         return <div className="body">{rows}</div>;
     }
 
-    onDateClick = (date) => {
+    onDateClick = (date, item) => {
+        if (date == item.day) {
+            this.setState({ details: item })
+        }
         this.setState({ open: true });
-        let emptyEvent = {};
-        event.get().map((item, index) => (
-            item.day == date ? this.setState({ details: item }) : this.setState({ details: emptyEvent })
-        ))
+
     };
 
     handleClose = () => {
@@ -200,6 +201,7 @@ class Calendar extends React.Component<any, any>{
         });
     };
 
+
     render() {
         return (
             <div className="calendar">
@@ -212,15 +214,14 @@ class Calendar extends React.Component<any, any>{
                     onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
-                    <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
+                    <DialogTitle id="form-dialog-title">{this.state.details.type}</DialogTitle>
                     <DialogContent>
                         {this.state.details.name}
+                        <div />
+                        <Link to={this.state.details.uri} style={{ textDecoration: "none" }}>
+                            {this.state.details.uri}
+                        </Link>
                     </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Create List
-                        </Button>
-                    </DialogActions>
                 </Dialog>
                 {this.renderHeader()}
                 {this.renderDays()}
