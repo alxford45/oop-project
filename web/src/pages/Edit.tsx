@@ -170,7 +170,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       <div className={classes.root}>
         <DashBar />
         <Dialog
-          open={!this.state.open} //{this.state.open}
+          open={this.state.open} //{this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >

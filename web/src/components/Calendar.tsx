@@ -1,8 +1,10 @@
 import React from "react";
 import dateFns from "date-fns";
-import { createStyles, Theme, withStyles, Button } from "@material-ui/core";
+import { createStyles, Theme, withStyles, Button, DialogTitle, Dialog, MenuItem, Menu } from "@material-ui/core";
 import "./Calendar.css";
+import { EventList } from "../list/EventList";
 
+let event = new EventList();
 
 class Calendar extends React.Component<any, any>{
 
@@ -11,26 +13,39 @@ class Calendar extends React.Component<any, any>{
         this.state = {
             currentMonth: new Date(),
             selectedDate: new Date(),
-            name: this.props.name,
-            start: this.props.start,
+            event: this.props.event,
+            open: true,
         };
     }
 
     logProps = () => {
-        console.log(this.state.name);
-        console.log(this.state.start);
         var dates = [""];
-        var pieces = "";
-        this.state.start.map((element) => {
+        var eventDates = ["01-02-03"];
+        this.state.event.get().map((item, index) => (
+            eventDates.push(item.day)
+        ))
+        eventDates.map((element) => {
             let pieces = element.split("-");
-            console.log(dates);
-            console.log(pieces);
-            dates.push(pieces);
-
-
+            let part = pieces[2].split("");
+            if (part[0] == "0") {
+                dates.push(part[1]);
+            }
+            else {
+                dates.push(pieces[2]);
+            }
         });
-        console.log(dates);
+        dates.splice(0, 2);
+        let newEvent = {};
+        this.state.event.get().map((display, index) => (
+            newEvent = {
+                name: display.name,
+                day: dates[index]
+            },
+            event.add(newEvent)
+        ))
+        this.setState({ open: false });
     }
+
 
     renderHeader() {
         const dateFormat = "MMMM YYYY";
@@ -42,8 +57,10 @@ class Calendar extends React.Component<any, any>{
                         chevron_left
           </div>
                 </div>
+
                 <div className="col col-center">
                     <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
+
                 </div>
                 <div className="col col-end" onClick={this.nextMonth}>
                     <div className="icon">chevron_right</div>
@@ -90,22 +107,22 @@ class Calendar extends React.Component<any, any>{
                 days.push(
                     <div
                         className={`col cell`}
-                        onClick={() => this.onDateClick(cloneDay.toString())}
+                        onClick={() => this.onDateClick(formattedDate)}
                         key={cloneDay.toString()}
-
                     >
                         <span className="number">
+                            {event.get().map((item, index) => (
+                                item.day == formattedDate ? item.name : null
+                            ))}
                             {formattedDate}
                         </span>
                         <span className="bg">{formattedDate}</span>
                     </div>
                 );
-
                 day = dateFns.addDays(day, 1);
             }
             rows.push(
                 <div key={day.toString() + "row"} className="row" >
-
                     {days}
                 </div>
             );
@@ -118,10 +135,8 @@ class Calendar extends React.Component<any, any>{
         const dateFormat = "D";
         let formattedDate = "";
         formattedDate = dateFns.format(day, dateFormat);
-
-        console.log(formattedDate);
-
     };
+
 
     nextMonth = () => {
         this.setState({
@@ -138,7 +153,12 @@ class Calendar extends React.Component<any, any>{
     render() {
         return (
             <div className="calendar">
-                {this.logProps()}
+                {this.state.open ?
+                    <Button onClick={this.logProps}>
+                        Load Events
+                </Button>
+                    : null}
+
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
