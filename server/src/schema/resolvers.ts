@@ -13,6 +13,8 @@ export const resolvers: IResolvers = {
       await dataSources.artistAPI.getArtistById(id),
     relatedArtists: async (_, { id }, { dataSources }) =>
       await dataSources.artistAPI.getRelatedArtistsById(id),
+    albums: async (_, { id }, { dataSources }) =>
+      await dataSources.artistAPI.getAlbumsById(id),
     me: (_, __, { req }) => {
       if (!req.session.userId) {
         return null;
