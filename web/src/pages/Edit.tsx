@@ -18,7 +18,7 @@ import {
   DialogContent,
   DialogContentText,
   TextField,
-  DialogActions,
+  DialogActions
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -30,13 +30,12 @@ import Test from "./Test";
 import { artistQuery } from "../graphql/artistQuery";
 //const ListProvider = require('../components/ListProvider');
 
-
-
 const styles = (theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      background: "linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)"
+      background:
+        "linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)"
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -55,17 +54,17 @@ const styles = (theme: Theme) =>
       paddingBottom: theme.spacing.unit
     },
     list: {
-      background: "linear-gradient(45deg, #0277bd 30%, #0277bd 70%, #0277bd 90%)"
+      background:
+        "linear-gradient(45deg, #0277bd 30%, #0277bd 70%, #0277bd 90%)"
     },
     listText: {
-      color: 'theme.palette.common.white'
+      color: "theme.palette.common.white"
     }
   });
 
 let list = new ArtistList();
 let title = "";
 let image = "";
-
 
 class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
@@ -75,12 +74,11 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       name: "",
       list: list,
       open: true,
-      title: "",
+      title: ""
     };
   }
 
   handleChange = e => {
-    console.log("changing");
     this.setState({ search: e.target.value });
   };
 
@@ -90,7 +88,6 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
 
   handleRequest = e => {
     e.preventDefault();
-    console.log("submitted");
     this.setState({ name: this.state.search });
   };
 
@@ -98,20 +95,17 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     return this.state.name == "" ? null : (
       <Query query={searchQuery} variables={{ name }}>
         {({ loading, error, data }) => {
-
           if (loading) return <div>loading</div>;
           console.log(data.search.artists.items);
           return (
-            <Card >
+            <Card>
               {data.search.artists.items.map(({ name, id, images }, index) => {
                 return (
                   <List key={index}>
                     <ListItem>
-                      {images.map((height, width, url) => (
-                        <ListItemIcon>
-                          <Avatar src={url} />
-                        </ListItemIcon>
-                      ))}
+                      <ListItemIcon>
+                        <Avatar src={images[0].url} />
+                      </ListItemIcon>
 
                       <ListItemText inset primary={name} />
                       <Card>
@@ -144,7 +138,6 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     };
     list.add(Artist);
     this.setState({ list: list });
-    console.log("adding to list");
   };
 
   deleteFromList = item => {
@@ -161,13 +154,10 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     this.setState({ open: false });
   };
 
-
-
   handleSave = () => {
     if (list.state.size == 0) {
       return alert("You must add an Artist first!");
     }
-    console.log("added artist");
     list.setTitle(this.state.title);
     this.props.callback(list);
     list = new ArtistList();
@@ -180,13 +170,13 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       <div className={classes.root}>
         <DashBar />
         <Dialog
-          open={this.state.open}
+          open={!this.state.open} //{this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
           <DialogContent>
-            <form >
+            <form>
               <InputBase
                 autoFocus
                 margin="dense"
@@ -197,7 +187,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
               />
             </form>
           </DialogContent>
-          <DialogActions >
+          <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Create List
             </Button>
@@ -220,14 +210,20 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
             <Grid item sm={6} md={4} lg={3} />
             <Grid item sm={6} md={4} lg={4}>
               <Card className={classes.list}>
-                <Button onClick={this.handleSave}>Save {this.state.title}</Button>
+                <Button onClick={this.handleSave}>
+                  Save {this.state.title}
+                </Button>
               </Card>
               <Card className={classes.list}>
                 {list.get().map((todo, index) => (
                   <List key={index}>
                     <ListItem>
                       <ListItemIcon>{todo.icon}</ListItemIcon>
-                      <ListItemText inset primary={todo.name} className={classes.listText} />
+                      <ListItemText
+                        inset
+                        primary={todo.name}
+                        className={classes.listText}
+                      />
                       <Card>
                         <Button onClick={() => this.deleteFromList(todo)}>
                           Delete
