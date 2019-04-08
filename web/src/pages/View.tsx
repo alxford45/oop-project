@@ -13,6 +13,7 @@ import Calendar from "../components/Calendar";
 import { Query } from "react-apollo";
 import { eventQuery } from "../graphql/eventQuery";
 import { EventList } from "../list/EventList";
+import { string } from "prop-types";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -47,14 +48,21 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
     super(props);
     this.state = {
-      list: this.props.List
+      list: this.props.list
     };
   }
 
   saveEvent = (id, displayName, uri, location, type, venue, start, performance) => {
     let newEvent = {
       name: displayName,
-      day: start.date
+      day: start.date,
+      months: 0,
+      id: id,
+      uri: uri,
+      location: location,
+      type: type,
+      venue: venue,
+      performance: performance
     };
     event.add(newEvent);
   };

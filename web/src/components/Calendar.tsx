@@ -1,6 +1,6 @@
 import React from "react";
 import dateFns from "date-fns";
-import { createStyles, Theme, withStyles, Button, DialogTitle, Dialog, MenuItem, Menu } from "@material-ui/core";
+import { createStyles, Theme, withStyles, Button, DialogTitle, Dialog, MenuItem, Menu, DialogContent, DialogActions } from "@material-ui/core";
 import "./Calendar.css";
 import { EventList } from "../list/EventList";
 
@@ -14,36 +14,80 @@ class Calendar extends React.Component<any, any>{
             currentMonth: new Date(),
             selectedDate: new Date(),
             event: this.props.event,
-            open: true,
+            loaded: false,
+            open: false,
+            details: event,
         };
     }
 
     logProps = () => {
         var dates = [""];
+        var months = [""];
         var eventDates = ["01-02-03"];
         this.state.event.get().map((item, index) => (
             eventDates.push(item.day)
         ))
         eventDates.map((element) => {
             let pieces = element.split("-");
-            let part = pieces[2].split("");
-            if (part[0] == "0") {
-                dates.push(part[1]);
+            dates.push(pieces[2]);
+            if (pieces[1] == "01") {
+                pieces[1] = "Jan";
             }
-            else {
-                dates.push(pieces[2]);
+            if (pieces[1] == "02") {
+                pieces[1] = "Feb";
             }
+            if (pieces[1] == "03") {
+                pieces[1] = "Mar";
+            }
+            if (pieces[1] == "04") {
+                pieces[1] = "Apr";
+            }
+            if (pieces[1] == "05") {
+                pieces[1] = "May";
+            }
+            if (pieces[1] == "06") {
+                pieces[1] = "Jun";
+            }
+            if (pieces[1] == "07") {
+                pieces[1] = "Jul";
+            }
+            if (pieces[1] == "08") {
+                pieces[1] = "Aug";
+            }
+            if (pieces[1] == "09") {
+                pieces[1] = "Sep";
+            }
+            if (pieces[1] == "10") {
+                pieces[1] = "Oct";
+            }
+            if (pieces[1] == "11") {
+                pieces[1] = "Nov";
+            }
+            if (pieces[1] == "12") {
+                pieces[1] = "Dec";
+            }
+            months.push(pieces[1]);
         });
         dates.splice(0, 2);
+        months.splice(0, 2);
         let newEvent = {};
         this.state.event.get().map((display, index) => (
             newEvent = {
                 name: display.name,
-                day: dates[index]
+                day: dates[index],
+                months: months[index],
+                id: display.id,
+                uri: display.uri,
+                location: display.location,
+                type: display.type,
+                venue: display.venue,
+                performance: display.performance
             },
             event.add(newEvent)
         ))
-        this.setState({ open: false });
+
+        this.setState({ event: event });
+        this.setState({ loaded: true });
     }
 
 
@@ -60,7 +104,6 @@ class Calendar extends React.Component<any, any>{
 
                 <div className="col col-center">
                     <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
-
                 </div>
                 <div className="col col-end" onClick={this.nextMonth}>
                     <div className="icon">chevron_right</div>
@@ -99,20 +142,21 @@ class Calendar extends React.Component<any, any>{
         let days = [<div />];
         let day = startDate;
         let formattedDate = "";
-
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
                 formattedDate = dateFns.format(day, dateFormat);
                 const cloneDay = day;
+                let stringDate = dateFns.parse(cloneDay).toString();
+                let splitDate = stringDate.split(" ");
                 days.push(
                     <div
                         className={`col cell`}
-                        onClick={() => this.onDateClick(formattedDate)}
+                        onClick={() => this.onDateClick(splitDate[2])}
                         key={cloneDay.toString()}
                     >
                         <span className="number">
-                            {event.get().map((item, index) => (
-                                item.day == formattedDate ? item.name : null
+                            {this.state.event.get().map((item, index) => (
+                                item.day == splitDate[2] && item.months == splitDate[1] ? <Button >{item.name}</Button> : null
                             ))}
                             {formattedDate}
                         </span>
@@ -131,10 +175,16 @@ class Calendar extends React.Component<any, any>{
         return <div className="body">{rows}</div>;
     }
 
-    onDateClick = day => {
-        const dateFormat = "D";
-        let formattedDate = "";
-        formattedDate = dateFns.format(day, dateFormat);
+    onDateClick = (date) => {
+        this.setState({ open: true });
+        let emptyEvent = {};
+        event.get().map((item, index) => (
+            item.day == date ? this.setState({ details: item }) : this.setState({ details: emptyEvent })
+        ))
+    };
+
+    handleClose = () => {
+        this.setState({ open: false })
     };
 
 
@@ -153,12 +203,25 @@ class Calendar extends React.Component<any, any>{
     render() {
         return (
             <div className="calendar">
-                {this.state.open ?
+                {this.state.loaded ? null :
                     <Button onClick={this.logProps}>
                         Load Events
-                </Button>
-                    : null}
-
+                </Button>}
+                <Dialog
+                    open={this.state.open} //{this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
+                    <DialogContent>
+                        {this.state.details.name}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                            Create List
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}

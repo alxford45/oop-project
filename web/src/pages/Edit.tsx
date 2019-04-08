@@ -113,11 +113,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                           add
                         </Button>
                       </Card>
-                      <Card>
-                        <Link to={"./View"} style={{ textDecoration: "none" }}>
-                          <Button>view</Button>
-                        </Link>
-                      </Card>
+
                     </ListItem>
                   </List>
                 );
@@ -210,9 +206,11 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
             <Grid item sm={6} md={4} lg={3} />
             <Grid item sm={6} md={4} lg={4}>
               <Card className={classes.list}>
-                <Button onClick={this.handleSave}>
-                  Save {this.state.title}
-                </Button>
+                <Link to={"./Dashboard"} style={{ textDecoration: "none" }}>
+                  <Button onClick={this.handleSave}>
+                    Save {this.state.title}
+                  </Button>
+                </Link>
               </Card>
               <Card className={classes.list}>
                 {list.get().map((todo, index) => (
@@ -229,11 +227,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                           Delete
                         </Button>
                       </Card>
-                      <Card>
-                        <Link to={"./View"} style={{ textDecoration: "none" }}>
-                          <Button>view</Button>
-                        </Link>
-                      </Card>
+
                     </ListItem>
                   </List>
                 ))}

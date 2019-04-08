@@ -10,7 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import DashBar from "../components/DashBar";
 import ListProvider, { ListContext } from "../components/ListProvider";
 import { ArtistList } from "../list/ArtistList";
-import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab } from "@material-ui/core";
+import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab, Button } from "@material-ui/core";
 import { BigList } from "../list/BigList";
 import { Link } from "react-router-dom";
 
@@ -40,8 +40,8 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
     };
   }
 
-  createList = () => {
-
+  handleView = (list) => {
+    this.props.callback(list);
   };
 
 
@@ -62,12 +62,18 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
                 {this.props.title}
                 <Card>
                   {item.getTitle()}
+                  <Link to={"./View"} style={{ textDecoration: "none" }}>
+                    <Button onClick={() => this.handleView(item)}>
+                      View All
+                    </Button>
+                  </Link>
                   {item.get().map((artist, index) => {
                     return (
                       <List key={index} >
                         <ListItem>
                           <ListItemIcon>{artist.icon}</ListItemIcon>
                           <ListItemText inset primary={artist.name} />
+
                         </ListItem>
                       </List>
                     );
