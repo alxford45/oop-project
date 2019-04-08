@@ -8,3 +8,6 @@ package-lock.json
 
 #environment variables
 .env
+
+#nodemon config (linux dev environment)
+nodemon.config
