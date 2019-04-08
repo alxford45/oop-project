@@ -102,7 +102,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
               {data.search.artists.items.map(({ name, id, images }, index) => {
                 console.log(
                   "typeof images[0] ? " + !Array.isArray(images) ||
-                    !images.length
+                  !images.length
                 );
                 return (
                   <List key={index}>
@@ -112,10 +112,10 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                           <Avatar src={images[0].url} />
                         </ListItemIcon>
                       ) : (
-                        <ListItemIcon>
-                          <Avatar />
-                        </ListItemIcon>
-                      )}
+                          <ListItemIcon>
+                            <Avatar />
+                          </ListItemIcon>
+                        )}
 
                       <ListItemText inset primary={name} />
                       <Card>
@@ -143,7 +143,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       key: 0,
       name: name,
       id: id,
-      icon: <Avatar src={icon} />
+      icon: icon,
     };
     list.add(Artist);
     this.setState({ list: list });
@@ -229,7 +229,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                 {list.get().map((todo, index) => (
                   <List key={index}>
                     <ListItem>
-                      <ListItemIcon>{todo.icon}</ListItemIcon>
+                      <ListItemIcon><Avatar src={todo.icon} /></ListItemIcon>
                       <ListItemText
                         inset
                         primary={todo.name}

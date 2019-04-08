@@ -110,9 +110,14 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
           <div className={classes.appBarSpacer} />
           <Grid container spacing={40}>
             <Grid item sm={6} md={4} lg={4} >
-              <Avatar className={classes.bigAvatar} />
-              <Typography variant="h1" component="h1" className={classes.text}>
-                Your Favorite Artist
+
+              <Typography  className={classes.text}>
+                {this.state.list.get().map((item) => (
+                  <div className={classes.bigAvatar}>
+                    <Avatar className={classes.bigAvatar} src={item.icon} />
+                    {item.name}
+                  </div>
+                ))}
               </Typography>
             </Grid  >
             <Grid item sm={12} md={8} lg={8}>

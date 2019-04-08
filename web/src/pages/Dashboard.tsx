@@ -10,7 +10,7 @@ import Divider from "@material-ui/core/Divider";
 import DashBar from "../components/DashBar";
 import AddIcon from '@material-ui/icons/Add';
 import { ArtistList } from "../list/ArtistList";
-import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab, Button } from "@material-ui/core";
+import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab, Button, Avatar } from "@material-ui/core";
 import { BigList } from "../list/BigList";
 import { Link } from "react-router-dom";
 
@@ -84,7 +84,7 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
                     return (
                       <List key={index} >
                         <ListItem>
-                          <ListItemIcon>{artist.icon}</ListItemIcon>
+                          <ListItemIcon><Avatar src={artist.icon} /></ListItemIcon>
                           <Typography variant="h6" component="h1" className={classes.text}>
                             {artist.name}
                           </Typography>
