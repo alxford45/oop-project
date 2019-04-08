@@ -100,12 +100,22 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
           return (
             <Card>
               {data.search.artists.items.map(({ name, id, images }, index) => {
+                console.log(
+                  "typeof images[0] ? " + !Array.isArray(images) ||
+                    !images.length
+                );
                 return (
                   <List key={index}>
                     <ListItem>
-                      <ListItemIcon>
-                        <Avatar src={images[0].url} />
-                      </ListItemIcon>
+                      {images.length > 0 ? (
+                        <ListItemIcon>
+                          <Avatar src={images[0].url} />
+                        </ListItemIcon>
+                      ) : (
+                        <ListItemIcon>
+                          <Avatar />
+                        </ListItemIcon>
+                      )}
 
                       <ListItemText inset primary={name} />
                       <Card>
@@ -117,7 +127,6 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                           add
                         </Button>
                       </Card>
-
                     </ListItem>
                   </List>
                 );
@@ -231,7 +240,6 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                           Delete
                         </Button>
                       </Card>
-
                     </ListItem>
                   </List>
                 ))}
