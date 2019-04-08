@@ -27,11 +27,15 @@ class App extends Component {
   state = {
     bigList: bigList,
     list: list,
-    name: "MAYBE"
+    name: "MAYBE",
   };
 
   myOtherCallback = data => {
     bigList.add(data);
+  };
+
+  passListToView = data => {
+    this.setState({ list: data });
   };
 
   render() {
@@ -46,7 +50,7 @@ class App extends Component {
             <Route path="/Login" component={Login} />
             <Route
               path="/Dashboard"
-              render={props => <Dashboard {...props} bigList={bigList} />}
+              render={props => <Dashboard {...props} callback={this.passListToView} bigList={bigList} />}
             />
             <Route
               path="/Edit"
@@ -54,7 +58,9 @@ class App extends Component {
                 <Edit {...props} callback={this.myOtherCallback} />
               )}
             />
-            <Route path="/View" component={View} />
+            <Route
+              path="/View"
+              render={props => <View {...props} list={this.state.list} />} />
             <Route path="/Test" component={Test} />
           </Switch>
         </div>

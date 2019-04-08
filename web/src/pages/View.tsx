@@ -4,12 +4,16 @@ import {
   createStyles,
   WithStyles,
   withStyles,
-  Grid
+  Grid,
+  Avatar,
+  Typography
 } from "@material-ui/core";
 import DashBar from "../components/DashBar";
 import Calendar from "../components/Calendar";
 import { Query } from "react-apollo";
 import { eventQuery } from "../graphql/eventQuery";
+import { EventList } from "../list/EventList";
+import { string } from "prop-types";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -24,41 +28,43 @@ const styles = (theme: Theme) =>
       padding: theme.spacing.unit * 3,
       height: "100vh",
       overflow: "auto"
+    },
+    bigAvatar: {
+      margin: 10,
+      width: 200,
+      height: 200,
+      justify: "center"
+    },
+    text: {
+      color: "white",
+      component: "h6",
+      variant: "h1"
     }
   });
 
-let name = [""];
-const date = ["09-09-09"];
+let event = new EventList();
 
 class View extends Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
     super(props);
     this.state = {
-      list: this.props.List
+      list: this.props.list
     };
   }
 
-  saveEvent = (
-    id,
-    displayName,
-    uri,
-    location,
-    type,
-    venue,
-    start,
-    performance
-  ) => {
-    name.push(displayName);
-    date.push(start.date);
-    //console.log(id);
-    //console.log(displayName);
-    //console.log(uri);
-    //console.log(location);
-    //console.log(type);
-    //console.log(venue);
-    //console.log(start);
-    //console.log(start);
-    //console.log(date);
+  saveEvent = (id, displayName, uri, location, type, venue, start, performance) => {
+    let newEvent = {
+      name: displayName,
+      day: start.date,
+      months: 0,
+      id: id,
+      uri: uri,
+      location: location,
+      type: type,
+      venue: venue,
+      performance: performance
+    };
+    event.add(newEvent);
   };
 
   get = id => {
@@ -103,9 +109,14 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
           {this.get(660883)}
           <div className={classes.appBarSpacer} />
           <Grid container spacing={40}>
-            <Grid item sm={6} md={4} lg={4} />
+            <Grid item sm={6} md={4} lg={4} >
+              <Avatar className={classes.bigAvatar} />
+              <Typography variant="h1" component="h1" className={classes.text}>
+                Your Favorite Artist
+              </Typography>
+            </Grid  >
             <Grid item sm={12} md={8} lg={8}>
-              <Calendar start={date} name={name} />
+              <Calendar event={event} />
             </Grid>
           </Grid>
         </main>

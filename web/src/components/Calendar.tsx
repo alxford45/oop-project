@@ -1,8 +1,11 @@
 import React from "react";
 import dateFns from "date-fns";
-import { createStyles, Theme, withStyles, Button } from "@material-ui/core";
+import { createStyles, Theme, withStyles, Button, DialogTitle, Dialog, MenuItem, Menu, DialogContent, DialogActions } from "@material-ui/core";
 import "./Calendar.css";
+import { EventList } from "../list/EventList";
+import { Link } from "react-router-dom";
 
+let event = new EventList();
 
 class Calendar extends React.Component<any, any>{
 
@@ -11,26 +14,83 @@ class Calendar extends React.Component<any, any>{
         this.state = {
             currentMonth: new Date(),
             selectedDate: new Date(),
-            name: this.props.name,
-            start: this.props.start,
+            event: this.props.event,
+            loaded: false,
+            open: false,
+            details: event,
         };
     }
 
     logProps = () => {
-        console.log(this.state.name);
-        console.log(this.state.start);
         var dates = [""];
-        var pieces = "";
-        this.state.start.map((element) => {
+        var months = [""];
+        var eventDates = ["01-02-03"];
+        this.state.event.get().map((item, index) => (
+            eventDates.push(item.day)
+        ))
+        eventDates.map((element) => {
             let pieces = element.split("-");
-            console.log(dates);
-            console.log(pieces);
-            dates.push(pieces);
-
-
+            dates.push(pieces[2]);
+            if (pieces[1] == "01") {
+                pieces[1] = "Jan";
+            }
+            if (pieces[1] == "02") {
+                pieces[1] = "Feb";
+            }
+            if (pieces[1] == "03") {
+                pieces[1] = "Mar";
+            }
+            if (pieces[1] == "04") {
+                pieces[1] = "Apr";
+            }
+            if (pieces[1] == "05") {
+                pieces[1] = "May";
+            }
+            if (pieces[1] == "06") {
+                pieces[1] = "Jun";
+            }
+            if (pieces[1] == "07") {
+                pieces[1] = "Jul";
+            }
+            if (pieces[1] == "08") {
+                pieces[1] = "Aug";
+            }
+            if (pieces[1] == "09") {
+                pieces[1] = "Sep";
+            }
+            if (pieces[1] == "10") {
+                pieces[1] = "Oct";
+            }
+            if (pieces[1] == "11") {
+                pieces[1] = "Nov";
+            }
+            if (pieces[1] == "12") {
+                pieces[1] = "Dec";
+            }
+            months.push(pieces[1]);
         });
-        console.log(dates);
+        dates.splice(0, 2);
+        months.splice(0, 2);
+        let newEvent = {};
+        this.state.event.get().map((display, index) => (
+            newEvent = {
+                name: display.name,
+                day: dates[index],
+                months: months[index],
+                id: display.id,
+                uri: display.uri,
+                location: display.location,
+                type: display.type,
+                venue: display.venue,
+                performance: display.performance
+            },
+            event.add(newEvent)
+        ))
+
+        this.setState({ event: event });
+        this.setState({ loaded: true });
     }
+
 
     renderHeader() {
         const dateFormat = "MMMM YYYY";
@@ -42,6 +102,7 @@ class Calendar extends React.Component<any, any>{
                         chevron_left
           </div>
                 </div>
+
                 <div className="col col-center">
                     <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
                 </div>
@@ -82,30 +143,31 @@ class Calendar extends React.Component<any, any>{
         let days = [<div />];
         let day = startDate;
         let formattedDate = "";
-
         while (day <= endDate) {
             for (let i = 0; i < 7; i++) {
                 formattedDate = dateFns.format(day, dateFormat);
                 const cloneDay = day;
+                let stringDate = dateFns.parse(cloneDay).toString();
+                let splitDate = stringDate.split(" ");
                 days.push(
                     <div
                         className={`col cell`}
-                        onClick={() => this.onDateClick(cloneDay.toString())}
-                        key={cloneDay.toString()}
 
+                        key={cloneDay.toString()}
                     >
                         <span className="number">
+                            {this.state.event.get().map((item, index) => (
+                                item.day == splitDate[2] && item.months == splitDate[1] ? <Button onClick={() => this.onDateClick(splitDate[2], item)}>{item.name}</Button> : null
+                            ))}
                             {formattedDate}
                         </span>
                         <span className="bg">{formattedDate}</span>
                     </div>
                 );
-
                 day = dateFns.addDays(day, 1);
             }
             rows.push(
                 <div key={day.toString() + "row"} className="row" >
-
                     {days}
                 </div>
             );
@@ -114,14 +176,18 @@ class Calendar extends React.Component<any, any>{
         return <div className="body">{rows}</div>;
     }
 
-    onDateClick = day => {
-        const dateFormat = "D";
-        let formattedDate = "";
-        formattedDate = dateFns.format(day, dateFormat);
-
-        console.log(formattedDate);
+    onDateClick = (date, item) => {
+        if (date == item.day) {
+            this.setState({ details: item })
+        }
+        this.setState({ open: true });
 
     };
+
+    handleClose = () => {
+        this.setState({ open: false })
+    };
+
 
     nextMonth = () => {
         this.setState({
@@ -135,10 +201,28 @@ class Calendar extends React.Component<any, any>{
         });
     };
 
+
     render() {
         return (
             <div className="calendar">
-                {this.logProps()}
+                {this.state.loaded ? null :
+                    <Button onClick={this.logProps}>
+                        Load Events
+                </Button>}
+                <Dialog
+                    open={this.state.open} //{this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="form-dialog-title"
+                >
+                    <DialogTitle id="form-dialog-title">{this.state.details.type}</DialogTitle>
+                    <DialogContent>
+                        {this.state.details.name}
+                        <div />
+                        <Link to={this.state.details.uri} style={{ textDecoration: "none" }}>
+                            {this.state.details.uri}
+                        </Link>
+                    </DialogContent>
+                </Dialog>
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}

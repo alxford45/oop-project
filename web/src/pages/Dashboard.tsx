@@ -8,9 +8,9 @@ import {
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import DashBar from "../components/DashBar";
-import ListProvider, { ListContext } from "../components/ListProvider";
+import AddIcon from '@material-ui/icons/Add';
 import { ArtistList } from "../list/ArtistList";
-import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab } from "@material-ui/core";
+import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab, Button } from "@material-ui/core";
 import { BigList } from "../list/BigList";
 import { Link } from "react-router-dom";
 
@@ -26,6 +26,17 @@ const styles = (theme: Theme) =>
       padding: theme.spacing.unit * 3,
       height: "100vh",
       overflow: "auto"
+    },
+    button: {
+      marginTop: 100,
+      marginLeft: 170,
+    },
+    list: {
+      background:
+        "linear-gradient(45deg, #0277bd 30%, #0277bd 70%, #0277bd 90%)"
+    },
+    text: {
+      color: "white"
     }
   });
 
@@ -40,8 +51,8 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
     };
   }
 
-  createList = () => {
-
+  handleView = (list) => {
+    this.props.callback(list);
   };
 
 
@@ -60,14 +71,23 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
             {this.state.bigList.get().map((item, index) => (
               <Grid key={index} item sm={6} md={4} lg={4}>
                 {this.props.title}
-                <Card>
-                  {item.getTitle()}
+                <Card className={classes.list}>
+                  <Typography variant="h6" component="h1" className={classes.text}>
+                    {item.getTitle()}
+                  </Typography>
+                  <Link to={"./View"} style={{ textDecoration: "none" }}>
+                    <Button onClick={() => this.handleView(item)}>
+                      View All
+                    </Button>
+                  </Link>
                   {item.get().map((artist, index) => {
                     return (
                       <List key={index} >
                         <ListItem>
                           <ListItemIcon>{artist.icon}</ListItemIcon>
-                          <ListItemText inset primary={artist.name} />
+                          <Typography variant="h6" component="h1" className={classes.text}>
+                            {artist.name}
+                          </Typography>
                         </ListItem>
                       </List>
                     );
@@ -77,9 +97,9 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
             ))}
             <Grid item sm={6} md={4} lg={4}>
               <Link to={"./Edit"} style={{ textDecoration: "none" }}>
-                <Fab >
-                  NEW
-              </Fab>
+                <Fab className={classes.button}>
+                  <AddIcon />
+                </Fab>
               </Link>
             </Grid>
           </Grid>
