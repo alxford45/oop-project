@@ -8,6 +8,7 @@ export const typeDef = gql`
     popularity: Int!
     type: String!
     uri: String!
+    images: [Image!]
   }
   type RelatedArtists {
     artists: [Artist!]
