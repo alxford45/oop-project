@@ -4,11 +4,33 @@ import { createStyles, Theme, withStyles, Button } from "@material-ui/core";
 import "./Calendar.css";
 
 
-class Calendar extends React.Component {
-    state = {
-        currentMonth: new Date(),
-        selectedDate: new Date()
-    };
+class Calendar extends React.Component<any, any>{
+
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            currentMonth: new Date(),
+            selectedDate: new Date(),
+            name: this.props.name,
+            start: this.props.start,
+        };
+    }
+
+    logProps = () => {
+        console.log(this.state.name);
+        console.log(this.state.start);
+        var dates = [""];
+        var pieces = "";
+        this.state.start.map((element) => {
+            let pieces = element.split("-");
+            console.log(dates);
+            console.log(pieces);
+            dates.push(pieces);
+
+
+        });
+        console.log(dates);
+    }
 
     renderHeader() {
         const dateFormat = "MMMM YYYY";
@@ -68,14 +90,13 @@ class Calendar extends React.Component {
                 days.push(
                     <div
                         className={`col cell`}
-                        onClick={() => this.onDateClick("q")}
-                        key={day.toString()}
+                        onClick={() => this.onDateClick(cloneDay.toString())}
+                        key={cloneDay.toString()}
 
                     >
                         <span className="number">
                             {formattedDate}
                         </span>
-                        {}
                         <span className="bg">{formattedDate}</span>
                     </div>
                 );
@@ -94,7 +115,11 @@ class Calendar extends React.Component {
     }
 
     onDateClick = day => {
-        console.log(day);
+        const dateFormat = "D";
+        let formattedDate = "";
+        formattedDate = dateFns.format(day, dateFormat);
+
+        console.log(formattedDate);
 
     };
 
@@ -113,6 +138,7 @@ class Calendar extends React.Component {
     render() {
         return (
             <div className="calendar">
+                {this.logProps()}
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}

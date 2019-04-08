@@ -33,8 +33,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       display: "flex",
-      background:
-        "linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)"
+      background: "linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)"
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -51,6 +50,12 @@ const styles = (theme: Theme) =>
       paddingTop: theme.spacing.unit,
       paddingRight: theme.spacing.unit,
       paddingBottom: theme.spacing.unit
+    },
+    list: {
+      background: "linear-gradient(45deg, #0277bd 30%, #0277bd 70%, #0277bd 90%)"
+    },
+    listText: {
+      color: 'theme.palette.common.white'
     }
   });
 
@@ -205,15 +210,15 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
             <Divider />
             <Grid item sm={6} md={4} lg={3} />
             <Grid item sm={6} md={4} lg={4}>
-              <Card>
+              <Card className={classes.list}>
                 <Button onClick={this.handleSave}>Save {this.state.title}</Button>
               </Card>
-              <Card>
+              <Card className={classes.list}>
                 {list.get().map((todo, index) => (
                   <List key={index}>
                     <ListItem>
                       <ListItemIcon>{todo.icon}</ListItemIcon>
-                      <ListItemText inset primary={todo.name} />
+                      <ListItemText inset primary={todo.name} className={classes.listText} />
                       <Card>
                         <Button onClick={() => this.deleteFromList(todo)}>
                           Delete
