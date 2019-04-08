@@ -27,7 +27,10 @@ import { Link } from "react-router-dom";
 import { ArtistList } from "../list/ArtistList";
 import ListProvider from "../components/ListProvider";
 import Test from "./Test";
+import { artistQuery } from "../graphql/artistQuery";
 //const ListProvider = require('../components/ListProvider');
+
+
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -61,6 +64,8 @@ const styles = (theme: Theme) =>
 
 let list = new ArtistList();
 let title = "";
+let image = "";
+
 
 class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
@@ -93,17 +98,21 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     return this.state.name == "" ? null : (
       <Query query={searchQuery} variables={{ name }}>
         {({ loading, error, data }) => {
+
           if (loading) return <div>loading</div>;
           console.log(data.search.artists.items);
           return (
-            <Card>
-              {data.search.artists.items.map(({ name, id }, index) => {
+            <Card >
+              {data.search.artists.items.map(({ name, id, images }, index) => {
                 return (
                   <List key={index}>
                     <ListItem>
-                      <ListItemIcon>
-                        <Avatar />
-                      </ListItemIcon>
+                      {images.map((height, width, url) => (
+                        <ListItemIcon>
+                          <Avatar src={url} />
+                        </ListItemIcon>
+                      ))}
+
                       <ListItemText inset primary={name} />
                       <Card>
                         <Button onClick={() => this.addToList(name, id)}>
