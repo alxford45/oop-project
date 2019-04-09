@@ -89,9 +89,7 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
                       <List key={index} >
                         <ListItem>
                           <ListItemIcon><Avatar src={artist.icon} /></ListItemIcon>
-                          <Typography variant="h6" component="h1" className={classes.text}>
-                            {artist.name}
-                          </Typography>
+                          <ListItemText inset primary={artist.name} />
                         </ListItem>
                       </List>
                     );

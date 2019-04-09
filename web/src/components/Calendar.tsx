@@ -1,6 +1,6 @@
 import React from "react";
 import dateFns from "date-fns";
-import { createStyles, Theme, withStyles, Button, DialogTitle, Dialog, MenuItem, Menu, DialogContent, DialogActions } from "@material-ui/core";
+import { createStyles, Theme, withStyles, Button, DialogTitle, Dialog, MenuItem, Menu, DialogContent, DialogActions, Divider } from "@material-ui/core";
 import "./Calendar.css";
 import { EventList } from "../list/EventList";
 import { Link } from "react-router-dom";
@@ -102,7 +102,6 @@ class Calendar extends React.Component<any, any>{
                         chevron_left
           </div>
                 </div>
-
                 <div className="col col-center">
                     <span>{dateFns.format(this.state.currentMonth, dateFormat)}</span>
                 </div>
@@ -226,6 +225,13 @@ class Calendar extends React.Component<any, any>{
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
+                <Divider />
+                <div>
+                    <Button />
+                </div>
+                <div>
+                    <Button />
+                </div>
             </div>
         );
     }

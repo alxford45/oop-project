@@ -9,7 +9,8 @@ import {
   Typography,
   Tabs,
   Tab,
-  Card
+  Card,
+  Button
 } from "@material-ui/core";
 import DashBar from "../components/DashBar";
 import Calendar from "../components/Calendar";
@@ -36,12 +37,17 @@ const styles = (theme: Theme) =>
       margin: 10,
       width: 200,
       height: 200,
-      justify: "center"
+      marginLeft: 125,
+      marginRight: 100,
     },
     text: {
       color: "white",
       component: "h6",
-      variant: "h1"
+      variant: "h1",
+    },
+    container: {
+      justifyItems: 'center',
+      alignItems: 'center',
     }
   });
 
@@ -53,7 +59,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     super(props);
     this.state = {
       list: this.props.list,
-      value: 0,
+      open: false,
     };
   }
 
@@ -105,6 +111,10 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     );
   };
 
+  handleTab = () => {
+    this.setState({ open: !this.state.open });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -113,25 +123,41 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
         <main className={classes.content}>
           {this.get(660883)}
           <div className={classes.appBarSpacer} />
-          {this.state.value === 0}
-          {this.state.value === 1}
-          <Grid container spacing={40}>
-            <Grid item sm={6} md={4} lg={4} >
+          <Button onClick={this.handleTab}>{this.state.open ? "Albums & Songs" : "Calendar"}</Button>
+          {this.state.open ? <Calendar event={event} list={this.state.list} /> :
+            <Grid container
+              className={classes.container}
+              spacing={40}
+            >
               {this.state.list.get().map((item) => (
-                <div>
+                <Grid item sm={6} md={4} lg={4} >
                   <div>
-                    <Typography className={classes.text} component="h5" variant="h5">
-                      {item.name}
-                    </Typography>
+                    <div>
+                      <Typography className={classes.text} align="center" component="h5" variant="h5">
+                        {item.name}
+                      </Typography>
+                    </div>
+                    <Avatar className={classes.bigAvatar} src={item.icon} />
                   </div>
-                  <Avatar className={classes.bigAvatar} src={item.icon} />
-                </div>
+                  <Grid container spacing={40} >
+                    <Grid item sm={8} md={6} lg={6} >
+                      <div>
+                        <Typography className={classes.text} align="center" >
+                          Albums
+                        </Typography>
+                      </div>
+                    </Grid>
+                    <Grid item sm={8} md={6} lg={6} >
+                      <div>
+                        <Typography className={classes.text} align="center" >
+                          Songs
+                        </Typography>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Grid  >
               ))}
-            </Grid  >
-            <Grid item sm={12} md={8} lg={8}>
-              <Calendar event={event} list={this.state.list} />
-            </Grid>
-          </Grid>
+            </Grid>}
         </main>
       </div>
     );
