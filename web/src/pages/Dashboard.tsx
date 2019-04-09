@@ -33,10 +33,12 @@ const styles = (theme: Theme) =>
     },
     list: {
       background:
-        "linear-gradient(45deg, #0277bd 30%, #0277bd 70%, #0277bd 90%)"
+        "linear-gradient(45deg, #0d47a1 30%, #1e88e5 70%, #42a5f5 90%)"
     },
     text: {
-      color: "white"
+      color: "white",
+      marginLeft: 200,
+      marginRight: 200,
     }
   });
 
@@ -52,9 +54,12 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
   }
 
   handleView = (list) => {
-    this.props.callback(list);
+    this.props.callbackView(list);
   };
 
+  deleteList = (list) => {
+    this.props.callbackDelete(list);
+  };
 
   render() {
     const { classes } = this.props;
@@ -72,22 +77,25 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
               <Grid key={index} item sm={6} md={4} lg={4}>
                 {this.props.title}
                 <Card className={classes.list}>
-                  <Typography variant="h6" component="h1" className={classes.text}>
-                    {item.getTitle()}
-                  </Typography>
+                  <Card className={classes.list}>
+                    <Typography variant="h6" component="h1" className={classes.text}>
+                      {item.getTitle()}
+                    </Typography>
+                  </Card>
                   <Link to={"./View"} style={{ textDecoration: "none" }}>
                     <Button onClick={() => this.handleView(item)}>
                       View All
                     </Button>
                   </Link>
+                  <Button onClick={() => this.deleteList(index)}>
+                    Delete
+                  </Button>
                   {item.get().map((artist, index) => {
                     return (
                       <List key={index} >
                         <ListItem>
                           <ListItemIcon><Avatar src={artist.icon} /></ListItemIcon>
-                          <Typography variant="h6" component="h1" className={classes.text}>
-                            {artist.name}
-                          </Typography>
+                          <ListItemText inset primary={artist.name} />
                         </ListItem>
                       </List>
                     );

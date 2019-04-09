@@ -52,7 +52,7 @@ const styles = (theme: Theme) =>
     },
     list: {
       background:
-        "linear-gradient(45deg, #0277bd 30%, #0277bd 70%, #0277bd 90%)"
+        "linear-gradient(45deg, #0d47a1 30%, #1e88e5 70%, #42a5f5 90%)"
     },
     listText: {
       color: "theme.palette.common.white"
@@ -77,6 +77,10 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
 
   handleChange = e => {
     this.setState({ search: e.target.value });
+  };
+
+  handleRefresh = e => {
+    e.preventDefault();
   };
 
   handleTitleChange = e => {
@@ -182,12 +186,13 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
         >
           <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
           <DialogContent>
-            <form>
+            <form onSubmit={evt => this.handleRefresh(evt)}>
               <InputBase
                 autoFocus
                 margin="dense"
                 id="name"
                 fullWidth
+                
                 onChange={evt => this.handleTitleChange(evt)}
                 value={this.state.title}
               />
