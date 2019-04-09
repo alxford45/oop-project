@@ -1,8 +1,8 @@
 import { gql } from "apollo-boost";
 
 export const eventQuery = gql`
-  query EventQuery($id: ID!) {
-    eventSearch(id: $id) {
+  query EventByName($name: String!) {
+    eventByName(name: $name) {
       resultsPage {
         results {
           ...EventFragment

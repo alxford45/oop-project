@@ -1,7 +1,6 @@
 import { ListInterface } from "./ListInterface";
 import { Artist } from "./Artist";
 export class ArtistList implements ListInterface {
-
   state: {
     size: number;
     data: Artist[];
@@ -11,7 +10,7 @@ export class ArtistList implements ListInterface {
     this.state = {
       size: 0,
       data: [],
-      title: "",
+      title: ""
     };
   }
   add(artist) {

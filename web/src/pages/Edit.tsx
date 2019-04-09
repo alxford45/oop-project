@@ -25,10 +25,9 @@ import { Link } from "react-router-dom";
 import { ArtistList } from "../list/ArtistList";
 import { artistSearchQuery } from "../graphql/artistSearchQuery";
 import { artistQuery } from "../graphql/artistQuery";
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import SaveIcon from '@material-ui/icons/Save';
-
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddIcon from "@material-ui/icons/Add";
+import SaveIcon from "@material-ui/icons/Save";
 
 //const ListProvider = require('../components/ListProvider');
 
@@ -97,19 +96,14 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     this.setState({ name: this.state.search });
   };
 
-  get = ({ name }) => {
+  getSpotify = ({ name }) => {
     return this.state.name == "" ? null : (
       <Query query={searchQuery} variables={{ name }}>
-        {({ loading, error, data }) => {
+        {({ loading, data }) => {
           if (loading) return <div>loading</div>;
-          console.log(data.search.artists.items);
           return (
             <Card>
               {data.search.artists.items.map(({ name, id, images }, index) => {
-                console.log(
-                  "typeof images[0] ? " + !Array.isArray(images) ||
-                    !images.length
-                );
                 return (
                   <List key={index}>
                     <ListItem>
@@ -126,9 +120,9 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                       <ListItemText inset primary={name} />
                       <Card>
                         <Button
-                          onClick={() =>
-                            this.addToList(name, id, images[0].url)
-                          }
+                          onClick={() => {
+                            this.addToList(name, id, images[0].url);
+                          }}
                         >
                           <AddIcon />
                         </Button>
@@ -144,14 +138,15 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     );
   };
 
-  addToList = (name, id, icon) => {
+  addToList = (name, spotifyID, icon) => {
     const Artist = {
       key: 0,
       name: name,
-      id: id,
+      spotifyID: spotifyID,
       icon: icon
     };
     list.add(Artist);
+
     this.setState({ list: list });
   };
 
@@ -197,7 +192,6 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                 margin="dense"
                 id="name"
                 fullWidth
-                
                 onChange={evt => this.handleTitleChange(evt)}
                 value={this.state.title}
               />
@@ -220,7 +214,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                   placeholder={"Search for for your music destination…"}
                 />
               </form>
-              <div>{this.get({ name: this.state.name })}</div>
+              <div>{this.getSpotify({ name: this.state.name })}</div>
             </Grid>
             <Divider />
             <Grid item sm={6} md={4} lg={3} />

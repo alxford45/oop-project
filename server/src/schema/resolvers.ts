@@ -3,6 +3,13 @@ import { User } from "../entity/User";
 
 export const resolvers: IResolvers = {
   Query: {
+    eventByName: async (_, { name }, { dataSources }) => {
+      console.log("hello");
+      const res = await dataSources.songkickSearchAPI.getArtistByName(name);
+      const id = res.resultsPage.results.artist[0].id;
+      console.log(id);
+      return dataSources.songkickSearchAPI.getEventsByArtistId(id);
+    },
     search: async (_, { name }, { dataSources }) =>
       await dataSources.searchAPI.getArtistsByName(name),
     artistSearch: async (_, { name }, { dataSources }) =>

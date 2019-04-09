@@ -9,5 +9,6 @@ export const queries = gql`
     me: User
     artistSearch(name: String!): SongkickSearch
     eventSearch(id: ID!): SongkickSearch
+    eventByName(name: String!): SongkickSearch
   }
 `;

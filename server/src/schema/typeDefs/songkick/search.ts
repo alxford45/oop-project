@@ -8,36 +8,36 @@ export const typeDef = gql`
     results: SongkickResult
   }
   type SongkickResult {
-    artist: [SongkickArtist!]
-    event: [SongkickEvent!]
+    artist: [SongkickArtist]
+    event: [SongkickEvent]
   }
   type SongkickArtist {
-    id: ID!
-    displayName: String!
+    id: ID
+    displayName: String
   }
   type SongkickEvent {
-    id: ID!
-    displayName: String!
-    uri: String!
-    type: String!
+    id: ID
+    displayName: String
+    uri: String
+    type: String
     venue: Venue
     location: Location
     start: Start
-    performance: [Performance!]
+    performance: [Performance]
   }
   type Venue {
-    id: ID!
-    displayName: String!
+    id: ID
+    displayName: String
   }
   type Location {
-    city: String!
+    city: String
   }
   type Start {
     time: String
     date: String
   }
   type Performance {
-    id: ID!
-    artist: SongkickArtist!
+    id: ID
+    artist: SongkickArtist
   }
 `;
