@@ -54,9 +54,12 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
   }
 
   handleView = (list) => {
-    this.props.callback(list);
+    this.props.callbackView(list);
   };
 
+  deleteList = (list) => {
+    this.props.callbackDelete(list);
+  };
 
   render() {
     const { classes } = this.props;
@@ -84,6 +87,9 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
                       View All
                     </Button>
                   </Link>
+                  <Button onClick={() => this.deleteList(index)}>
+                    Delete
+                  </Button>
                   {item.get().map((artist, index) => {
                     return (
                       <List key={index} >

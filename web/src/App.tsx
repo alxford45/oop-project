@@ -34,8 +34,13 @@ class App extends Component {
     bigList.add(data);
   };
 
-  passListToView = data => {
+  passListToView = (data) => {
     this.setState({ list: data });
+  };
+
+  deleteList = (data) => {
+    bigList.remove(data);
+    this.setState({ bigLlist: bigList });
   };
 
   render() {
@@ -50,7 +55,10 @@ class App extends Component {
             <Route path="/Login" component={Login} />
             <Route
               path="/Dashboard"
-              render={props => <Dashboard {...props} callback={this.passListToView} bigList={bigList} />}
+              render={props => <Dashboard {...props}
+                callbackView={this.passListToView}
+                callbackDelete={this.deleteList}
+                bigList={bigList} />}
             />
             <Route
               path="/Edit"
