@@ -85,17 +85,19 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       performance: performance
     };
     event.add(newEvent);
+    console.log(event);
   };
   getId = name => {
     return (
       <Query query={artistSearchQuery} variables={{ name }}>
-        {({ data }) => {
+        {({ loading, error, data }) => {
+          if (loading) return <div>loading</div>;
           return data.artistSearch.resultsPage.results.artist.map(
             ({
               id,
-              index //need?
             }) => {
-              //this.handle(id)
+              console.log(id);
+              this.getEvent(id)
             }
           );
         }}
@@ -103,6 +105,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     );
   };
   getEvent = id => {
+    console.log(id);
     return (
       <Query query={eventQuery} variables={{ id }}>
         {({ loading, error, data }) => {
@@ -118,6 +121,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
               start,
               performance
             }) => {
+              console.log(displayName);
               this.saveEvent(
                 id,
                 displayName,
@@ -145,7 +149,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       <div className={this.props.classes.root}>
         <DashBar />
         <main className={classes.content}>
-          {this.getEvent("")}
+          {this.getId("JID")}
           <div className={classes.appBarSpacer} />
           <Button onClick={this.handleTab}>
             {this.state.open ? "Albums & Songs" : "Calendar"}
@@ -153,42 +157,42 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
           {this.state.open ? (
             <Calendar event={event} list={this.state.list} />
           ) : (
-            <Grid container className={classes.container} spacing={40}>
-              {this.state.list.get().map(item => (
-                <Grid item sm={6} md={4} lg={4}>
-                  <div>
+              <Grid container className={classes.container} spacing={40}>
+                {this.state.list.get().map(item => (
+                  <Grid item sm={6} md={4} lg={4}>
                     <div>
-                      <Typography
-                        className={classes.text}
-                        align="center"
-                        component="h5"
-                        variant="h5"
-                      >
-                        {item.name}
-                      </Typography>
+                      <div>
+                        <Typography
+                          className={classes.text}
+                          align="center"
+                          component="h5"
+                          variant="h5"
+                        >
+                          {item.name}
+                        </Typography>
+                      </div>
+                      <Avatar className={classes.bigAvatar} src={item.icon} />
                     </div>
-                    <Avatar className={classes.bigAvatar} src={item.icon} />
-                  </div>
-                  <Grid container spacing={40}>
-                    <Grid item sm={8} md={6} lg={6}>
-                      <div>
-                        <Typography className={classes.text} align="center">
-                          Albums
+                    <Grid container spacing={40}>
+                      <Grid item sm={8} md={6} lg={6}>
+                        <div>
+                          <Typography className={classes.text} align="center">
+                            Albums
                         </Typography>
-                      </div>
-                    </Grid>
-                    <Grid item sm={8} md={6} lg={6}>
-                      <div>
-                        <Typography className={classes.text} align="center">
-                          Songs
+                        </div>
+                      </Grid>
+                      <Grid item sm={8} md={6} lg={6}>
+                        <div>
+                          <Typography className={classes.text} align="center">
+                            Songs
                         </Typography>
-                      </div>
+                        </div>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              ))}
-            </Grid>
-          )}
+                ))}
+              </Grid>
+            )}
         </main>
       </div>
     );
