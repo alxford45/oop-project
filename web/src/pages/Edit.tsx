@@ -1,4 +1,4 @@
-import React, { Props, Component } from "react";
+import React from "react";
 import { Query } from "react-apollo";
 import { searchQuery } from "../graphql/searchQuery";
 import DashBar from "../components/DashBar";
@@ -16,8 +16,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
-  TextField,
   DialogActions
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -25,8 +23,7 @@ import Card from "@material-ui/core/Card";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { ArtistList } from "../list/ArtistList";
-import ListProvider from "../components/ListProvider";
-import Test from "./Test";
+import { artistSearchQuery } from "../graphql/artistSearchQuery";
 import { artistQuery } from "../graphql/artistQuery";
 //const ListProvider = require('../components/ListProvider');
 
@@ -102,7 +99,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
               {data.search.artists.items.map(({ name, id, images }, index) => {
                 console.log(
                   "typeof images[0] ? " + !Array.isArray(images) ||
-                  !images.length
+                    !images.length
                 );
                 return (
                   <List key={index}>
@@ -112,10 +109,10 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                           <Avatar src={images[0].url} />
                         </ListItemIcon>
                       ) : (
-                          <ListItemIcon>
-                            <Avatar />
-                          </ListItemIcon>
-                        )}
+                        <ListItemIcon>
+                          <Avatar />
+                        </ListItemIcon>
+                      )}
 
                       <ListItemText inset primary={name} />
                       <Card>
@@ -143,7 +140,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       key: 0,
       name: name,
       id: id,
-      icon: icon,
+      icon: icon
     };
     list.add(Artist);
     this.setState({ list: list });
@@ -229,7 +226,9 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                 {list.get().map((todo, index) => (
                   <List key={index}>
                     <ListItem>
-                      <ListItemIcon><Avatar src={todo.icon} /></ListItemIcon>
+                      <ListItemIcon>
+                        <Avatar src={todo.icon} />
+                      </ListItemIcon>
                       <ListItemText
                         inset
                         primary={todo.name}

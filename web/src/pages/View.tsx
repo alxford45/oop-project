@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import DashBar from "../components/DashBar";
 import Calendar from "../components/Calendar";
-import { Query } from "react-apollo";
+import { Query, ApolloConsumer } from "react-apollo";
 import { eventQuery } from "../graphql/eventQuery";
 import { EventList } from "../list/EventList";
 import { string } from "prop-types";
@@ -49,10 +49,20 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     super(props);
     this.state = {
       list: this.props.list
+      //id: null
     };
   }
 
-  saveEvent = (id, displayName, uri, location, type, venue, start, performance) => {
+  saveEvent = (
+    id,
+    displayName,
+    uri,
+    location,
+    type,
+    venue,
+    start,
+    performance
+  ) => {
     let newEvent = {
       name: displayName,
       day: start.date,
@@ -66,7 +76,6 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     };
     event.add(newEvent);
   };
-
   get = id => {
     return (
       <Query query={eventQuery} variables={{ id }}>
@@ -106,20 +115,19 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       <div className={this.props.classes.root}>
         <DashBar />
         <main className={classes.content}>
-          {this.get(660883)}
+          {this.get("")}
           <div className={classes.appBarSpacer} />
           <Grid container spacing={40}>
-            <Grid item sm={6} md={4} lg={4} >
-
-              <Typography  className={classes.text}>
-                {this.state.list.get().map((item) => (
+            <Grid item sm={6} md={4} lg={4}>
+              <Typography className={classes.text}>
+                {this.state.list.get().map(item => (
                   <div className={classes.bigAvatar}>
                     <Avatar className={classes.bigAvatar} src={item.icon} />
                     {item.name}
                   </div>
                 ))}
               </Typography>
-            </Grid  >
+            </Grid>
             <Grid item sm={12} md={8} lg={8}>
               <Calendar event={event} />
             </Grid>
