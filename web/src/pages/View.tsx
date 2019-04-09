@@ -19,6 +19,7 @@ import { eventQuery } from "../graphql/eventQuery";
 import { EventList } from "../list/EventList";
 import { string } from "prop-types";
 import { artistSearchQuery } from "../graphql/artistSearchQuery";
+import { differenceInCalendarQuarters } from "date-fns";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -53,13 +54,15 @@ const styles = (theme: Theme) =>
   });
 
 let event = new EventList();
+let value = [0, 0]
 
 class View extends Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
     super(props);
     this.state = {
       list: this.props.list,
-      open: false
+      open: false,
+      id: 0,
     };
   }
 
@@ -73,6 +76,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     start,
     performance
   ) => {
+
     let newEvent = {
       name: displayName,
       day: start.date,
@@ -85,10 +89,9 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       performance: performance
     };
     event.add(newEvent);
-    console.log(event);
   };
   getId = name => {
-    return (
+    return this.state.id == 0 ? (
       <Query query={artistSearchQuery} variables={{ name }}>
         {({ loading, error, data }) => {
           if (loading) return <div>loading</div>;
@@ -96,17 +99,19 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
             ({
               id,
             }) => {
-              console.log(id);
-              this.getEvent(id)
+              value.splice(0, 2)
+              value.push(id)
+              console.log(id)
+              this.setState({ id: id })
             }
           );
         }}
       </Query>
-    );
+    ) : null;
   };
   getEvent = id => {
-    console.log(id);
-    return (
+    console.log("eventin")
+    return this.state.id == 0 ? null : (
       <Query query={eventQuery} variables={{ id }}>
         {({ loading, error, data }) => {
           if (loading) return <div>loading</div>;
@@ -121,7 +126,6 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
               start,
               performance
             }) => {
-              console.log(displayName);
               this.saveEvent(
                 id,
                 displayName,
@@ -149,7 +153,12 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       <div className={this.props.classes.root}>
         <DashBar />
         <main className={classes.content}>
-          {this.getId("JID")}
+          {this.state.list.get().map((item) => (
+            console.log(item.name),
+            this.getId(item.name)
+          ))}
+          {this.getEvent(value[0])}
+
           <div className={classes.appBarSpacer} />
           <Button onClick={this.handleTab}>
             {this.state.open ? "Albums & Songs" : "Calendar"}
@@ -177,15 +186,15 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
                       <Grid item sm={8} md={6} lg={6}>
                         <div>
                           <Typography className={classes.text} align="center">
-                            Albums
-                        </Typography>
+
+                          </Typography>
                         </div>
                       </Grid>
                       <Grid item sm={8} md={6} lg={6}>
                         <div>
                           <Typography className={classes.text} align="center">
-                            Songs
-                        </Typography>
+
+                          </Typography>
                         </div>
                       </Grid>
                     </Grid>

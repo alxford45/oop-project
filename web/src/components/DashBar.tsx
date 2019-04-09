@@ -18,6 +18,9 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ImageIcon from "@material-ui/icons/Image";
 import { BrowserRouter as Router, NavLink, Link } from "react-router-dom";
 import { createStyles, WithStyles } from "@material-ui/core";
+import PeopleIcon from '@material-ui/icons/People';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 
 const drawerWidth = 240;
@@ -172,7 +175,7 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                         <Link to={"./DashBoard"} style={{ textDecoration: 'none' }}>
                             <ListItem button>
                                 <ListItemIcon>
-                                    <ImageIcon />
+                                    <FavoriteIcon />
                                 </ListItemIcon>
                                 <ListItemText inset primary="DashBoard" />
                             </ListItem>
@@ -181,7 +184,7 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                         <Link to={"./Edit"} style={{ textDecoration: 'none' }}>
                             <ListItem button>
                                 <ListItemIcon>
-                                    <ImageIcon />
+                                    <PeopleIcon />
                                 </ListItemIcon>
                                 <ListItemText inset primary="Edit" />
                             </ListItem>
@@ -190,18 +193,9 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                         <Link to={"./View"} style={{ textDecoration: 'none' }}>
                             <ListItem button>
                                 <ListItemIcon>
-                                    <ImageIcon />
+                                    <PhotoCamera />
                                 </ListItemIcon>
                                 <ListItemText inset primary="View" />
-                            </ListItem>
-                        </Link>
-                        <Divider />
-                        <Link to={"./Test"} style={{ textDecoration: 'none' }}>
-                            <ListItem button>
-                                <ListItemIcon>
-                                    <ImageIcon />
-                                </ListItemIcon>
-                                <ListItemText inset primary="Test" />
                             </ListItem>
                         </Link>
                         <Divider />

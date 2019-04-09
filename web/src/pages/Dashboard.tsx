@@ -13,6 +13,9 @@ import { ArtistList } from "../list/ArtistList";
 import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab, Button, Avatar } from "@material-ui/core";
 import { BigList } from "../list/BigList";
 import { Link } from "react-router-dom";
+import DeleteIcon from '@material-ui/icons/Delete';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -84,11 +87,11 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
                   </Card>
                   <Link to={"./View"} style={{ textDecoration: "none" }}>
                     <Button onClick={() => this.handleView(item)}>
-                      View All
+                      <PhotoCamera />
                     </Button>
                   </Link>
                   <Button onClick={() => this.deleteList(index)}>
-                    Delete
+                    <DeleteIcon />
                   </Button>
                   {item.get().map((artist, index) => {
                     return (

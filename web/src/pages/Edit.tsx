@@ -25,6 +25,11 @@ import { Link } from "react-router-dom";
 import { ArtistList } from "../list/ArtistList";
 import { artistSearchQuery } from "../graphql/artistSearchQuery";
 import { artistQuery } from "../graphql/artistQuery";
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
+import SaveIcon from '@material-ui/icons/Save';
+
+
 //const ListProvider = require('../components/ListProvider');
 
 const styles = (theme: Theme) =>
@@ -125,7 +130,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                             this.addToList(name, id, images[0].url)
                           }
                         >
-                          add
+                          <AddIcon />
                         </Button>
                       </Card>
                     </ListItem>
@@ -223,7 +228,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
               <Card className={classes.list}>
                 <Link to={"./Dashboard"} style={{ textDecoration: "none" }}>
                   <Button onClick={this.handleSave}>
-                    Save {this.state.title}
+                    <SaveIcon /> {this.state.title}
                   </Button>
                 </Link>
               </Card>
@@ -241,7 +246,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                       />
                       <Card>
                         <Button onClick={() => this.deleteFromList(todo)}>
-                          Delete
+                          <DeleteIcon />
                         </Button>
                       </Card>
                     </ListItem>
