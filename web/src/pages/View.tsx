@@ -18,6 +18,7 @@ import { Query, ApolloConsumer } from "react-apollo";
 import { eventQuery } from "../graphql/eventQuery";
 import { EventList } from "../list/EventList";
 import { string } from "prop-types";
+import { artistSearchQuery } from "../graphql/artistSearchQuery";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -85,7 +86,23 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     };
     event.add(newEvent);
   };
-  get = id => {
+  getId = name => {
+    return (
+      <Query query={artistSearchQuery} variables={{ name }}>
+        {({ data }) => {
+          return data.artistSearch.resultsPage.results.artist.map(
+            ({
+              id,
+              index //need?
+            }) => {
+              //this.handle(id)
+            }
+          );
+        }}
+      </Query>
+    );
+  };
+  getEvent = id => {
     return (
       <Query query={eventQuery} variables={{ id }}>
         {({ loading, error, data }) => {
@@ -128,7 +145,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       <div className={this.props.classes.root}>
         <DashBar />
         <main className={classes.content}>
-          {this.get("")}
+          {this.getEvent("")}
           <div className={classes.appBarSpacer} />
           <Button onClick={this.handleTab}>
             {this.state.open ? "Albums & Songs" : "Calendar"}
