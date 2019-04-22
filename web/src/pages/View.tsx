@@ -7,19 +7,13 @@ import {
   Grid,
   Avatar,
   Typography,
-  Tabs,
-  Tab,
-  Card,
   Button
 } from "@material-ui/core";
 import DashBar from "../components/DashBar";
 import Calendar from "../components/Calendar";
-import { Query, ApolloConsumer } from "react-apollo";
+import { Query } from "react-apollo";
 import { eventQuery } from "../graphql/eventQuery";
 import { EventList } from "../list/EventList";
-import { string } from "prop-types";
-import { artistSearchQuery } from "../graphql/artistSearchQuery";
-import { differenceInCalendarQuarters } from "date-fns";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -53,8 +47,7 @@ const styles = (theme: Theme) =>
     }
   });
 
-let event = new EventList();
-let value = [0, 0];
+let events = new EventList();
 
 class View extends Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
@@ -66,6 +59,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     };
   }
 
+  //Saves each artist's singular event into a list of all the artists' events
   saveEvent = (
     id,
     displayName,
@@ -87,15 +81,14 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       venue: venue,
       performance: performance
     };
-    event.add(newEvent);
+    events.add(newEvent);
   };
 
-  getEvent = name => {
+  getEvents = name => {
     return (
       <Query query={eventQuery} variables={{ name: name }}>
         {({ loading, data }) => {
           if (loading) return <div>loading</div>;
-          console.log(data);
           return data.eventByName.resultsPage.results.event.map(
             ({
               id,
@@ -124,6 +117,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     );
   };
 
+  //Changes the items rendered on the page to either general artist info or calendar
   handleTab = () => {
     this.setState({ open: !this.state.open });
   };
@@ -134,49 +128,47 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       <div className={this.props.classes.root}>
         <DashBar />
         <main className={classes.content}>
-          {this.state.list
-            .get()
-            .map(item => (console.log(item.name), this.getEvent(item.name)))}
-
+          {this.state.list.get().map(item => (
+            this.getEvents(item.name)
+          ))}
           <div className={classes.appBarSpacer} />
           <Button onClick={this.handleTab}>
             {this.state.open ? "Albums & Songs" : "Calendar"}
           </Button>
-          {this.state.open ? (
-            <Calendar event={event} list={this.state.list} />
-          ) : (
-            <Grid container className={classes.container} spacing={40}>
-              {this.state.list.get().map(item => (
-                <Grid item sm={6} md={4} lg={4}>
-                  <div>
+          {this.state.open ? (<Calendar event={events} list={this.state.list} />) : //Render Calendar
+            ( //Render artist info
+              <Grid container className={classes.container} spacing={40}>
+                {this.state.list.get().map(item => (
+                  <Grid item sm={6} md={4} lg={4}>
                     <div>
-                      <Typography
-                        className={classes.text}
-                        align="center"
-                        component="h5"
-                        variant="h5"
-                      >
-                        {item.name}
-                      </Typography>
+                      <div>
+                        <Typography
+                          className={classes.text}
+                          align="center"
+                          component="h5"
+                          variant="h5"
+                        >
+                          {item.name}
+                        </Typography>
+                      </div>
+                      <Avatar className={classes.bigAvatar} src={item.icon} />
                     </div>
-                    <Avatar className={classes.bigAvatar} src={item.icon} />
-                  </div>
-                  <Grid container spacing={40}>
-                    <Grid item sm={8} md={6} lg={6}>
-                      <div>
-                        <Typography className={classes.text} align="center" />
-                      </div>
-                    </Grid>
-                    <Grid item sm={8} md={6} lg={6}>
-                      <div>
-                        <Typography className={classes.text} align="center" />
-                      </div>
+                    <Grid container spacing={40}>
+                      <Grid item sm={8} md={6} lg={6}>
+                        <div>
+                          <Typography className={classes.text} align="center" />
+                        </div>
+                      </Grid>
+                      <Grid item sm={8} md={6} lg={6}>
+                        <div>
+                          <Typography className={classes.text} align="center" />
+                        </div>
+                      </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              ))}
-            </Grid>
-          )}
+                ))}
+              </Grid>
+            )}
         </main>
       </div>
     );

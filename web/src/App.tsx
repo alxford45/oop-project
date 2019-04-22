@@ -7,17 +7,10 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  NavLink,
-  Link,
   Redirect
 } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import { ListItemText, List, ListItem, Button } from "@material-ui/core";
 import View from "./pages/View";
-import ListProvider from "./components/ListProvider";
-import { listenerCount } from "cluster";
 import { ArtistList } from "./list/ArtistList";
-import Test from "./pages/Test";
 import { BigList } from "./list/BigList";
 
 const list = new ArtistList();
@@ -27,13 +20,14 @@ class App extends Component {
   state = {
     bigList: bigList,
     list: list,
-    name: "MAYBE",
   };
 
-  myOtherCallback = data => {
+  //Takes the list data from the Edit page and stores it in App's state.
+  editCallback = data => {
     bigList.add(data);
   };
 
+  //Takes the specific list chosen on dashboard and sends its data to the view page.
   passListToView = (data) => {
     this.setState({ list: data });
   };
@@ -58,18 +52,18 @@ class App extends Component {
               render={props => <Dashboard {...props}
                 callbackView={this.passListToView}
                 callbackDelete={this.deleteList}
-                bigList={bigList} />}
+                bigList={bigList} />
+              }
             />
             <Route
               path="/Edit"
               render={props => (
-                <Edit {...props} callback={this.myOtherCallback} />
+                <Edit {...props} callback={this.editCallback} />
               )}
             />
             <Route
               path="/View"
               render={props => <View {...props} list={this.state.list} />} />
-            <Route path="/Test" component={Test} />
           </Switch>
         </div>
       </Router>

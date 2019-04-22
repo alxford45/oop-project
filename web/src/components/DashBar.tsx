@@ -15,16 +15,13 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ImageIcon from "@material-ui/icons/Image";
-import { BrowserRouter as Router, NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { createStyles, WithStyles } from "@material-ui/core";
 import PeopleIcon from '@material-ui/icons/People';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-
 const drawerWidth = 240;
-
 
 const styles = (theme: Theme) => createStyles({
     root: {
@@ -105,10 +102,12 @@ const styles = (theme: Theme) => createStyles({
 });
 
 
-class Dashboard extends React.Component<WithStyles<typeof styles>> {
+class DashBar extends React.Component<WithStyles<typeof styles>> {
+
     state = {
         open: false,
     };
+
     handleDrawerOpen = () => {
         this.setState({ open: true });
     };
@@ -116,6 +115,7 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
     handleDrawerClose = () => {
         this.setState({ open: false });
     };
+
     render() {
         const { classes } = this.props;
         return (
@@ -202,11 +202,9 @@ class Dashboard extends React.Component<WithStyles<typeof styles>> {
                     </List>
                     <List />
                 </Drawer>
-
             </div>
         );
     }
 }
 
-
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(DashBar);

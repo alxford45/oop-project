@@ -1,21 +1,14 @@
 import React from "react";
 import dateFns from "date-fns";
 import {
-  createStyles,
-  Theme,
-  withStyles,
   Button,
   DialogTitle,
   Dialog,
-  MenuItem,
-  Menu,
   DialogContent,
-  DialogActions,
   Divider
 } from "@material-ui/core";
 import "./Calendar.css";
 import { EventList } from "../list/EventList";
-import { Link } from "react-router-dom";
 
 let event = new EventList();
 

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,7 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Dashboard from "./Dashboard";
-import { Route, Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import { List, ListItem, ListItemText, WithStyles, Theme, createStyles } from "@material-ui/core";
 import { gql } from "apollo-boost";

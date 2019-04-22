@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import MediaCard from "../components/MediaCard";
 import NavBar from "../components/NavBar";
 import { List, ListItem, ListItemText, Theme, createStyles, WithStyles, withStyles, Typography } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
@@ -22,15 +21,14 @@ const styles = (theme: Theme) => createStyles({
     component: "h6",
     variant: "h1"
   }
-
 });
 
 class Home extends Component<WithStyles<typeof styles>>{
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-
         <main className={classes.content}>
           <NavBar>
             <List>

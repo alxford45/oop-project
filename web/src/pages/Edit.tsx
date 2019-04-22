@@ -23,13 +23,10 @@ import Card from "@material-ui/core/Card";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { ArtistList } from "../list/ArtistList";
-import { artistSearchQuery } from "../graphql/artistSearchQuery";
-import { artistQuery } from "../graphql/artistQuery";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import SaveIcon from "@material-ui/icons/Save";
 
-//const ListProvider = require('../components/ListProvider');
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -64,8 +61,6 @@ const styles = (theme: Theme) =>
   });
 
 let list = new ArtistList();
-let title = "";
-let image = "";
 
 class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
@@ -79,10 +74,11 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     };
   }
 
-  handleChange = e => {
+  handleSearchChange = e => {
     this.setState({ search: e.target.value });
   };
 
+  //Prevents the page from refreshing when submitting Title
   handleRefresh = e => {
     e.preventDefault();
   };
@@ -91,7 +87,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     this.setState({ title: e.target.value });
   };
 
-  handleRequest = e => {
+  handleSearchRequest = e => {
     e.preventDefault();
     this.setState({ name: this.state.search });
   };
@@ -112,11 +108,10 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                           <Avatar src={images[0].url} />
                         </ListItemIcon>
                       ) : (
-                        <ListItemIcon>
-                          <Avatar />
-                        </ListItemIcon>
-                      )}
-
+                          <ListItemIcon>
+                            <Avatar />
+                          </ListItemIcon>
+                        )}
                       <ListItemText inset primary={name} />
                       <Card>
                         <Button
@@ -146,7 +141,6 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       icon: icon
     };
     list.add(Artist);
-
     this.setState({ list: list });
   };
 
@@ -160,7 +154,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     this.setState({ open: true });
   };
 
-  handleClose = () => {
+  handleDialogClose = () => {
     this.setState({ open: false });
   };
 
@@ -169,8 +163,8 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       return alert("You must add an Artist first!");
     }
     list.setTitle(this.state.title);
-    this.props.callback(list);
-    list = new ArtistList();
+    this.props.callback(list);//Sends the list data to be saved in the App state
+    list = new ArtistList();//Creates a new instance of the ArtistList to reset the page for the next created list
     this.setState({ list: list });
   };
 
@@ -180,8 +174,8 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       <div className={classes.root}>
         <DashBar />
         <Dialog
-          open={this.state.open} //{this.state.open}
-          onClose={this.handleClose}
+          open={this.state.open}
+          onClose={this.handleDialogClose}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
@@ -198,7 +192,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
             </form>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleDialogClose} color="primary">
               Create List
             </Button>
           </DialogActions>
@@ -207,14 +201,17 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
           <div className={classes.appBarSpacer} />
           <Grid container spacing={40}>
             <Grid item sm={6} md={4} lg={4}>
-              <form onSubmit={evt => this.handleRequest(evt)}>
+              <form onSubmit={evt => this.handleSearchRequest(evt)}>
                 <InputBase
-                  onChange={evt => this.handleChange(evt)}
-                  value={this.state.request}
+                  onChange={evt => this.handleSearchChange(evt)}
+                  value={this.state.search}
                   placeholder={"Search for for your music destination…"}
                 />
               </form>
-              <div>{this.getSpotify({ name: this.state.name })}</div>
+              <div>
+                {//Calls the Spotify search query and renders the 5 most popular artists based on the given name
+                  this.getSpotify({ name: this.state.name })}
+              </div>
             </Grid>
             <Divider />
             <Grid item sm={6} md={4} lg={3} />
@@ -227,25 +224,26 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
                 </Link>
               </Card>
               <Card className={classes.list}>
-                {list.get().map((todo, index) => (
-                  <List key={index}>
-                    <ListItem>
-                      <ListItemIcon>
-                        <Avatar src={todo.icon} />
-                      </ListItemIcon>
-                      <ListItemText
-                        inset
-                        primary={todo.name}
-                        className={classes.listText}
-                      />
-                      <Card>
-                        <Button onClick={() => this.deleteFromList(todo)}>
-                          <DeleteIcon />
-                        </Button>
-                      </Card>
-                    </ListItem>
-                  </List>
-                ))}
+                {//Loops through the created list and renders each individual artist's info
+                  list.get().map((artist, index) => (
+                    <List key={index}>
+                      <ListItem>
+                        <ListItemIcon>
+                          <Avatar src={artist.icon} />
+                        </ListItemIcon>
+                        <ListItemText
+                          inset
+                          primary={artist.name}
+                          className={classes.listText}
+                        />
+                        <Card>
+                          <Button onClick={() => this.deleteFromList(artist)}>
+                            <DeleteIcon />
+                          </Button>
+                        </Card>
+                      </ListItem>
+                    </List>
+                  ))}
               </Card>
             </Grid>
           </Grid>
