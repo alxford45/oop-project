@@ -16,10 +16,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "schema:download": "apollo schema:download --endpoint=http://localhost:8000",
-    "codegen:generate": "apollo codegen:generate ./src/schemaTypes.ts --queries=./src/**/*.tsx --localSchemaFile=./schema.json --outputFlat --target=typescript",
-    "gen:types": "npm run schema:download && npm run codegen:generate"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,7 +31,6 @@
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
     "@types/classnames": "^2.2.7",
-    "@types/jest": "24.0.11",
     "@types/material-ui": "^0.21.6",
     "@types/node": "^11.11.4",
     "@types/react": "16.8.10",
