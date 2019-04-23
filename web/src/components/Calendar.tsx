@@ -30,6 +30,7 @@ class Calendar extends React.Component<any, any> {
     var months = [""];
     var eventDates = ["01-02-03"];
     this.state.event.get().map((item) => eventDates.push(item.day));
+    //Parses the times so they can be compared to the calendar dates
     eventDates.map(element => {
       let pieces = element.split("-");
       dates.push(pieces[2]);
@@ -51,6 +52,7 @@ class Calendar extends React.Component<any, any> {
           venue: display.venue,
           performance: display.performance
         }),
+        //adds newly formatted times to the event list
         event.add(newEvent)
       )
     );
@@ -58,6 +60,7 @@ class Calendar extends React.Component<any, any> {
     this.setState({ loaded: true });
   };
 
+  //Renders Current Month along with buttons to change to next or previous month
   renderHeader() {
     const dateFormat = "MMMM YYYY";
     return (
@@ -78,7 +81,6 @@ class Calendar extends React.Component<any, any> {
   }
 
   renderDays() {
-
     const dateFormat = "dddd";
     const days = [<div />];
 
@@ -91,10 +93,10 @@ class Calendar extends React.Component<any, any> {
         </div>
       );
     }
-
     return <div className="days row">{days}</div>;
   }
 
+  //renders the individual boxes for the days
   renderCells() {
     const { currentMonth } = this.state;
     const monthStart = dateFns.startOfMonth(currentMonth);
@@ -120,17 +122,18 @@ class Calendar extends React.Component<any, any> {
         days.push(
           <div className={`col cell`} key={cloneDay.toString()}>
             <span className="number">
-              {this.state.event
-                .get()
-                .map((item) =>
-                  item.day == splitDate[2] && item.months == splitDate[1] ? (
-                    <Button
-                      onClick={() => this.onDateClick(splitDate[2], item)}
-                    >
-                      {item.name}
-                    </Button>
-                  ) : null
-                )}
+              {//Maps through events to find which ones are on this paricular date
+                this.state.event
+                  .get()
+                  .map((item) =>
+                    item.day == splitDate[2] && item.months == splitDate[1] ? (
+                      <Button
+                        onClick={() => this.onDateClick(splitDate[2], item)}
+                      >
+                        {item.name}
+                      </Button>
+                    ) : null
+                  )}
               {formattedDate}
             </span>
             <span className="bg">{formattedDate}</span>
@@ -148,14 +151,9 @@ class Calendar extends React.Component<any, any> {
     return <div className="body">{rows}</div>;
   }
 
+  //Opens dialog box to display the specific dates event details
   onDateClick = (date, item) => {
-
-
-    if (date == item.day) {
-      this.setState({ details: item });
-
-    }
-
+    this.setState({ details: item });
     this.setState({ open: true });
   };
 
@@ -163,12 +161,14 @@ class Calendar extends React.Component<any, any> {
     this.setState({ open: false });
   };
 
+  //Sets header to next month
   nextMonth = () => {
     this.setState({
       currentMonth: dateFns.addMonths(this.state.currentMonth, 1)
     });
   };
 
+  //Sets header to prev month
   prevMonth = () => {
     this.setState({
       currentMonth: dateFns.subMonths(this.state.currentMonth, 1)
@@ -178,11 +178,11 @@ class Calendar extends React.Component<any, any> {
   render() {
     return (
       <div className="calendar">
-        {this.state.loaded ? null : (
+        {this.state.loaded ? null : ( //waits for event data to be loaded before rendering the button
           <Button onClick={this.logProps}>Load Events</Button>
         )}
         <Dialog
-          open={this.state.open} //{this.state.open}
+          open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >

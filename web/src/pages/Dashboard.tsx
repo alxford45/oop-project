@@ -53,6 +53,7 @@ class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
     };
   }
 
+  //Sends the list data to the parent App component to allow access in the View page
   handleView = (list) => {
     this.props.callbackView(list);
   };

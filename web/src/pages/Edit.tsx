@@ -74,6 +74,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     };
   }
 
+  //Updates the contents of the search bar
   handleSearchChange = e => {
     this.setState({ search: e.target.value });
   };
@@ -87,6 +88,7 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
     this.setState({ title: e.target.value });
   };
 
+  //Gives name state a value thus calling getSpotify to acquire the API data
   handleSearchRequest = e => {
     e.preventDefault();
     this.setState({ name: this.state.search });
@@ -99,7 +101,8 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
           if (loading) return <div>loading</div>;
           return (
             <Card>
-              {data.search.artists.items.map(({ name, id, images }, index) => {
+              {//Iterates through the returned Spotify data and renders the 5 most popular results
+                data.search.artists.items.map(({ name, id, images }, index) => {
                 return (
                   <List key={index}>
                     <ListItem>
@@ -141,13 +144,13 @@ class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
       icon: icon
     };
     list.add(Artist);
-    this.setState({ list: list });
+    this.setState({ list: list });//Refreshes actions on page to render changed list
   };
 
   deleteFromList = item => {
     list.remove(item.key);
     list.get().map((todo, index) => (todo.key = index));
-    this.setState({ list: list });
+    this.setState({ list: list });//Refreshes actions on page to render changed list
   };
 
   handleClickOpen = () => {
