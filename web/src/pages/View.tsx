@@ -89,6 +89,10 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       <Query query={eventQuery} variables={{ name: name }}>
         {({ loading, data }) => {
           if (loading) return <div>loading</div>;
+          console.log(data);
+          if (data.eventByName.resultsPage.results.event == null) {
+            return null;
+          }
           return data.eventByName.resultsPage.results.event.map(
             ({
               id,
@@ -128,47 +132,47 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
       <div className={this.props.classes.root}>
         <DashBar />
         <main className={classes.content}>
-          {this.state.list.get().map(item => (
-            this.getEvents(item.name)
-          ))}
+          {this.state.list.get().map(item => this.getEvents(item.name))}
           <div className={classes.appBarSpacer} />
           <Button onClick={this.handleTab}>
             {this.state.open ? "Albums & Songs" : "Calendar"}
           </Button>
-          {this.state.open ? (<Calendar event={events} list={this.state.list} />) : //Render Calendar
-            ( //Render artist info
-              <Grid container className={classes.container} spacing={40}>
-                {this.state.list.get().map(item => (
-                  <Grid item sm={6} md={4} lg={4}>
+          {this.state.open ? (
+            <Calendar event={events} list={this.state.list} /> //Render Calendar
+          ) : (
+            //Render artist info
+            <Grid container className={classes.container} spacing={40}>
+              {this.state.list.get().map(item => (
+                <Grid item sm={6} md={4} lg={4}>
+                  <div>
                     <div>
-                      <div>
-                        <Typography
-                          className={classes.text}
-                          align="center"
-                          component="h5"
-                          variant="h5"
-                        >
-                          {item.name}
-                        </Typography>
-                      </div>
-                      <Avatar className={classes.bigAvatar} src={item.icon} />
+                      <Typography
+                        className={classes.text}
+                        align="center"
+                        component="h5"
+                        variant="h5"
+                      >
+                        {item.name}
+                      </Typography>
                     </div>
-                    <Grid container spacing={40}>
-                      <Grid item sm={8} md={6} lg={6}>
-                        <div>
-                          <Typography className={classes.text} align="center" />
-                        </div>
-                      </Grid>
-                      <Grid item sm={8} md={6} lg={6}>
-                        <div>
-                          <Typography className={classes.text} align="center" />
-                        </div>
-                      </Grid>
+                    <Avatar className={classes.bigAvatar} src={item.icon} />
+                  </div>
+                  <Grid container spacing={40}>
+                    <Grid item sm={8} md={6} lg={6}>
+                      <div>
+                        <Typography className={classes.text} align="center" />
+                      </div>
+                    </Grid>
+                    <Grid item sm={8} md={6} lg={6}>
+                      <div>
+                        <Typography className={classes.text} align="center" />
+                      </div>
                     </Grid>
                   </Grid>
-                ))}
-              </Grid>
-            )}
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </main>
       </div>
     );
