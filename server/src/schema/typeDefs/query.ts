@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 
-export const queries = gql`
+export const typeDef = gql`
   type Query {
     search(name: String!): Search
     artist(id: ID!): Artist!
