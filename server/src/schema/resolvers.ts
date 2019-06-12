@@ -1,5 +1,6 @@
 import { IResolvers } from "graphql-tools";
 import { User } from "../entity/User";
+import { List } from "../entity/List";
 
 export const resolvers: IResolvers = {
   Query: {
@@ -50,6 +51,9 @@ export const resolvers: IResolvers = {
       await new Promise(res => req.session.destroy(() => res()));
       res.clearCookie("connect.sid");
       return true;
+    },
+    createList: async (_, { title }) => {
+      const list = await List.create({ title }).save();
     }
   }
 };
