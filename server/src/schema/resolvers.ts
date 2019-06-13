@@ -1,6 +1,7 @@
 import { IResolvers } from "graphql-tools";
 import { User } from "../entity/User";
 import { List } from "../entity/List";
+import { getConnection } from "typeorm";
 
 export const resolvers: IResolvers = {
   Query: {
@@ -28,6 +29,18 @@ export const resolvers: IResolvers = {
         return null;
       }
       return User.findOne(req.session.userId);
+    },
+    myLists: async (_, __, { req }) => {
+      if (!req.session.userId) {
+        return null;
+      }
+      const lists = await getConnection()
+        .createQueryBuilder()
+        .select("list")
+        .from(List, "list")
+        .where(`"userId" = :id`, { id: req.session.userId })
+        .getMany();
+      return lists;
     }
   },
   Mutation: {
@@ -35,7 +48,6 @@ export const resolvers: IResolvers = {
       await User.create({
         email
       }).save();
-
       return true;
     },
     login: async (_, { email }, { req }) => {
@@ -52,8 +64,18 @@ export const resolvers: IResolvers = {
       res.clearCookie("connect.sid");
       return true;
     },
-    createList: async (_, { title }) => {
+    createList: async (_, { title }, { req }) => {
+      const user = await User.findOne(req.session.userId);
+      if (!user) {
+        console.log("error: user is not logged in");
+        return false;
+      }
       const list = await List.create({ title }).save();
+      list.user = user;
+      list.title = title;
+      list.ids = [];
+      list.save();
+      return true;
     }
   }
 };
