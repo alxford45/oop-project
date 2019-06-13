@@ -7,12 +7,12 @@ import {
 } from "typeorm";
 import { List } from "./List";
 
-@Entity("User")
+@Entity("users")
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("text")
+  @Column({ type: "text", unique: true })
   email: string;
 
   @OneToMany(_type => List, list => list.user)

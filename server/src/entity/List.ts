@@ -7,7 +7,7 @@ import {
 } from "typeorm";
 import { User } from "./User";
 
-@Entity("List")
+@Entity("list")
 export class List extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -15,8 +15,8 @@ export class List extends BaseEntity {
   @Column("text")
   title: string;
 
-  @Column("simple-array")
-  ids: string[];
+  @Column({ type: "simple-array", nullable: true })
+  ids: [];
 
   @ManyToOne(_type => User, user => user.lists)
   user: User;
