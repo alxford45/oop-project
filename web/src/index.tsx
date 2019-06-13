@@ -1,9 +1,9 @@
+import ApolloClient from "apollo-boost";
 import React from "react";
+import { ApolloProvider } from "react-apollo";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
 const client = new ApolloClient({
   uri: "http://localhost:8000",
   credentials: "include"

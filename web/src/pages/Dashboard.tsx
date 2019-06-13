@@ -1,19 +1,13 @@
-import React from "react";
-import {
-  withStyles,
-  Theme,
-  createStyles,
-  WithStyles
-} from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import { Avatar, Button, Card, Fab, Grid, List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
-import DashBar from "../components/DashBar";
+import { createStyles, Theme, withStyles, WithStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
 import AddIcon from '@material-ui/icons/Add';
-import { Card, List, ListItem, ListItemIcon, ListItemText, Grid, Fab, Button, Avatar } from "@material-ui/core";
-import { BigList } from "../list/BigList";
-import { Link } from "react-router-dom";
 import DeleteIcon from '@material-ui/icons/Delete';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import React from "react";
+import { Link } from "react-router-dom";
+import DashBar from "../components/DashBar";
 
 
 const styles = (theme: Theme) =>

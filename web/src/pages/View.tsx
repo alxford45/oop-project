@@ -1,17 +1,17 @@
-import React, { Component } from "react";
 import {
-  Theme,
-  createStyles,
-  WithStyles,
-  withStyles,
-  Grid,
   Avatar,
+  Button,
+  createStyles,
+  Grid,
+  Theme,
   Typography,
-  Button
+  WithStyles,
+  withStyles
 } from "@material-ui/core";
-import DashBar from "../components/DashBar";
-import Calendar from "../components/Calendar";
+import React, { Component } from "react";
 import { Query } from "react-apollo";
+import Calendar from "../components/Calendar";
+import DashBar from "../components/DashBar";
 import { eventQuery } from "../graphql/eventQuery";
 import { EventList } from "../list/EventList";
 
@@ -134,7 +134,7 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
         <DashBar />
         <main className={classes.content}>
           {//Fetches the songkick data for each artist inthe list
-            this.state.list.get().map(item => this.getEvents(item.name))}
+          this.state.list.get().map(item => this.getEvents(item.name))}
           <div className={classes.appBarSpacer} />
           <Button onClick={this.handleTab}>
             {this.state.open ? "Albums & Songs" : "Calendar"}
@@ -143,39 +143,39 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
             //Render Calendar
             <Calendar event={events} list={this.state.list} />
           ) : (
-              //Render artist info
-              <Grid container className={classes.container} spacing={40}>
-                {this.state.list.get().map(item => (
-                  <Grid item sm={6} md={4} lg={4}>
+            //Render artist info
+            <Grid container className={classes.container} spacing={40}>
+              {this.state.list.get().map(item => (
+                <Grid item sm={6} md={4} lg={4}>
+                  <div>
                     <div>
-                      <div>
-                        <Typography
-                          className={classes.text}
-                          align="center"
-                          component="h5"
-                          variant="h5"
-                        >
-                          {item.name}
-                        </Typography>
-                      </div>
-                      <Avatar className={classes.bigAvatar} src={item.icon} />
+                      <Typography
+                        className={classes.text}
+                        align="center"
+                        component="h5"
+                        variant="h5"
+                      >
+                        {item.name}
+                      </Typography>
                     </div>
-                    <Grid container spacing={40}>
-                      <Grid item sm={8} md={6} lg={6}>
-                        <div>
-                          <Typography className={classes.text} align="center" />
-                        </div>
-                      </Grid>
-                      <Grid item sm={8} md={6} lg={6}>
-                        <div>
-                          <Typography className={classes.text} align="center" />
-                        </div>
-                      </Grid>
+                    <Avatar className={classes.bigAvatar} src={item.icon} />
+                  </div>
+                  <Grid container spacing={40}>
+                    <Grid item sm={8} md={6} lg={6}>
+                      <div>
+                        <Typography className={classes.text} align="center" />
+                      </div>
+                    </Grid>
+                    <Grid item sm={8} md={6} lg={6}>
+                      <div>
+                        <Typography className={classes.text} align="center" />
+                      </div>
                     </Grid>
                   </Grid>
-                ))}
-              </Grid>
-            )}
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </main>
       </div>
     );

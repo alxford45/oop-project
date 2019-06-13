@@ -1,13 +1,12 @@
+import { Drawer } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
+import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { Component } from "react";
-import { Drawer } from "@material-ui/core";
 
 class NavBar extends Component {
-
   state = {
     isOpen: false
   };
@@ -23,7 +22,7 @@ class NavBar extends Component {
     return (
       <div className="AppBar">
         <AppBar position="static">
-          <Toolbar >
+          <Toolbar>
             <IconButton
               color="inherit"
               aria-label="Menu"

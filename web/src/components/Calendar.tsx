@@ -1,14 +1,14 @@
-import React from "react";
-import dateFns from "date-fns";
 import {
   Button,
-  DialogTitle,
   Dialog,
   DialogContent,
+  DialogTitle,
   Divider
 } from "@material-ui/core";
-import "./Calendar.css";
+import dateFns from "date-fns";
+import React from "react";
 import { EventList } from "../list/EventList";
+import "./Calendar.css";
 
 let event = new EventList();
 
@@ -29,7 +29,7 @@ class Calendar extends React.Component<any, any> {
     var dates = [""];
     var months = [""];
     var eventDates = ["01-02-03"];
-    this.state.event.get().map((item) => eventDates.push(item.day));
+    this.state.event.get().map(item => eventDates.push(item.day));
     //Parses the times so they can be compared to the calendar dates
     eventDates.map(element => {
       let pieces = element.split("-");
@@ -123,17 +123,17 @@ class Calendar extends React.Component<any, any> {
           <div className={`col cell`} key={cloneDay.toString()}>
             <span className="number">
               {//Maps through events to find which ones are on this paricular date
-                this.state.event
-                  .get()
-                  .map((item) =>
-                    item.day == splitDate[2] && item.months == splitDate[1] ? (
-                      <Button
-                        onClick={() => this.onDateClick(splitDate[2], item)}
-                      >
-                        {item.name}
-                      </Button>
-                    ) : null
-                  )}
+              this.state.event
+                .get()
+                .map(item =>
+                  item.day == splitDate[2] && item.months == splitDate[1] ? (
+                    <Button
+                      onClick={() => this.onDateClick(splitDate[2], item)}
+                    >
+                      {item.name}
+                    </Button>
+                  ) : null
+                )}
               {formattedDate}
             </span>
             <span className="bg">{formattedDate}</span>
