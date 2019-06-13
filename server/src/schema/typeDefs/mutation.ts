@@ -5,5 +5,6 @@ export const typeDef = gql`
     register(email: String!): Boolean!
     login(email: String!): User
     logout: Boolean!
+    createList(title: String!): Boolean!
   }
 `;
