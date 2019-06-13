@@ -82,21 +82,20 @@ export const resolvers: IResolvers = {
         console.log("error: list does not exist");
         return null;
       }
-      list.ids.push(...itemIds);
+      await list.ids.push(...itemIds);
       list.save();
       return itemIds;
     },
-    removeFromList: async (_, { itemId, listId }) => {
+    removeFromList: async (_, { itemIds, listId }) => {
       const list = await List.findOne(listId);
       if (!list) {
         console.log("error: list does not exist");
         return null;
       }
-      list.ids.forEach((el, ind) => {
-        if (el === itemId) list.ids.splice(ind, 1);
-      });
+      const newList = list.ids.filter(x => !itemIds.includes(x));
+      list.ids = newList;
       list.save();
-      return itemId;
+      return itemIds;
     },
     deleteList: async (_, { listId }) => {
       await List.delete(listId);
