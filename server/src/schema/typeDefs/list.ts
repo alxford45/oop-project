@@ -4,6 +4,6 @@ export const typeDef = gql`
   type List {
     id: ID!
     title: String!
-    items: [ID]
+    ids: [ID]
   }
 `;
