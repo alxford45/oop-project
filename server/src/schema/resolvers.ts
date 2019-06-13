@@ -73,9 +73,34 @@ export const resolvers: IResolvers = {
       const list = await List.create({ title }).save();
       list.user = user;
       list.title = title;
-      list.ids = [];
       list.save();
       return true;
+    },
+    addToList: async (_, { itemIds, listId }) => {
+      const list = await List.findOne(listId);
+      if (!list) {
+        console.log("error: list does not exist");
+        return null;
+      }
+      list.ids.push(...itemIds);
+      list.save();
+      return itemIds;
+    },
+    removeFromList: async (_, { itemId, listId }) => {
+      const list = await List.findOne(listId);
+      if (!list) {
+        console.log("error: list does not exist");
+        return null;
+      }
+      list.ids.forEach((el, ind) => {
+        if (el === itemId) list.ids.splice(ind, 1);
+      });
+      list.save();
+      return itemId;
+    },
+    deleteList: async (_, { listId }) => {
+      await List.delete(listId);
+      return listId;
     }
   }
 };
