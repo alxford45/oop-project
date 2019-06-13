@@ -6,5 +6,8 @@ export const typeDef = gql`
     login(email: String!): User
     logout: Boolean!
     createList(title: String!): Boolean!
+    deleteList(listId: ID!): ID
+    addToList(itemIds: [ID!]!, listId: ID!): [ID]
+    removeFromList(itemIds: [ID!]!, listId: ID!): [ID]
   }
 `;
