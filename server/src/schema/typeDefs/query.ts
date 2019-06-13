@@ -7,6 +7,7 @@ export const typeDef = gql`
     relatedArtists(id: ID!): RelatedArtists
     albums(id: ID!): Albums
     me: User
+    myLists: [List]
     artistSearch(name: String!): SongkickSearch
     eventSearch(id: ID!): SongkickSearch
     eventByName(name: String!): SongkickSearch
