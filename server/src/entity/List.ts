@@ -16,7 +16,7 @@ export class List extends BaseEntity {
   title: string;
 
   @Column({ type: "simple-array", nullable: true })
-  ids: [];
+  ids: number[];
 
   @ManyToOne(_type => User, user => user.lists)
   user: User;
