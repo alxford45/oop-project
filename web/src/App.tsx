@@ -10,7 +10,7 @@ import { BigList } from "./list/BigList";
 import Dashboard from "./pages/Dashboard";
 import Edit from "./pages/Edit";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Login from "./pages/Login/Form";
 import View from "./pages/View";
 
 const list = new ArtistList();
