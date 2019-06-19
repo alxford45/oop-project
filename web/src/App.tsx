@@ -8,10 +8,10 @@ import {
 import { ArtistList } from "./list/ArtistList";
 import { BigList } from "./list/BigList";
 import Dashboard from "./pages/Dashboard/Dashboard";
-import Edit from "./pages/Edit";
+import Edit from "./pages/Edit/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Form";
-import Collection from "./pages/Collection";
+import Collection from "./pages/Collection/Collection";
 
 const list = new ArtistList();
 const bigList = new BigList();
