@@ -43,12 +43,12 @@ class App extends Component {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/Home">
+            <Route path="/home">
               <Redirect to="/" />
             </Route>
-            <Route path="/Login" component={Login} />
+            <Route path="/login" component={Login} />
             <Route
-              path="/Dashboard"
+              path="/dashboard"
               render={props => (
                 <Dashboard
                   {...props}
@@ -59,11 +59,11 @@ class App extends Component {
               )}
             />
             <Route
-              path="/Edit"
+              path="/edit"
               render={props => <Edit {...props} callback={this.editCallback} />}
             />
             <Route
-              path="/View"
+              path="/view"
               render={props => <View {...props} list={this.state.list} />}
             />
           </Switch>
