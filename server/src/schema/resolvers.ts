@@ -82,7 +82,11 @@ export const resolvers: IResolvers = {
         console.log("error: list does not exist");
         return null;
       }
-      await list.ids.push(...itemIds);
+      if (!list.ids) {
+        list.ids = itemIds;
+      } else {
+        await list.ids.push(...itemIds);
+      }
       list.save();
       return itemIds;
     },
