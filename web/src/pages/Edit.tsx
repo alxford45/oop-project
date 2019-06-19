@@ -24,7 +24,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
 import DashBar from "../components/DashBar";
-import { searchQuery } from "../graphql/searchQuery";
+import { searchQuery } from "../graphql/queries/searchQuery";
 import { ArtistList } from "../list/ArtistList";
 
 const styles = (theme: Theme) =>

@@ -12,7 +12,7 @@ import React, { Component } from "react";
 import { Query } from "react-apollo";
 import Calendar from "../components/Calendar";
 import DashBar from "../components/DashBar";
-import { eventQuery } from "../graphql/eventQuery";
+import { eventQuery } from "../graphql/queries/eventQuery";
 import { EventList } from "../list/EventList";
 
 const styles = (theme: Theme) =>
