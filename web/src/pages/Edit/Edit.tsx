@@ -1,5 +1,4 @@
 import {
-  createStyles,
   Dialog,
   DialogActions,
   DialogContent,
@@ -16,52 +15,21 @@ import Card from "@material-ui/core/Card";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { Theme, withStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SaveIcon from "@material-ui/icons/Save";
 import React from "react";
 import { Query } from "react-apollo";
 import { Link } from "react-router-dom";
-import DashBar from "../components/DashBar";
-import { searchQuery } from "../graphql/queries/searchQuery";
-import { ArtistList } from "../list/ArtistList";
-
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      background:
-        "linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)"
-    },
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing.unit * 3,
-      height: "100vh",
-      overflow: "auto"
-    },
-    inputRoot: {
-      color: "inherit",
-      width: "100%"
-    },
-    inputInput: {
-      paddingTop: theme.spacing.unit,
-      paddingRight: theme.spacing.unit,
-      paddingBottom: theme.spacing.unit
-    },
-    list: {
-      background:
-        "linear-gradient(45deg, #0d47a1 30%, #1e88e5 70%, #42a5f5 90%)"
-    },
-    listText: {
-      color: "theme.palette.common.white"
-    }
-  });
+import DashBar from "../../components/DashBar";
+import { searchQuery } from "../../graphql/queries/searchQuery";
+import { ArtistList } from "../../list/ArtistList";
+import { styles } from "./Edit.styles";
 
 let list = new ArtistList();
 
-class NestedList extends React.Component<any, any, WithStyles<typeof styles>> {
+class NestedList extends React.Component<any, any, WithStyles> {
   constructor(props: any) {
     super(props);
     this.state = {
