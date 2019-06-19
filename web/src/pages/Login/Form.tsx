@@ -1,11 +1,4 @@
-import {
-  createStyles,
-  List,
-  ListItem,
-  ListItemText,
-  Theme,
-  WithStyles
-} from "@material-ui/core";
+import { List, ListItem, ListItemText, WithStyles } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -18,59 +11,29 @@ import Paper from "@material-ui/core/Paper";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import { gql } from "apollo-boost";
-import React, { Component } from "react";
+import * as React from "react";
 import { Link, NavLink } from "react-router-dom";
-import NavBar from "../components/NavBar";
+import NavBar from "../../components/NavBar";
+import { styles } from "./Form.styles";
 
-const loginMutation = gql`
-  mutation LoginMutation($email: String!) {
-    login(email: $email) {
-      id
-      email
-    }
-  }
-`;
+interface Props extends WithStyles {
+  onSubmit: (data: State) => void;
+}
+interface State {
+  email: string;
+  password: string;
+}
+class Form extends React.Component<Props, State> {
+  state = {
+    email: "",
+    password: ""
+  };
 
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {},
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-
-      height: "100vh",
-      overflow: "auto"
-    },
-    main: {
-      width: "auto",
-      display: "block", // Fix IE 11 issue.
-      marginLeft: theme.spacing.unit * 3,
-      marginRight: theme.spacing.unit * 3,
-      [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-        width: 400,
-        marginLeft: "auto",
-        marginRight: "auto"
-      }
-    },
-    paper: {
-      marginTop: theme.spacing.unit * 8,
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-        .spacing.unit * 3}px`
-    },
-    form: {
-      width: "100%", // Fix IE 11 issue.
-      marginTop: theme.spacing.unit
-    }
-  });
-
-class Login extends Component<WithStyles<typeof styles>> {
-  handleSubmit = (event: { preventDefault: () => void }) => {
-    this.handleSubmit.bind(this);
-    event.preventDefault();
+  handleChange = (e: any) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    } as any);
   };
   render() {
     const { classes } = this.props;
@@ -96,10 +59,16 @@ class Login extends Component<WithStyles<typeof styles>> {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <form className={classes.form} onSubmit={this.handleSubmit}>
+            <form className={classes.form}>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                <Input id="email" name="email" autoComplete="email" autoFocus />
+                <Input
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  onChange={this.handleChange}
+                />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -108,15 +77,20 @@ class Login extends Component<WithStyles<typeof styles>> {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  onChange={this.handleChange}
                 />
               </FormControl>
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Link to={"./Dashboard"} style={{ textDecoration: "none" }}>
+              <Link
+                to={"./Dashboard"}
+                style={{ textDecoration: "none" }}
+                onClick={() => this.props.onSubmit(this.state)}
+              >
                 <Button
-                  type="submit"
+                  type="button"
                   fullWidth
                   variant="contained"
                   color="primary"
@@ -132,4 +106,4 @@ class Login extends Component<WithStyles<typeof styles>> {
   }
 }
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Form);
