@@ -8,19 +8,7 @@ import { RouteComponentProps } from "react-router";
 class Login extends React.Component<RouteComponentProps<{}>> {
   render() {
     return (
-      <Mutation
-        update={(cache, { data }) => {
-          if (!data || !data.login) {
-            return;
-          }
-
-          cache.writeQuery({
-            query: me,
-            data: { me: data.login }
-          });
-        }}
-        mutation={login}
-      >
+      <Mutation mutation={login}>
         {(mutate, { client }) => (
           <Form
             onSubmit={async data => {
@@ -30,7 +18,7 @@ class Login extends React.Component<RouteComponentProps<{}>> {
                 variables: data
               });
               console.log(response);
-              this.props.history.push("/account");
+              this.props.history.push("/Dashboard");
             }}
           />
         )}
@@ -38,3 +26,4 @@ class Login extends React.Component<RouteComponentProps<{}>> {
     );
   }
 }
+export default Login;
