@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { ArtistList } from "./list/ArtistList";
 import { BigList } from "./list/BigList";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard";
 import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Form";
