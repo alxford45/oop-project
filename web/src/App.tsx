@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -16,7 +16,12 @@ import View from "./pages/View";
 const list = new ArtistList();
 const bigList = new BigList();
 
-class App extends Component {
+interface State {
+  bigList: BigList;
+  list: ArtistList;
+}
+
+class App extends React.Component<{}, State> {
   state = {
     bigList: bigList,
     list: list
@@ -34,7 +39,7 @@ class App extends Component {
 
   deleteList = data => {
     bigList.remove(data);
-    this.setState({ bigLlist: bigList });
+    this.setState({ bigList: bigList });
   };
 
   render() {
