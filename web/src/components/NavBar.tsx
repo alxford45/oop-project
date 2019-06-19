@@ -4,9 +4,13 @@ import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import MenuIcon from "@material-ui/icons/Menu";
-import React, { Component } from "react";
+import * as React from "react";
+import { NavLink } from "react-router-dom";
 
-class NavBar extends Component {
+interface State {
+  isOpen: boolean;
+}
+class NavBar extends React.PureComponent<{}, State> {
   state = {
     isOpen: false
   };
