@@ -7,7 +7,11 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  CardHeader,
+  CardContent,
+  ListItemAvatar,
+  CardActionArea
 } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import {
@@ -21,86 +25,102 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import DashBar from "../../components/DashBar";
 import { styles } from "./Dashboard.styles";
+import { Query } from "react-apollo";
+import { myLists } from "../../graphql/queries/myLists";
+import { me } from "../../graphql/queries/me";
+import { IconButton } from "@material-ui/core";
+import ShareIcon from "@material-ui/icons/Share";
+import EditIcon from "@material-ui/icons/Edit";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 
-class Dashboard extends React.Component<any, any, WithStyles<typeof styles>> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      bigList: this.props.bigList
-    };
-  }
-
-  //Sends the list data to the parent App component to allow access in the View page
-  handleView = list => {
-    this.props.callbackView(list);
-  };
-
-  deleteList = list => {
-    this.props.callbackDelete(list);
-  };
-
+class Dashboard extends React.Component<WithStyles> {
   render() {
     const { classes } = this.props;
     return (
-      <div className={this.props.classes.root}>
-        <DashBar />
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Typography variant="h4" gutterBottom component="h2" align="center">
-            Your Personal Music Maps
-          </Typography>
-          <Divider />
-          <Grid container spacing={40}>
-            {//Iterates through the BigList that contains all the saved lists and renders each individual list.
-            this.state.bigList.get().map((item, index) => (
-              <Grid key={index} item sm={6} md={4} lg={4}>
-                {this.props.title}
-                <Card className={classes.list}>
-                  <Card className={classes.list}>
-                    <Typography
-                      variant="h6"
-                      component="h1"
-                      className={classes.text}
-                    >
-                      {item.getTitle()}
-                    </Typography>
-                  </Card>
-                  <Link to={"./View"} style={{ textDecoration: "none" }}>
-                    <Button onClick={() => this.handleView(item)}>
-                      <PhotoCamera />
-                    </Button>
-                  </Link>
-                  <Button onClick={() => this.deleteList(index)}>
-                    <DeleteIcon />
-                  </Button>
-                  {item.get().map((artist, index) => {
+      <Query query={me}>
+        {({ data, loading }) => {
+          if (loading) {
+            return null;
+          }
+
+          if (!data) {
+            return <div>data is undefined</div>;
+          }
+
+          if (!data.me) {
+            return <Redirect to="/login" />;
+          }
+          return (
+            <div className={this.props.classes.root}>
+              <DashBar />
+              <main className={classes.content}>
+                <div className={classes.appBarSpacer} />
+                <Typography
+                  variant="h4"
+                  gutterBottom
+                  component="h2"
+                  align="center"
+                >
+                  Your Personal Music Maps
+                </Typography>
+                <Divider />
+
+                <Query query={myLists}>
+                  {({ loading, data }) => {
+                    if (loading) return <div>loading</div>;
+                    if (!data) return <div>error: no data</div>;
+                    console.log(data);
                     return (
-                      <List key={index}>
-                        <ListItem>
-                          <ListItemIcon>
-                            <Avatar src={artist.icon} />
-                          </ListItemIcon>
-                          <ListItemText inset primary={artist.name} />
-                        </ListItem>
-                      </List>
+                      <Grid container spacing={40}>
+                        {data.myLists.map((element, index) => {
+                          return (
+                            <Grid key={index} item sm={6} md={4} lg={4}>
+                              <Card className={classes.list}>
+                                <CardHeader title={element.title} />
+                                <Divider />
+                                <CardContent>
+                                  <List>
+                                    {element.ids
+                                      .filter((_, index) => index < 3)
+                                      .map((x, index) => {
+                                        return (
+                                          <ListItem key={index}>
+                                            <ListItemAvatar>
+                                              <Avatar />
+                                            </ListItemAvatar>
+                                            <ListItemText>{x}</ListItemText>
+                                          </ListItem>
+                                        );
+                                      })}
+                                  </List>
+                                </CardContent>
+                                <CardActionArea>
+                                  <IconButton aria-label="view">
+                                    <ShareIcon />
+                                  </IconButton>
+                                  <IconButton aria-label="edit">
+                                    <EditIcon />
+                                  </IconButton>
+                                  <IconButton aria-label="calendar">
+                                    <CalendarTodayIcon />
+                                  </IconButton>
+                                </CardActionArea>
+                              </Card>
+                            </Grid>
+                          );
+                        })}
+                      </Grid>
                     );
-                  })}
-                </Card>
-              </Grid>
-            ))}
-            <Grid item sm={6} md={4} lg={4}>
-              <Link to={"./Edit"} style={{ textDecoration: "none" }}>
-                <Fab className={classes.button}>
-                  <AddIcon />
-                </Fab>
-              </Link>
-            </Grid>
-          </Grid>
-        </main>
-      </div>
+                  }}
+                </Query>
+              </main>
+            </div>
+          );
+        }}
+      </Query>
     );
   }
 }
