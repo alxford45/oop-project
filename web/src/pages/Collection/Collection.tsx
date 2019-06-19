@@ -1,9 +1,7 @@
 import {
   Avatar,
   Button,
-  createStyles,
   Grid,
-  Theme,
   Typography,
   WithStyles,
   withStyles
@@ -18,7 +16,7 @@ import { styles } from "./Collection.styles";
 
 let events = new EventList();
 
-class Collection extends Component<any, any, WithStyles<typeof styles>> {
+class Collection extends Component<any, any, WithStyles> {
   constructor(props: any) {
     super(props);
     this.state = {
