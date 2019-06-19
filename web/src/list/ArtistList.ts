@@ -33,7 +33,7 @@ export class ArtistList implements ListInterface {
   view(index) {
     return this.state.data[index];
   }
-  cancel() {
+  delete() {
     this.state.size = 0;
     this.state.data = [];
   }
