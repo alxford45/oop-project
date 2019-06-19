@@ -10,46 +10,15 @@ import {
 } from "@material-ui/core";
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import Calendar from "../components/Calendar";
-import DashBar from "../components/DashBar";
-import { eventQuery } from "../graphql/queries/eventQuery";
-import { EventList } from "../list/EventList";
-
-const styles = (theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex",
-      background:
-        "linear-gradient(45deg, #37474f 30%, #78909c 70%, #b0bec5 90%)"
-    },
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing.unit * 3,
-      height: "100vh",
-      overflow: "auto"
-    },
-    bigAvatar: {
-      margin: 10,
-      width: 200,
-      height: 200,
-      marginLeft: 125,
-      marginRight: 100
-    },
-    text: {
-      color: "white",
-      component: "h6",
-      variant: "h1"
-    },
-    container: {
-      justifyItems: "center",
-      alignItems: "center"
-    }
-  });
+import Calendar from "../../components/Calendar";
+import DashBar from "../../components/DashBar";
+import { eventQuery } from "../../graphql/queries/eventQuery";
+import { EventList } from "../../list/EventList";
+import { styles } from "./Collection.styles";
 
 let events = new EventList();
 
-class View extends Component<any, any, WithStyles<typeof styles>> {
+class Collection extends Component<any, any, WithStyles<typeof styles>> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -181,4 +150,4 @@ class View extends Component<any, any, WithStyles<typeof styles>> {
     );
   }
 }
-export default withStyles(styles)(View);
+export default withStyles(styles)(Collection);

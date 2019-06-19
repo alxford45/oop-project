@@ -11,7 +11,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Edit from "./pages/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Form";
-import View from "./pages/View";
+import Collection from "./pages/Collection";
 
 const list = new ArtistList();
 const bigList = new BigList();
@@ -69,7 +69,7 @@ class App extends React.Component<{}, State> {
             />
             <Route
               path="/view"
-              render={props => <View {...props} list={this.state.list} />}
+              render={props => <Collection {...props} list={this.state.list} />}
             />
           </Switch>
         </div>
