@@ -26,5 +26,9 @@ export const styles = (theme: Theme) =>
       color: "white",
       marginLeft: 200,
       marginRight: 200
+    },
+    emptyPaper: {
+      padding: "10px",
+      backgroundColor: theme.palette.primary.main
     }
   });

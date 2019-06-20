@@ -1,40 +1,30 @@
 import {
   Avatar,
-  Button,
   Card,
-  Fab,
+  CardActionArea,
+  CardContent,
+  CardHeader,
   Grid,
+  IconButton,
   List,
   ListItem,
-  ListItemIcon,
-  ListItemText,
-  CardHeader,
-  CardContent,
   ListItemAvatar,
-  CardActionArea
+  ListItemText,
+  Paper
 } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
-import {
-  createStyles,
-  Theme,
-  withStyles,
-  WithStyles
-} from "@material-ui/core/styles";
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import React from "react";
-import { Link, Redirect } from "react-router-dom";
-import DashBar from "../../components/DashBar";
-import { styles } from "./Dashboard.styles";
-import { Query } from "react-apollo";
-import { myLists } from "../../graphql/queries/myLists";
-import { me } from "../../graphql/queries/me";
-import { IconButton } from "@material-ui/core";
-import ShareIcon from "@material-ui/icons/Share";
-import EditIcon from "@material-ui/icons/Edit";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import EditIcon from "@material-ui/icons/Edit";
+import ShareIcon from "@material-ui/icons/Share";
+import React from "react";
+import { Query } from "react-apollo";
+import { Redirect } from "react-router-dom";
+import DashBar from "../../components/DashBar";
+import { me } from "../../graphql/queries/me";
+import { myLists } from "../../graphql/queries/myLists";
+import { styles } from "./Dashboard.styles";
 
 class Dashboard extends React.Component<WithStyles> {
   render() {
@@ -72,6 +62,32 @@ class Dashboard extends React.Component<WithStyles> {
                   {({ loading, data }) => {
                     if (loading) return <div>loading</div>;
                     if (!data) return <div>error: no data</div>;
+                    if (data.myLists.length === 0) {
+                      return (
+                        <div>
+                          <Paper
+                            style={{
+                              padding: "10px"
+                            }}
+                            className={classes.emptyPaper}
+                          >
+                            <Typography
+                              style={{ textAlign: "center" }}
+                              variant="h5"
+                              component="h3"
+                            >
+                              No lists found.
+                            </Typography>
+                            <Typography
+                              style={{ textAlign: "center" }}
+                              component="p"
+                            >
+                              Create a list to get started!
+                            </Typography>
+                          </Paper>
+                        </div>
+                      );
+                    }
                     console.log(data);
                     return (
                       <Grid container spacing={40}>
