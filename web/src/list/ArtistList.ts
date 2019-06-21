@@ -2,12 +2,14 @@ import { ListInterface } from "./ListInterface";
 import { Artist } from "./Artist";
 export class ArtistList implements ListInterface {
   state: {
+    id: number | null;
     size: number;
     data: Artist[];
     title: string;
   };
   constructor() {
     this.state = {
+      id: null,
       size: 0,
       data: [],
       title: ""
