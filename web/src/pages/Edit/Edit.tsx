@@ -77,17 +77,19 @@ const onCreate = (list: ArtistList) => {
     <Mutation mutation={createList}>
       {(createList, { data }) => {
         return (
-          <Dialog open={isOpen} aria-labelledby="form-dialog-title">
+          <Dialog
+            open={isOpen}
+            aria-labelledby="form-dialog-title"
+            onSubmit={event => {
+              event.preventDefault();
+              setIsOpen(isOpen => !isOpen);
+              createList({ variables: { title: title } });
+              list.setTitle(title);
+              list.setId(data.id);
+            }}
+          >
             <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
-            <DialogContent
-              onSubmit={event => {
-                event.preventDefault();
-                setIsOpen(isOpen => !isOpen);
-                createList({ variables: { title: title } });
-                list.setTitle(title);
-                list.setId(data.id);
-              }}
-            >
+            <DialogContent>
               <InputBase
                 autoFocus
                 margin="dense"
