@@ -34,8 +34,8 @@ interface State {
   isOpen: boolean;
 }
 interface Props extends WithStyles {
-  onSave: () => void;
-  onQuery: (name: string) => JSX.Element | null;
+  onSave: (list: ArtistList) => void;
+  onQuery: ({ name: string }) => JSX.Element | null;
 }
 
 class NestedList extends React.Component<Props, State> {
