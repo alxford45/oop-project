@@ -26,6 +26,12 @@ export class ArtistList implements ListInterface {
   get() {
     return this.state.data;
   }
+  getArtistIds() {
+    const ArtistIds = new Array<string>(this.size());
+    this.get().forEach(artist => ArtistIds.push(artist.id));
+
+    return ArtistIds;
+  }
   setTitle(title: string) {
     this.state.title = title;
   }
