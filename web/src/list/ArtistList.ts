@@ -29,6 +29,9 @@ export class ArtistList implements ListInterface {
   setTitle(title: string) {
     this.state.title = title;
   }
+  setId(id: number) {
+    this.state.id = id;
+  }
   size() {
     return this.state.size;
   }
