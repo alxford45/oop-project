@@ -88,7 +88,6 @@ class Dashboard extends React.Component<WithStyles> {
                         </div>
                       );
                     }
-                    console.log(data);
                     return (
                       <Grid container spacing={40}>
                         {data.myLists.map((element, index) => {
