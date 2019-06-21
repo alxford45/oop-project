@@ -13,24 +13,24 @@ export class ArtistList implements ListInterface {
       title: ""
     };
   }
-  add(artist) {
+  add(artist: Artist) {
     this.state.size++;
     this.state.data.push(artist);
   }
-  remove(index) {
+  remove(index: number) {
     this.state.size--;
     this.state.data.splice(index, 1);
   }
   get() {
     return this.state.data;
   }
-  setTitle(name) {
-    this.state.title = name;
+  setTitle(title: string) {
+    this.state.title = title;
   }
   getTitle() {
     return this.state.title;
   }
-  view(index) {
+  view(index: number) {
     return this.state.data[index];
   }
   delete() {
