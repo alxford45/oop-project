@@ -10,7 +10,6 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Edit from "./pages/Edit/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
-import Collection from "./pages/Collection/Collection";
 
 class App extends React.Component {
   render() {
@@ -19,11 +18,11 @@ class App extends React.Component {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/home">
+            <Route path="/Home">
               <Redirect to="/" />
             </Route>
-            <Route path="/login" component={Login} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/Login" component={Login} sensitive={true} />
+            <Route path="/Dashboard" component={Dashboard} />
             />
           </Switch>
         </div>
