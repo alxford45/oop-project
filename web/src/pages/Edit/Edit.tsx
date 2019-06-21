@@ -115,20 +115,20 @@ const onSave = (list: ArtistList, props: any) => {
   const { classes } = props;
   return (
     <Mutation mutation={addToList}>
-      {(addToList, { data }) => {
-        props.history.push("/Dashboard");
+      {addToList => {
         return (
           <Card className={classes.list}>
             <IconButton
               aria-label="save"
-              onClick={() =>
+              onClick={() => {
                 addToList({
                   variables: {
                     itemIds: list.getArtistIds(),
                     listId: list.getId()
                   }
-                })
-              }
+                });
+                props.history.push("/Dashboard");
+              }}
             >
               <SaveIcon />
             </IconButton>
