@@ -23,6 +23,7 @@ class App extends React.Component {
             </Route>
             <Route path="/Login" component={Login} sensitive={true} />
             <Route path="/Dashboard" component={Dashboard} />
+            <Route path="/Edit" component={Edit} />
             />
           </Switch>
         </div>
