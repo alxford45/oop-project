@@ -61,6 +61,15 @@ const onQuery = ({ name }) => {
     </Query>
   );
 };
+const onCreate = (title: string) => {
+  return (
+    <Mutation mutation={createList} variables={{ title }}>
+      {mutate => {
+        return null;
+      }}
+    </Mutation>
+  );
+};
 const onSave = (list: ArtistList) => {
   const itemIds = new Array<string>(list.size());
   const listId = list.getId();
