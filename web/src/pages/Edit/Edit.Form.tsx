@@ -105,30 +105,7 @@ class NestedList extends React.Component<Props, State> {
     return (
       <div className={classes.root}>
         <DashBar />
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleDialogClose}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
-          <DialogContent>
-            <form onSubmit={evt => this.handleRefresh(evt)}>
-              <InputBase
-                autoFocus
-                margin="dense"
-                id="name"
-                fullWidth
-                onChange={evt => this.handleTitleChange(evt)}
-                value={this.state.title}
-              />
-            </form>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleDialogClose} color="primary">
-              Create List
-            </Button>
-          </DialogActions>
-        </Dialog>
+
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Grid container spacing={40}>
