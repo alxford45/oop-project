@@ -9,7 +9,6 @@ import {
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import Calendar from "../../components/Calendar";
-import DashBar from "../../components/DashBar";
 import { eventQuery } from "../../graphql/queries/eventQuery";
 import { EventList } from "../../list/EventList";
 import { styles } from "./Collection.styles";
@@ -98,7 +97,6 @@ class Collection extends Component<any, any, WithStyles> {
     const { classes } = this.props;
     return (
       <div className={this.props.classes.root}>
-        <DashBar />
         <main className={classes.content}>
           {//Fetches the songkick data for each artist inthe list
           this.state.list.get().map(item => this.getEvents(item.name))}
