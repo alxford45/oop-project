@@ -28,8 +28,8 @@ import { ArtistList } from "../../list/ArtistList";
 import { styles } from "./Edit.Form.styles";
 import { Artist } from "../../list/Artist";
 interface State {
-  list: ArtistList;
-  listItem: Artist;
+  list: ArtistList | null;
+  listItem: Artist | null;
   searchField: string;
   isOpen: boolean;
 }
@@ -37,19 +37,14 @@ interface Props extends WithStyles {
   onSave: () => void;
   onQuery: (name: string) => JSX.Element | null;
 }
-let list = new ArtistList();
 
-class NestedList extends React.Component<any, any, WithStyles> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      search: "",
-      name: "",
-      list: list,
-      open: true,
-      title: ""
-    };
-  }
+class NestedList extends React.Component<Props, State> {
+  state = {
+    list: null,
+    listItem: null,
+    searchField: "",
+    isOpen: true
+  };
 
   //Updates the contents of the search bar
   handleSearchChange = e => {
@@ -69,50 +64,6 @@ class NestedList extends React.Component<any, any, WithStyles> {
   handleSearchRequest = e => {
     e.preventDefault();
     this.setState({ name: this.state.search });
-  };
-
-  getSpotify = ({ name }) => {
-    return this.state.name == "" ? null : (
-      <Query query={searchQuery} variables={{ name }}>
-        {({ loading, data }) => {
-          if (loading) return <div>loading</div>;
-          return (
-            <Card>
-              {//Iterates through the returned Spotify data and renders the 5 most popular results
-              data.search.artists.items.map(
-                ({ names, id, images }, index: number) => {
-                  return (
-                    <List key={index}>
-                      <ListItem>
-                        {images.length > 0 ? (
-                          <ListItemIcon>
-                            <Avatar src={images[0].url} />
-                          </ListItemIcon>
-                        ) : (
-                          <ListItemIcon>
-                            <Avatar />
-                          </ListItemIcon>
-                        )}
-                        <ListItemText inset primary={name} />
-                        <Card>
-                          <Button
-                            onClick={() => {
-                              this.addToList(name, id, images[0].url);
-                            }}
-                          >
-                            <AddIcon />
-                          </Button>
-                        </Card>
-                      </ListItem>
-                    </List>
-                  );
-                }
-              )}
-            </Card>
-          );
-        }}
-      </Query>
-    );
   };
 
   addToList = (name, spotifyID, icon) => {
