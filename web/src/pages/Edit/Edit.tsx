@@ -105,18 +105,16 @@ class NestedList extends React.Component<any, any, WithStyles> {
 
   addToList = (name, spotifyID, icon) => {
     const Artist = {
-      key: 0,
       name: name,
-      spotifyID: spotifyID,
+      id: spotifyID,
       icon: icon
     };
     list.add(Artist);
     this.setState({ list: list }); //Refreshes actions on page to render changed list
   };
 
-  deleteFromList = item => {
-    list.remove(item.key);
-    list.get().map((todo, index) => (todo.key = index));
+  deleteFromList = index => {
+    list.remove(index);
     this.setState({ list: list }); //Refreshes actions on page to render changed list
   };
 
