@@ -126,13 +126,6 @@ class NestedList extends React.Component<Props, State> {
             <Grid item sm={6} md={4} lg={3} />
             <Grid item sm={6} md={4} lg={4}>
               <Card className={classes.list}>
-                <Link to={"./Dashboard"} style={{ textDecoration: "none" }}>
-                  <Button onClick={this.handleSave}>
-                    <SaveIcon /> {this.state.title}
-                  </Button>
-                </Link>
-              </Card>
-              <Card className={classes.list}>
                 {//Loops through the created list and renders each individual artist's info
                 list.get().map((artist, index) => (
                   <List key={index}>
