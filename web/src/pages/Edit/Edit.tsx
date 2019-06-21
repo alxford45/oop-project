@@ -1,8 +1,17 @@
 import * as React from "react";
 import { Query, Mutation } from "react-apollo";
 import { searchQuery } from "../../graphql/queries/searchQuery";
-import { Card, List, ListItem, Avatar } from "material-ui";
-import { ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
+import { Card, List, ListItem, Avatar, Dialog } from "material-ui";
+import {
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+  DialogTitle,
+  DialogContent,
+  InputBase,
+  DialogActions,
+  Button
+} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { ArtistList } from "../../list/ArtistList";
 import { Artist } from "../../list/Artist";
@@ -61,11 +70,40 @@ const onQuery = ({ name }) => {
     </Query>
   );
 };
-const onCreate = (title: string) => {
+const onCreate = (list: ArtistList) => {
+  const [isOpen, setIsOpen] = React.useState(true);
+  const [title, setTitle] = React.useState("");
   return (
-    <Mutation mutation={createList} variables={{ title }}>
-      {mutate => {
-        return null;
+    <Mutation mutation={createList}>
+      {(createList, { data }) => {
+        return (
+          <Dialog open={isOpen} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
+            <DialogContent
+              onSubmit={event => {
+                event.preventDefault();
+                setIsOpen(isOpen => !isOpen);
+                createList({ variables: { title: title } });
+                list.setTitle(title);
+                list.setId(data.id);
+              }}
+            >
+              <InputBase
+                autoFocus
+                margin="dense"
+                id="title"
+                fullWidth
+                onChange={event => setTitle(event.target.value)}
+                value={title}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button type="submit" color="primary">
+                Create List
+              </Button>
+            </DialogActions>
+          </Dialog>
+        );
       }}
     </Mutation>
   );
