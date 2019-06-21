@@ -17,6 +17,7 @@ import { ArtistList } from "../../list/ArtistList";
 import { Artist } from "../../list/Artist";
 import { createList } from "../../graphql/mutations/createList";
 import { addToList } from "../../graphql/mutations/addToList";
+import SaveIcon from "@material-ui/icons/Save";
 
 let list = new ArtistList();
 let artistItem: Artist = {
@@ -111,15 +112,28 @@ const onCreate = (list: ArtistList) => {
   );
 };
 const onSave = (list: ArtistList, props: any) => {
-  const itemIds = new Array<string>(list.size());
-  const listId = list.getId();
-
-  list.get().forEach(item => itemIds.push(item.id));
+  const { classes } = props;
   return (
-    <Mutation mutation={addToList} variables={{ itemIds, listId }}>
-      {() => {
+    <Mutation mutation={addToList}>
+      {(addToList, { data }) => {
         props.history.push("/Dashboard");
-        return null;
+        return (
+          <Card className={classes.list}>
+            <IconButton
+              aria-label="save"
+              onClick={() =>
+                addToList({
+                  variables: {
+                    itemIds: list.getArtistIds(),
+                    listId: list.getId()
+                  }
+                })
+              }
+            >
+              <SaveIcon />
+            </IconButton>
+          </Card>
+        );
       }}
     </Mutation>
   );
