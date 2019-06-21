@@ -74,7 +74,7 @@ export const resolvers: IResolvers = {
       list.user = user;
       list.title = title;
       list.save();
-      return true;
+      return list.id;
     },
     addToList: async (_, { itemIds, listId }) => {
       const list = await List.findOne(listId);
