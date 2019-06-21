@@ -35,6 +35,7 @@ interface State {
 }
 interface Props extends WithStyles {
   onSave: (list: ArtistList) => void;
+  onCreate: ({ title: string }) => JSX.Element | null;
   onQuery: ({ name: string }) => JSX.Element | null;
 }
 
