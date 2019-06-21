@@ -117,12 +117,12 @@ class DashBar extends React.Component<Props> {
           </div>
           <List>
             <Divider />
-            <Link to={"./DashBoard"} style={{ textDecoration: "none" }}>
+            <Link to={"./Dashboard"} style={{ textDecoration: "none" }}>
               <ListItem button>
                 <ListItemIcon>
                   <FavoriteIcon />
                 </ListItemIcon>
-                <ListItemText inset primary="DashBoard" />
+                <ListItemText inset primary="Dashboard" />
               </ListItem>
             </Link>
             <Divider />
