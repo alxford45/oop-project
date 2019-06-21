@@ -59,3 +59,4 @@ const onQuery = ({ name }) => {
     </Query>
   );
 };
+const OnSave = (list: ArtistList) => {};
