@@ -5,7 +5,6 @@ import {
   Route,
   Switch
 } from "react-router-dom";
-import { ArtistList } from "./list/ArtistList";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Edit from "./pages/Edit/Edit";
 import Home from "./pages/Home";
