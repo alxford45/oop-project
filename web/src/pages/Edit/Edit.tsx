@@ -110,14 +110,15 @@ const onCreate = (list: ArtistList) => {
     </Mutation>
   );
 };
-const onSave = (list: ArtistList) => {
+const onSave = (list: ArtistList, props: any) => {
   const itemIds = new Array<string>(list.size());
   const listId = list.getId();
 
   list.get().forEach(item => itemIds.push(item.id));
   return (
-    <Mutation mutation={addToList} variables={{ ...itemIds, listId }}>
-      {mutate => {
+    <Mutation mutation={addToList} variables={{ itemIds, listId }}>
+      {() => {
+        props.history.push("/Dashboard");
         return null;
       }}
     </Mutation>
