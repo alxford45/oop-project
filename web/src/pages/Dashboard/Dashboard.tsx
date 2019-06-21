@@ -112,7 +112,7 @@ class Dashboard extends React.Component<WithStyles> {
                                       })}
                                   </List>
                                 </CardContent>
-                                <CardActionArea>
+                                <div className={classes.buttons}>
                                   <IconButton aria-label="view">
                                     <ShareIcon />
                                   </IconButton>
@@ -122,7 +122,7 @@ class Dashboard extends React.Component<WithStyles> {
                                   <IconButton aria-label="calendar">
                                     <CalendarTodayIcon />
                                   </IconButton>
-                                </CardActionArea>
+                                </div>
                               </Card>
                             </Grid>
                           );
