@@ -1,11 +1,13 @@
 import * as React from "react";
-import { Query } from "react-apollo";
+import { Query, Mutation } from "react-apollo";
 import { searchQuery } from "../../graphql/queries/searchQuery";
 import { Card, List, ListItem, Avatar } from "material-ui";
 import { ListItemIcon, ListItemText, IconButton } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { ArtistList } from "../../list/ArtistList";
 import { Artist } from "../../list/Artist";
+import { createList } from "../../graphql/mutations/createList";
+import { addToList } from "../../graphql/mutations/addToList";
 
 let list = new ArtistList();
 let artistItem: Artist = {
@@ -59,4 +61,16 @@ const onQuery = ({ name }) => {
     </Query>
   );
 };
-const OnSave = (list: ArtistList) => {};
+const onSave = (list: ArtistList) => {
+  const itemIds = new Array<string>(list.size());
+  const listId = list.getId();
+
+  list.get().forEach(item => itemIds.push(item.id));
+  return (
+    <Mutation mutation={addToList} variables={{ ...itemIds, listId }}>
+      {mutate => {
+        return null;
+      }}
+    </Mutation>
+  );
+};
