@@ -9,11 +9,11 @@ class Login extends React.Component<RouteComponentProps<{}>> {
   render() {
     return (
       <Mutation mutation={login}>
-        {(mutate, { client }) => (
+        {mutate => (
           <Form
             onSubmit={async data => {
               // optional reset cache
-              await client.resetStore();
+
               const response = await mutate({
                 variables: data
               });
