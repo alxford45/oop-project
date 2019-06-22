@@ -42,7 +42,7 @@ interface Props extends WithStyles {
   ) => JSX.Element | null;
 }
 
-class NestedList extends React.Component<Props, State> {
+class EditForm extends React.Component<Props, State> {
   state = {
     list: null,
     searchField: "",
@@ -157,4 +157,4 @@ class NestedList extends React.Component<Props, State> {
   }
 }
 
-export default withStyles(styles)(NestedList);
+export default withStyles(styles)(EditForm);
