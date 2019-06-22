@@ -29,20 +29,22 @@ import { styles } from "./Edit.Form.styles";
 import { Artist } from "../../list/Artist";
 interface State {
   list: ArtistList | null;
-  listItem: Artist | null;
   searchField: string;
   isOpen: boolean;
 }
 interface Props extends WithStyles {
-  onSave: (list: ArtistList) => void;
+  onSave: (list: ArtistList, props: any) => void;
   onCreate: ({ title: string }) => JSX.Element | null;
-  onQuery: ({ name: string }) => JSX.Element | null;
+  onQuery: (
+    { name: string },
+    list: ArtistList,
+    artistItem: Artist
+  ) => JSX.Element | null;
 }
 
 class NestedList extends React.Component<Props, State> {
   state = {
     list: null,
-    listItem: null,
     searchField: "",
     isOpen: true
   };
