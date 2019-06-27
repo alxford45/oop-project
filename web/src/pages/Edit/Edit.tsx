@@ -1,25 +1,19 @@
 import * as React from "react";
-import { Query, Mutation } from "react-apollo";
-import { searchQuery } from "../../graphql/queries/searchQuery";
-import { Card, List, ListItem, Avatar, Dialog } from "material-ui";
-import {
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-  DialogTitle,
-  DialogContent,
-  InputBase,
-  DialogActions,
-  Button
-} from "@material-ui/core";
+import { onCreate } from "./functions/onCreate";
 import { ArtistList } from "../../list/ArtistList";
-import { Artist } from "../../list/Artist";
-import { createList } from "../../graphql/mutations/createList";
-import { addToList } from "../../graphql/mutations/addToList";
-
-let list = new ArtistList();
-let artistItem: Artist = {
-  id: "",
-  name: "",
-  icon: ""
+import { Search } from "./Search";
+import { onQuery } from "./functions/onQuery";
+import { ListComponent } from "./ListComponent";
+export const Edit = () => {
+  let [searchInput, renderSearch] = Search();
+  const input = searchInput as string;
+  const list = React.useRef(new ArtistList());
+  return (
+    <React.Fragment>
+      {onCreate(list.current)}
+      {renderSearch}
+      {onQuery(input, list.current)}
+      <div>{ListComponent(list.current)}</div>
+    </React.Fragment>
+  );
 };
