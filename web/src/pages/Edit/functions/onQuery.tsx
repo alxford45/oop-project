@@ -1,12 +1,25 @@
+import {
+  Avatar,
+  Card,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText
+} from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import * as React from "react";
 import { Query } from "react-apollo";
 import { searchQuery } from "../../../graphql/queries/searchQuery";
-import { Card, List, ListItem, Avatar, IconButton } from "material-ui";
-import { ListItemIcon, ListItemText } from "@material-ui/core";
-import { ArtistList } from "../../../list/ArtistList";
 import { Artist } from "../../../list/Artist";
-import AddIcon from "@material-ui/icons/Add";
+import { ArtistList } from "../../../list/ArtistList";
 
-export const onQuery = ({ name }, list: ArtistList, artistItem: Artist) => {
+export const onQuery = (name: string, list: ArtistList) => {
+  const artistItem: Artist = {
+    id: "",
+    name: "",
+    icon: ""
+  };
   return (
     <Query query={searchQuery} variables={{ name }}>
       {({ loading, data }) => {
@@ -33,8 +46,15 @@ export const onQuery = ({ name }, list: ArtistList, artistItem: Artist) => {
                       <Card>
                         <IconButton
                           onClick={() => {
-                            const icon = images[0].url;
-                            artistItem = { name, id, icon };
+                            if (images.length > 0) {
+                              const icon = images[0].url;
+                              artistItem.icon = icon;
+                            } else {
+                              const icon = "";
+                              artistItem.icon = icon;
+                            }
+                            artistItem.name = name;
+                            artistItem.id = id;
                             list.add(artistItem);
                           }}
                         >
