@@ -1,34 +1,27 @@
-import { ArtistList } from "../../../list/ArtistList";
-import { Mutation } from "react-apollo";
-import { createList } from "../../../graphql/mutations/createList";
-import { Dialog } from "material-ui";
 import {
-  DialogTitle,
-  DialogContent,
-  InputBase,
+  Button,
+  Dialog,
   DialogActions,
-  Button
+  DialogContent,
+  DialogTitle,
+  InputBase
 } from "@material-ui/core";
 import * as React from "react";
+import { Mutation } from "react-apollo";
+import { createList } from "../../../graphql/mutations/createList";
+import { ArtistList } from "../../../list/ArtistList";
 
 export const onCreate = (list: ArtistList) => {
   const [isOpen, setIsOpen] = React.useState(true);
   const [title, setTitle] = React.useState("");
   return (
-    <Mutation mutation={createList}>
-      {(createList, { data }) => {
+    <Mutation
+      mutation={createList}
+      onCompleted={data => list.setId(data.createList.id)}
+    >
+      {createList => {
         return (
-          <Dialog
-            open={isOpen}
-            aria-labelledby="form-dialog-title"
-            onSubmit={event => {
-              event.preventDefault();
-              setIsOpen(isOpen => !isOpen);
-              createList({ variables: { title: title } });
-              list.setTitle(title);
-              list.setId(data.id);
-            }}
-          >
+          <Dialog open={isOpen} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">Enter A List Title</DialogTitle>
             <DialogContent>
               <InputBase
@@ -41,7 +34,15 @@ export const onCreate = (list: ArtistList) => {
               />
             </DialogContent>
             <DialogActions>
-              <Button type="submit" color="primary">
+              <Button
+                type="button"
+                color="primary"
+                onClick={() => {
+                  setIsOpen(isOpen => !isOpen);
+                  createList({ variables: { title: title } });
+                  list.setTitle(title);
+                }}
+              >
                 Create List
               </Button>
             </DialogActions>
