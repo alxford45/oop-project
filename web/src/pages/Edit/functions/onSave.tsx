@@ -1,8 +1,9 @@
 import { ArtistList } from "../../../list/ArtistList";
 import { Mutation } from "react-apollo";
 import { addToList } from "../../../graphql/mutations/addToList";
-import { Card, IconButton } from "material-ui";
+import { Card, IconButton } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
+import * as React from "react";
 
 export const onSave = (list: ArtistList, props: any) => {
   const { classes } = props;
