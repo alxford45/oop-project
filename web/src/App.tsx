@@ -9,11 +9,12 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import { Edit } from "./pages/Edit/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
+import { ListProvider } from "./context/list.provider";
 
 const App = () => {
   return (
     <Router>
-      <div>
+      <ListProvider>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/Home">
@@ -24,7 +25,7 @@ const App = () => {
           <Route path="/Edit" component={Edit} />
           />
         </Switch>
-      </div>
+      </ListProvider>
     </Router>
   );
 };
