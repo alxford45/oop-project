@@ -8,7 +8,7 @@ import {
 import { ListContext } from "./List.context";
 import { Artist } from "../list/Artist";
 
-export const ListProvider = props => {
+export const ListProvider = (props: any) => {
   const [state, dispatch] = React.useReducer(listReducer, {
     title: "",
     artistList: [] as Artist[]
