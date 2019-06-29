@@ -34,7 +34,7 @@ const styles = (theme: Theme) =>
     }
   });
 
-class Home extends Component<WithStyles<typeof styles>> {
+class Home extends Component<WithStyles> {
   render() {
     const { classes } = this.props;
     return (
