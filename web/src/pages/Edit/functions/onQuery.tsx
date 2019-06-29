@@ -13,13 +13,9 @@ import { Query } from "react-apollo";
 import { searchQuery } from "../../../graphql/queries/searchQuery";
 import AddIcon from "@material-ui/icons/Add";
 import { Artist } from "../../../list/Artist";
+import defaultImage from "../../../baseline_music_note_black_48dp.png";
 
 export const onQuery = (name: string, addArtist: any) => {
-  const artistItem: Artist = {
-    id: "",
-    name: "",
-    icon: ""
-  };
   if (name.length === 0) {
     return null;
   }
@@ -38,7 +34,11 @@ export const onQuery = (name: string, addArtist: any) => {
           console.log("ERROR: Null Data or Variable");
           return null;
         }
-
+        let artistItem: Artist = {
+          id: "",
+          name: "",
+          icon: ""
+        };
         console.log(data);
         return (
           <Card>
@@ -66,14 +66,13 @@ export const onQuery = (name: string, addArtist: any) => {
                             onClick={() => {
                               if (images.length > 0) {
                                 const icon = images[0].url;
-                                artistItem.icon = icon;
+                                artistItem = { id, name, icon };
+                                addArtist(artistItem);
                               } else {
-                                const icon = "";
-                                artistItem.icon = icon;
+                                const icon = defaultImage;
+                                artistItem = { id, name, icon };
+                                addArtist(artistItem);
                               }
-                              artistItem.name = name;
-                              artistItem.id = id;
-                              addArtist(artistItem);
                             }}
                           >
                             <AddIcon />
