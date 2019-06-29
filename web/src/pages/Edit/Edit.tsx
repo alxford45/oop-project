@@ -1,19 +1,25 @@
 import * as React from "react";
-import { onCreate } from "./functions/onCreate";
-import { ArtistList } from "../../list/ArtistList";
-import { Search } from "./Search";
-import { onQuery } from "./functions/onQuery";
+import { Search } from "./SearchInput";
 import { ListComponent } from "./ListComponent";
+import { Title } from "./Title";
+import { SearchResults } from "./SearchResults";
+
 export const Edit = () => {
+  React.useEffect(() => {
+    console.log("Edit Mounted");
+    return () => {
+      console.log("Edit Unmounted");
+    };
+  }, []);
+
   let [searchInput, renderSearch] = Search();
-  const input = searchInput as string;
-  const list = React.useRef(new ArtistList());
+
   return (
     <React.Fragment>
-      {onCreate(list.current)}
+      {Title()}
       {renderSearch}
-      {onQuery(input, list.current)}
-      <div>{ListComponent(list.current)}</div>
+      {SearchResults(searchInput as string)}
+      {ListComponent()}
     </React.Fragment>
   );
 };
