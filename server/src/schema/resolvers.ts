@@ -64,7 +64,7 @@ export const resolvers: IResolvers = {
       res.clearCookie("connect.sid");
       return true;
     },
-    createList: async (_, { title }, { req }) => {
+    createList: async (_, { title, itemIds }, { req }) => {
       const user = await User.findOne(req.session.userId);
       if (!user) {
         console.log("error: user is not logged in");
@@ -73,8 +73,9 @@ export const resolvers: IResolvers = {
       const list = await List.create({ title }).save();
       list.user = user;
       list.title = title;
+      list.ids = itemIds;
       list.save();
-      return list.id;
+      return true;
     },
     addToList: async (_, { itemIds, listId }) => {
       const list = await List.findOne(listId);

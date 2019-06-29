@@ -5,7 +5,7 @@ export const typeDef = gql`
     register(email: String!): Boolean!
     login(email: String!): User
     logout: Boolean!
-    createList(title: String!): ID!
+    createList(title: String!, itemIds: [ID!]!): Boolean!
     deleteList(listId: ID!): ID
     addToList(itemIds: [ID!]!, listId: ID!): [ID]
     removeFromList(itemIds: [ID!]!, listId: ID!): [ID]
