@@ -1,9 +1,13 @@
 import * as React from "react";
 import { Input } from "@material-ui/core";
-import { onQuery } from "./functions/onQuery";
-import { ArtistList } from "../../list/ArtistList";
 
 export const Search = () => {
+  React.useEffect(() => {
+    console.log("Search Mounted");
+    return () => {
+      console.log("Search Unmounted");
+    };
+  }, []);
   const [input, setInput] = React.useState("");
   const renderSearch = (
     <Input
