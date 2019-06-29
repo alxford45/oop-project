@@ -20,13 +20,13 @@ import EditIcon from "@material-ui/icons/Edit";
 import ShareIcon from "@material-ui/icons/Share";
 import React from "react";
 import { Query } from "react-apollo";
-import { Redirect } from "react-router-dom";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import DashBar from "../../components/DashBar";
 import { me } from "../../graphql/queries/me";
 import { myLists } from "../../graphql/queries/myLists";
 import { styles } from "./Dashboard.styles";
-
-class Dashboard extends React.Component<WithStyles> {
+interface Props extends WithStyles, RouteComponentProps {}
+class Dashboard extends React.Component<Props> {
   render() {
     const { classes } = this.props;
     return (
@@ -39,13 +39,13 @@ class Dashboard extends React.Component<WithStyles> {
           if (!data) {
             return <div>data is undefined</div>;
           }
-
           if (!data.me) {
-            return <Redirect to="/login" />;
+            console.log(data);
+            return <Redirect to="/Login" />;
           }
           return (
             <div className={this.props.classes.root}>
-              <DashBar />
+              <DashBar {...this.props} />
               <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Typography
