@@ -17,36 +17,15 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import MenuIcon from "@material-ui/icons/Menu";
 import PeopleIcon from "@material-ui/icons/People";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import ActionPowerSettingsNewRounded from "@material-ui/icons/PowerSettingsNewRounded";
 import classNames from "classnames";
 import React from "react";
-import { Mutation } from "react-apollo";
-import { RouteComponentProps, withRouter } from "react-router";
+import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
-import { logout } from "../graphql/mutations/logout";
 import { styles } from "./DashBar.styles";
+import { Logout } from "./Logout";
 
 interface Props extends WithStyles, RouteComponentProps {}
-const logOut = (props: Props) => {
-  return (
-    <Mutation mutation={logout}>
-      {mutate => (
-        <IconButton
-          aria-label="logout"
-          color="default"
-          className={props.classes.logout}
-          onClick={async () => {
-            const response = await mutate();
-            console.log(response);
-            props.history.push("/");
-          }}
-        >
-          <ActionPowerSettingsNewRounded />
-        </IconButton>
-      )}
-    </Mutation>
-  );
-};
+
 class DashBar extends React.Component<Props> {
   state = {
     open: false
@@ -90,7 +69,7 @@ class DashBar extends React.Component<Props> {
             <Typography variant="h6" color="inherit" className={classes.title}>
               Music Map
             </Typography>
-            {logOut(this.props)}
+            {Logout(this.props)}
           </Toolbar>
         </AppBar>
         <Drawer
@@ -152,4 +131,4 @@ class DashBar extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles)(withRouter(DashBar as any));
+export default withStyles(styles)(DashBar);
