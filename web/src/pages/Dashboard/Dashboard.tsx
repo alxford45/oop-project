@@ -25,6 +25,8 @@ import DashBar from "../../components/DashBar";
 import { me } from "../../graphql/queries/me";
 import { myLists } from "../../graphql/queries/myLists";
 import { styles } from "./Dashboard.styles";
+import { Preview } from "./Preview";
+import { View } from "../View/View";
 interface Props extends WithStyles, RouteComponentProps {}
 class Dashboard extends React.Component<Props> {
   render() {
@@ -97,20 +99,7 @@ class Dashboard extends React.Component<Props> {
                                 <CardHeader title={element.title} />
                                 <Divider />
                                 <CardContent>
-                                  <List>
-                                    {element.ids
-                                      .filter((_, index) => index < 3)
-                                      .map((x, index) => {
-                                        return (
-                                          <ListItem key={index}>
-                                            <ListItemAvatar>
-                                              <Avatar />
-                                            </ListItemAvatar>
-                                            <ListItemText>{x}</ListItemText>
-                                          </ListItem>
-                                        );
-                                      })}
-                                  </List>
+                                  <List>{Preview(refrence.ids)}</List>
                                 </CardContent>
                                 <div className={classes.buttons}>
                                   <IconButton aria-label="view">
