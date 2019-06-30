@@ -9,6 +9,7 @@ export const typeDef = gql`
     albums(id: ID!): Albums
     me: User
     myLists: [List]
+    listById(listId: ID!): List
     artistSearch(name: String!): SongkickSearch
     eventSearch(id: ID!): SongkickSearch
     eventByName(name: String!): SongkickSearch

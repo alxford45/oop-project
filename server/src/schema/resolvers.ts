@@ -43,6 +43,24 @@ export const resolvers: IResolvers = {
         .where(`"userId" = :id`, { id: req.session.userId })
         .getMany();
       return lists;
+    },
+    listById: async (_, { listId }, { req }) => {
+      if (!req.session.userId) {
+        console.log("Error: not logged in");
+        return null;
+      }
+      if (!listId) {
+        console.log("Error: no id param given");
+      }
+
+      const list = await getConnection()
+        .createQueryBuilder()
+        .select("list")
+        .from(List, "list")
+        .where(`"userId" = :userid`, { userid: req.session.userId })
+        .andWhere(`"id" = :id`, { id: listId })
+        .getOne();
+      return list;
     }
   },
   Mutation: {
