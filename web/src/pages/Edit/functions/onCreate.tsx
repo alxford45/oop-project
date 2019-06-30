@@ -9,7 +9,11 @@ import SaveIcon from "@material-ui/icons/Save";
   const itemIds = list.flatMap(artist => artist.id);
 
   return (
-    <Mutation mutation={createList}>
+    <Mutation
+      mutation={createList}
+      onCompleted={() => {
+        props.history.push("/Dashboard");
+        //clears data stored in ListContext
       {createList => {
         return (
           <IconButton
