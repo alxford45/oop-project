@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import Form from "./Form";
-import { me } from "../../graphql/queries/me";
 import { login } from "../../graphql/mutations/login";
 import { RouteComponentProps } from "react-router";
 
