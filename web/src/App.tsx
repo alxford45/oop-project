@@ -6,11 +6,11 @@ import { Edit } from "./pages/Edit/Edit";
 import Home from "./pages/Home";
 import Login from "./pages/Login/Login";
 import { createBrowserHistory } from "history";
+import { View } from "./pages/View/View";
 
 const history = createBrowserHistory();
 
 const App = () => {
-  console.log(history);
   return (
     <Router history={history}>
       <ListProvider>
@@ -19,6 +19,7 @@ const App = () => {
           <Route path="/Login" component={Login} sensitive={true} />
           <Route path="/Dashboard" component={Dashboard} />
           <Route path="/Edit" {...history} component={Edit} />
+          <Route path="/View" {...history} component={View} />
         </Switch>
       </ListProvider>
     </Router>
