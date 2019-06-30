@@ -8,17 +8,16 @@ import { RouteComponentProps } from "react-router";
 class Login extends React.Component<RouteComponentProps<{}>> {
   render() {
     return (
-      <Mutation mutation={login}>
+      <Mutation
+        mutation={login}
+        onCompleted={() => this.props.history.push("/Dashboard")}
+      >
         {mutate => (
           <Form
             onSubmit={async data => {
-              // optional reset cache
-
               const response = await mutate({
                 variables: data
               });
-              console.log(response);
-              this.props.history.push("/Dashboard");
             }}
           />
         )}
