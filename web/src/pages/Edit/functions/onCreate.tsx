@@ -5,7 +5,7 @@ import { createList } from "../../../graphql/mutations/createList";
 import { Artist } from "../../../list/Artist";
 import SaveIcon from "@material-ui/icons/Save";
 
-export const onCreate = (list: Artist[], title: string, props: any) => {
+  //@ts-ignore
   const itemIds = list.flatMap(artist => artist.id);
 
   return (
