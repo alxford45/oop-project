@@ -9,7 +9,7 @@ export const searchQuery = gql`
       }
     }
   }
-  fragment ItemsFragment on Artists {
+  fragment ItemsFragment on SearchArtists {
     items {
       id
       name

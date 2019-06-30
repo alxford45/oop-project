@@ -1,6 +1,9 @@
 import { gql } from "apollo-server-express";
 
 export const typeDef = gql`
+  type Artists {
+    artists: [Artist!]!
+  }
   type Artist {
     genres: [String!]
     id: ID!

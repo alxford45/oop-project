@@ -12,6 +12,9 @@ class ArtistAPI extends SpotifyAPI {
   getArtistById(id: string) {
     return this.get(`artists/${id}`);
   }
+  getArtistsByIds(ids: string[]) {
+    return this.get(`artists/?ids=${ids.join()}`);
+  }
   getRelatedArtistsById(id: string) {
     return this.get(`artists/${id}/related-artists`);
   }

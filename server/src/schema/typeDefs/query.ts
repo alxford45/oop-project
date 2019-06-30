@@ -4,6 +4,7 @@ export const typeDef = gql`
   type Query {
     search(name: String!): Search
     artist(id: ID!): Artist!
+    artists(ids: [ID!]!): Artists!
     relatedArtists(id: ID!): RelatedArtists
     albums(id: ID!): Albums
     me: User

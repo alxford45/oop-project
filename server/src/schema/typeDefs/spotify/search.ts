@@ -2,9 +2,9 @@ import { gql } from "apollo-server-express";
 
 export const typeDef = gql`
   type Search {
-    artists: Artists!
+    artists: SearchArtists!
   }
-  type Artists {
+  type SearchArtists {
     items: [Item!]
     href: String!
   }

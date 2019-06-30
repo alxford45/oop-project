@@ -20,6 +20,8 @@ export const resolvers: IResolvers = {
       await dataSources.songkickSearchAPI.getEventsByArtistId(id),
     artist: async (_, { id }, { dataSources }) =>
       await dataSources.artistAPI.getArtistById(id),
+    artists: async (_, { ids }, { dataSources }) =>
+      await dataSources.artistAPI.getArtistsByIds(ids),
     relatedArtists: async (_, { id }, { dataSources }) =>
       await dataSources.artistAPI.getRelatedArtistsById(id),
     albums: async (_, { id }, { dataSources }) =>
