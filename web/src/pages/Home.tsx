@@ -42,13 +42,16 @@ class Home extends Component<WithStyles> {
         <main className={classes.content}>
           <NavBar>
             <List>
-              {["Home", "Login"].map(value => (
-                <ListItem button key={value}>
-                  <NavLink to={value}>
-                    <ListItemText primary={value} />
-                  </NavLink>
-                </ListItem>
-              ))}
+              <ListItem button>
+                <NavLink to={"/"}>
+                  <ListItemText primary="Home" />
+                </NavLink>
+              </ListItem>
+              <ListItem button>
+                <NavLink to={"/Login"}>
+                  <ListItemText primary="Login" />
+                </NavLink>
+              </ListItem>
             </List>
           </NavBar>
           <CssBaseline />
