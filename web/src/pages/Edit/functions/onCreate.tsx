@@ -5,6 +5,12 @@ import { createList } from "../../../graphql/mutations/createList";
 import { Artist } from "../../../list/Artist";
 import SaveIcon from "@material-ui/icons/Save";
 
+export const onCreate = (
+  list: Artist[],
+  title: string,
+  props: any,
+  reset: any
+) => {
   //@ts-ignore
   const itemIds = list.flatMap(artist => artist.id);
 
@@ -14,6 +20,9 @@ import SaveIcon from "@material-ui/icons/Save";
       onCompleted={() => {
         props.history.push("/Dashboard");
         //clears data stored in ListContext
+        reset();
+      }}
+    >
       {createList => {
         return (
           <IconButton
@@ -26,7 +35,6 @@ import SaveIcon from "@material-ui/icons/Save";
                   itemIds: itemIds
                 }
               });
-              props.history.push("/Dashboard");
             }}
           >
             <SaveIcon />

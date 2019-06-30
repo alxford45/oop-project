@@ -3,6 +3,7 @@ import {
   ADD_ARTIST,
   REMOVE_ARTIST,
   SET_TITLE,
+  RESET,
   listReducer
 } from "./list.reducer";
 import { ListContext } from "./List.context";
@@ -22,6 +23,9 @@ export const ListProvider = (props: any) => {
   const setTitle = (title: string) => {
     dispatch({ type: SET_TITLE, payload: title });
   };
+  const reset = () => {
+    dispatch({ type: RESET, payload: null });
+  };
   return (
     <ListContext.Provider
       value={{
@@ -29,7 +33,8 @@ export const ListProvider = (props: any) => {
         artistList: state.artistList,
         addArtist: addArtist,
         removeArtist: removeArtist,
-        setTitle: setTitle
+        setTitle: setTitle,
+        reset: reset
       }}
     >
       {props.children}

@@ -6,5 +6,6 @@ export const ListContext = React.createContext({
   artistList: [] as Artist[],
   addArtist: (artist: Artist) => {},
   removeArtist: (index: number) => {},
-  setTitle: (title: string) => {}
+  setTitle: (title: string) => {},
+  reset: () => {}
 });

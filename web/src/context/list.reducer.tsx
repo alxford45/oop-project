@@ -5,6 +5,7 @@ import { ArtistList } from "../list/ArtistList";
 export const ADD_ARTIST = "ADD_ARTIST";
 export const REMOVE_ARTIST = "REMOVE_ARTIST";
 export const SET_TITLE = "SET_TITLE";
+export const RESET = "RESET";
 
 interface State {
   title: string;
@@ -12,7 +13,7 @@ interface State {
 }
 interface Action {
   type: string;
-  payload: Artist | string | number;
+  payload: Artist | string | number | null;
 }
 
 type ListReducer = (state: State, action: Action) => State;
@@ -37,7 +38,6 @@ export const listReducer: ListReducer = (state, action) => {
           artistList: [...state.artistList, artist]
         };
       }
-
       case "REMOVE_ARTIST": {
         if (typeof action.payload !== "number") {
           throw "Error: expected payload to be type 'number' for 'REMOVE_ARTIST'";
@@ -46,6 +46,12 @@ export const listReducer: ListReducer = (state, action) => {
           (_, index) => index !== action.payload
         );
         return { title: state.title, artistList: artistList };
+      }
+      case "RESET": {
+        if (typeof action.payload !== null) {
+          throw "Error: expected payload to be type 'null' for 'RESET'";
+        }
+        return { title: "", artistList: [] };
       }
       default:
         return state;

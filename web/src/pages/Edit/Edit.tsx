@@ -20,13 +20,14 @@ export const Edit = props => {
   const context = React.useContext(ListContext);
   const list = context.artistList;
   const title = context.title;
+  const reset = context.reset;
   return (
     <React.Fragment>
       {Title()}
       {renderSearch}
       {SearchResults(searchInput as string)}
       {ListComponent()}
-      {onCreate(list, title, props)}
+      {onCreate(list, title, props, reset)}
     </React.Fragment>
   );
 };
