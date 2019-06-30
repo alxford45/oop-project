@@ -28,15 +28,18 @@ class Dashboard extends React.Component<Props> {
     const { classes } = this.props;
     return (
       <Query query={me}>
-        {({ data, loading }) => {
+        {({ data, loading, refetch }) => {
+          refetch();
           if (loading) {
             return null;
           }
 
           if (!data) {
+            console.log("Error: data is undefined");
             return <div>data is undefined</div>;
           }
           if (!data.me) {
+            console.log("Error: User is not logged in");
             console.log(data);
             return <Redirect to="/Login" />;
           }
