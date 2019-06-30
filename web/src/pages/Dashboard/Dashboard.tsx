@@ -1,15 +1,10 @@
 import {
-  Avatar,
   Card,
-  CardActionArea,
   CardContent,
   CardHeader,
   Grid,
   IconButton,
   List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   Paper
 } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
@@ -92,17 +87,25 @@ class Dashboard extends React.Component<Props> {
                     }
                     return (
                       <Grid container spacing={40}>
-                        {data.myLists.map((element, index) => {
+                        {data.myLists.map((refrence, index) => {
                           return (
                             <Grid key={index} item sm={6} md={4} lg={4}>
                               <Card className={classes.list}>
-                                <CardHeader title={element.title} />
+                                <CardHeader title={refrence.title} />
                                 <Divider />
                                 <CardContent>
                                   <List>{Preview(refrence.ids)}</List>
                                 </CardContent>
                                 <div className={classes.buttons}>
-                                  <IconButton aria-label="view">
+                                  <IconButton
+                                    aria-label="view"
+                                    onClick={() => {
+                                      const listId = refrence.id;
+                                      this.props.history.push("/View", {
+                                        listId: listId
+                                      });
+                                    }}
+                                  >
                                     <ShareIcon />
                                   </IconButton>
                                   <IconButton aria-label="edit">
