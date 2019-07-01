@@ -4,11 +4,18 @@ import { listById } from "../../graphql/queries/listById";
 import { ViewList } from "./View.List";
 export const View = props => {
   let { history } = props;
-  let { listId } = history.location.state;
-  console.log(listId);
+  console.log(history);
+  if (history.location.state) {
+    var { listId } = history.location.state;
+  }
+
   return (
-    <Query query={listById} variables={{ listId: listId }}>
-      {({ data, loading, error }) => {
+    <Query
+      query={listById}
+      variables={{ listId: listId }}
+      skip={listId === undefined}
+    >
+      {({ data, loading, error, client }) => {
         if (error) {
           console.log(error);
           return null;
