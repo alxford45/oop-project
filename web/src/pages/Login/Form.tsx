@@ -87,20 +87,16 @@ class Form extends React.Component<Props, State> {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Link
-                to={"./Dashboard"}
-                style={{ textDecoration: "none" }}
+
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="primary"
                 onClick={() => this.props.onSubmit(this.state)}
               >
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                >
-                  Sign in
-                </Button>
-              </Link>
+                Sign in
+              </Button>
             </form>
           </Paper>
         </main>
