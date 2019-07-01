@@ -25,11 +25,11 @@ import { View } from "../View/View";
 interface Props extends WithStyles, RouteComponentProps {}
 class Dashboard extends React.Component<Props> {
   render() {
+    const { classes, history, location, match } = this.props;
     const dashProps = { history, location, match };
     return (
       <Query query={me}>
-        {({ data, loading, refetch }) => {
-          refetch();
+        {({ data, loading }) => {
           if (loading) {
             return null;
           }
@@ -43,9 +43,10 @@ class Dashboard extends React.Component<Props> {
             console.log(data);
             return <Redirect to="/Login" />;
           }
+          console.log(`Logged in as ${data.me.email}`);
           return (
             <div className={this.props.classes.root}>
-              <DashBar {...this.props} />
+              <DashBar {...dashProps} />
               <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Typography
