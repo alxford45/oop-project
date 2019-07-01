@@ -1,12 +1,26 @@
-import ApolloClient from "apollo-boost";
+import ApolloClient, {
+  InMemoryCache,
+  defaultDataIdFromObject
+} from "apollo-boost";
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
+const cache = new InMemoryCache({
+  dataIdFromObject: object => {
+    switch (object.__typename) {
+      default:
+        return defaultDataIdFromObject(object); // fall back to default handling
+    }
+  }
+});
+
 const client = new ApolloClient({
   uri: "http://localhost:8000",
-  credentials: "include"
+  credentials: "include",
+  cache: cache
 });
 ReactDOM.render(
   <ApolloProvider client={client}>
