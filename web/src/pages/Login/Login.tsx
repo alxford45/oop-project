@@ -17,6 +17,7 @@ class Login extends React.Component<RouteComponentProps<{}>> {
               const response = await mutate({
                 variables: data
               });
+              this.props.history.push("/Dashboard");
             }}
           />
         )}
