@@ -25,7 +25,7 @@ import { View } from "../View/View";
 interface Props extends WithStyles, RouteComponentProps {}
 class Dashboard extends React.Component<Props> {
   render() {
-    const { classes } = this.props;
+    const dashProps = { history, location, match };
     return (
       <Query query={me}>
         {({ data, loading, refetch }) => {
