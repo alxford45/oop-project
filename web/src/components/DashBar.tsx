@@ -31,12 +31,8 @@ class DashBar extends React.Component<Props> {
     open: false
   };
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleDrawerClose = () => {
-    this.setState({ open: false });
+  isOpen = () => {
+    this.setState({ open: !this.state.open });
   };
 
   render() {
@@ -58,7 +54,7 @@ class DashBar extends React.Component<Props> {
             <IconButton
               color="inherit"
               aria-label="Open drawer"
-              onClick={this.handleDrawerOpen}
+              onClick={() => this.isOpen()}
               className={classNames(
                 classes.menuButton,
                 this.state.open && classes.menuButtonHidden
@@ -83,16 +79,9 @@ class DashBar extends React.Component<Props> {
           open={this.state.open}
         >
           <div className={classes.toolbarIcon}>
-            {this.state.open ? (
-              <IconButton onClick={this.handleDrawerClose}>
-                <ChevronLeftIcon />
-              </IconButton>
-            ) : null}
-            {this.state.open ? null : (
-              <IconButton onClick={this.handleDrawerOpen}>
-                <ChevronRightIcon />
-              </IconButton>
-            )}
+            <IconButton onClick={() => this.isOpen()}>
+              <ChevronRightIcon />
+            </IconButton>
           </div>
           <List>
             <Divider />
