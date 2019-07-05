@@ -20,13 +20,15 @@ import DashBar from "../../components/DashBar";
 import { me } from "../../graphql/queries/me";
 import { myLists } from "../../graphql/queries/myLists";
 import { styles } from "./Dashboard.styles";
-import { Preview } from "./Preview";
+import { Preview, state as PreviewState } from "./Preview";
 import { View } from "../View/View";
 interface Props extends WithStyles, RouteComponentProps {}
+
 class Dashboard extends React.Component<Props> {
   render() {
     const { classes, history, location, match } = this.props;
     const dashProps = { history, location, match };
+
     return (
       <Query query={me}>
         {({ data, loading }) => {
@@ -115,7 +117,16 @@ class Dashboard extends React.Component<Props> {
                                   <IconButton aria-label="edit">
                                     <EditIcon />
                                   </IconButton>
-                                  <IconButton aria-label="calendar">
+                                  <IconButton
+                                    aria-label="calendar"
+                                    onClick={() => {
+                                      console.log(PreviewState.lists[index]);
+                                      //const state = PreviewState.lists[index];
+                                      this.props.history.push("/Events", {
+                                        state: PreviewState.lists[index]
+                                      });
+                                    }}
+                                  >
                                     <CalendarTodayIcon />
                                   </IconButton>
                                 </div>
