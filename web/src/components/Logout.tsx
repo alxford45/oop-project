@@ -14,7 +14,7 @@ export const Logout = (props: any) => {
           className={props.classes.logout}
           onClick={async () => {
             const response = await mutate();
-            console.log(response);
+            console.log(`Logged out`);
             props.history.push("/");
           }}
         >
