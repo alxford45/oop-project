@@ -7,10 +7,9 @@ import {
 } from "@material-ui/core";
 import dateFns from "date-fns";
 import React from "react";
-import { EventList } from "../list/EventList";
 import "./Calendar.css";
 
-let event = new EventList();
+//let event = new EventList();
 
 class Calendar extends React.Component<any, any> {
   constructor(props: any) {
@@ -39,23 +38,23 @@ class Calendar extends React.Component<any, any> {
     dates.splice(0, 2);
     months.splice(0, 2);
     let newEvent = {};
-    this.state.event.get().map(
-      (display, index) => (
-        (newEvent = {
-          name: display.name,
-          day: dates[index],
-          months: months[index],
-          id: display.id,
-          uri: display.uri,
-          location: display.location,
-          type: display.type,
-          venue: display.venue,
-          performance: display.performance
-        }),
-        //adds newly formatted times to the event list
-        event.add(newEvent)
-      )
-    );
+    //is.state.event.get().map(
+    //(display, index) => (
+    //  (newEvent = {
+    //    name: display.name,
+    //    day: dates[index],
+    //    months: months[index],
+    //    id: display.id,
+    //    uri: display.uri,
+    //    location: display.location,
+    //    type: display.type,
+    //    venue: display.venue,
+    //    performance: display.performance
+    //  }),
+    //  //adds newly formatted times to the event list
+    //  //event.add(newEvent)
+    //)
+    //);
     this.setState({ event: event });
     this.setState({ loaded: true });
   };
