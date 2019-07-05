@@ -24,7 +24,7 @@ Each Event cotains a link to the Songkick Event page with more details and an op
 
 # Development
 
-Current development can be found on the "<a href="https://github.com/alxford45/oop-project/tree/refactor">refactor</a>" branch
+Current development can be found on the "<a href="https://github.com/alxford45/oop-project/tree/refactor">refactor</a>" and "<a href="https://github.com/alxford45/oop-project/tree/testing">testing</a>" branch
 
 ## Motivation
 
