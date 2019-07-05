@@ -1,6 +1,4 @@
-import { Artist, isArtist } from "../list/Artist";
-import { type } from "os";
-import { ArtistList } from "../list/ArtistList";
+import { Artist, isArtist } from "../../types/Artist";
 
 export const ADD_ARTIST = "ADD_ARTIST";
 export const REMOVE_ARTIST = "REMOVE_ARTIST";

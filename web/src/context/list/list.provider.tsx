@@ -7,7 +7,7 @@ import {
   listReducer
 } from "./list.reducer";
 import { ListContext } from "./List.context";
-import { Artist } from "../list/Artist";
+import { Artist } from "../../types/Artist";
 
 export const ListProvider = (props: any) => {
   const [state, dispatch] = React.useReducer(listReducer, {

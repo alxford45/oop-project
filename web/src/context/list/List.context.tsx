@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Artist } from "../list/Artist";
+import { Artist } from "../../types/Artist";
 
 export const ListContext = React.createContext({
   title: "",
