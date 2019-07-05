@@ -7,7 +7,7 @@ import {
   DialogActions,
   Button
 } from "@material-ui/core";
-import { ListContext } from "../../context/List.context";
+import { ListContext } from "../../context/list/List.context";
 
 export const Title = () => {
   React.useEffect(() => {

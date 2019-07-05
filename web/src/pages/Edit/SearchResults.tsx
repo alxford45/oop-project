@@ -1,6 +1,6 @@
 import * as React from "react";
 import { onQuery } from "./functions/onQuery";
-import { ListContext } from "../../context/List.context";
+import { ListContext } from "../../context/list/List.context";
 
 export const SearchResults = (name: string) => {
   React.useEffect(() => {

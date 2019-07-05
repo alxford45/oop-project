@@ -6,7 +6,7 @@ import {
   ListItemText
 } from "@material-ui/core";
 import * as React from "react";
-import { ListContext } from "../../context/List.context";
+import { ListContext } from "../../context/list/List.context";
 
 export const ListComponent = () => {
   React.useEffect(() => {

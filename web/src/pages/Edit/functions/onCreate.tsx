@@ -2,7 +2,7 @@ import { IconButton } from "@material-ui/core";
 import * as React from "react";
 import { Mutation } from "react-apollo";
 import { createList } from "../../../graphql/mutations/createList";
-import { Artist } from "../../../list/Artist";
+import { Artist } from "../../../types/Artist";
 import SaveIcon from "@material-ui/icons/Save";
 
 export const onCreate = (

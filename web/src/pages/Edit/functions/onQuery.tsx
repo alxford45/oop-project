@@ -12,7 +12,7 @@ import {
 import { Query } from "react-apollo";
 import { searchQuery } from "../../../graphql/queries/searchQuery";
 import AddIcon from "@material-ui/icons/Add";
-import { Artist } from "../../../list/Artist";
+import { Artist } from "../../../types/Artist";
 import defaultImage from "../../../baseline_music_note_black_48dp.png";
 
 export const onQuery = (name: string, addArtist: any) => {
